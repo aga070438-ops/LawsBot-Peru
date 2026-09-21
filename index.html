@@ -1,83 +1,1366 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LawsBot Perú — Derechos digitales</title>
-<meta name="description" content="LawsBot: asistente informativo sobre derechos digitales, privacidad y ciberseguridad en Perú.">
-<style>
-:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#687386;--brand:#2447d8;--brand2:#6d5dfc;--border:#e5e9f2;--user:#2447d8;--bot:#eef2ff;--danger:#b42318}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#f5f7fb,#eef1ff);color:var(--text)}
-.app{max-width:1000px;margin:auto;min-height:100vh;display:flex;flex-direction:column}.top{padding:22px 20px 12px;display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:#fff;font-size:25px;box-shadow:0 8px 25px #2447d833}.title h1{font-size:20px;margin:0}.title p{margin:3px 0 0;color:var(--muted);font-size:13px}.notice{margin:0 20px 12px;padding:10px 13px;background:#fff8e7;border:1px solid #f5df9a;border-radius:12px;font-size:12px;color:#634d13}.chat{flex:1;padding:12px 20px 110px;overflow:auto}.msg{display:flex;margin:10px 0}.msg.bot{justify-content:flex-start}.msg.user{justify-content:flex-end}.bubble{max-width:78%;padding:13px 15px;border-radius:17px;line-height:1.5;font-size:14px;white-space:pre-wrap}.bot .bubble{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:5px}.user .bubble{background:var(--user);color:#fff;border-bottom-right-radius:5px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.chip{border:1px solid #ccd4ed;background:#fff;color:#263b85;padding:8px 11px;border-radius:999px;cursor:pointer;font-size:12px}.chip:hover{background:#eef2ff}.composer{position:fixed;bottom:0;left:0;right:0;background:#ffffffee;backdrop-filter:blur(12px);border-top:1px solid var(--border)}.composer-inner{max-width:1000px;margin:auto;padding:12px 20px;display:flex;gap:9px}.composer input{flex:1;border:1px solid #cfd6e5;border-radius:14px;padding:13px 14px;font-size:14px;outline:none}.composer input:focus{border-color:var(--brand)}button.send{border:0;background:var(--brand);color:white;border-radius:14px;padding:0 18px;font-weight:700;cursor:pointer}.footer{text-align:center;color:var(--muted);font-size:11px;padding:0 20px 75px}.source{margin-top:9px;font-size:11px;color:#667085}.source a{color:#2447d8}.small{font-size:12px;color:var(--muted)}
-@media(max-width:600px){.bubble{max-width:88%}.top{padding-top:16px}.notice{margin-left:12px;margin-right:12px}.chat{padding-left:12px;padding-right:12px}.composer-inner{padding-left:12px;padding-right:12px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LawsBot Perú</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #eef5ff, #f8fbff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #1e293b;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 850px;
+      height: 90vh;
+      max-height: 850px;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 15px 45px rgba(30, 64, 175, 0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: white;
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 58px;
+      height: 58px;
+      background: white;
+      color: #2563eb;
+      border-radius: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 25px;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 25px;
+      background: #f8fafc;
+    }
+
+    .message {
+      max-width: 82%;
+      padding: 14px 17px;
+      margin-bottom: 15px;
+      border-radius: 18px;
+      line-height: 1.55;
+      font-size: 15px;
+      word-wrap: break-word;
+    }
+
+    .message.bot {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-top-left-radius: 5px;
+      margin-right: auto;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    }
+
+    .message.user {
+      background: #2563eb;
+      color: white;
+      border-top-right-radius: 5px;
+      margin-left: auto;
+    }
+
+    .message ul,
+    .message ol {
+      margin: 10px 0 10px 22px;
+    }
+
+    .message li {
+      margin-bottom: 6px;
+    }
+
+    .message b {
+      color: #1d4ed8;
+    }
+
+    .message.user b {
+      color: white;
+    }
+
+    .sources {
+      margin-top: 15px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .sources a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .sources a:hover {
+      text-decoration: underline;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 20px;
+      background: white;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .chip {
+      border: 1px solid #bfdbfe;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 9px 13px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+
+    .chip:hover {
+      background: #dbeafe;
+      transform: translateY(-1px);
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 15px 20px 20px;
+      background: white;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    #input {
+      flex: 1;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 13px 16px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    #input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .send {
+      border: none;
+      background: #2563eb;
+      color: white;
+      border-radius: 16px;
+      padding: 0 22px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .send:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .typing {
+      color: #64748b;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0;
+      }
+
+      .app {
+        height: 100vh;
+        max-height: none;
+        border-radius: 0;
+      }
+
+      .header {
+        padding: 18px;
+      }
+
+      .header h1 {
+        font-size: 21px;
+      }
+
+      .chat {
+        padding: 18px;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      .chips {
+        padding: 10px;
+      }
+
+      .input-area {
+        padding: 10px;
+      }
+
+      .send {
+        padding: 0 16px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="app">
-<header class="top">
-  <div class="logo">⚖️</div>
-  <div class="title"><h1>LawsBot Perú</h1><p>Derechos digitales · privacidad · ciberseguridad</p></div>
-</header>
-<div class="notice">ℹ️ Información orientativa para Perú. LawsBot no reemplaza el asesoramiento ni patrocinio de un abogado. Si existe peligro inmediato, busca ayuda de emergencia o de una autoridad competente.</div>
-<main id="chat" class="chat"></main>
-<div class="footer">Fuentes oficiales: Congreso de la República · ANPD · MINJUSDH · MININTER · Ministerio Público.</div>
-<div class="composer"><div class="composer-inner">
-  <input id="input" placeholder="Escribe tu consulta..." autocomplete="off">
-  <button class="send" id="send">Enviar</button>
-</div></div>
-</div>
+
+  <div class="app">
+
+    <header class="header">
+      <div class="logo">⚖️</div>
+
+      <div>
+        <h1>LawsBot Perú</h1>
+        <p>Asistente virtual sobre derechos digitales y seguridad en internet</p>
+      </div>
+    </header>
+
+
+    <main class="chat" id="chat">
+
+      <div class="message bot">
+        ¡Hola! 👋 Soy <b>LawsBot Perú</b>.<br><br>
+
+        Estoy aquí para orientarte sobre tus <b>derechos digitales</b>,
+        privacidad, seguridad y situaciones que pueden ocurrir en internet. 💙<br><br>
+
+        Puedes preguntarme directamente qué te pasó.
+        No necesitas usar una pregunta exacta.
+      </div>
+
+    </main>
+
+
+    <div class="chips" id="chips"></div>
+
+
+    <div class="input-area">
+      <input
+        type="text"
+        id="input"
+        placeholder="Escribe tu pregunta..."
+        autocomplete="off"
+      >
+
+      <button class="send" onclick="ask()">
+        Enviar
+      </button>
+    </div>
+
+  </div>
+
+
 <script>
+
 const SOURCES = {
- arco:["https://www.gob.pe/9270-que-son-los-derechos-arco","ANPD — Derechos ARCO"],
- ley29733:["https://www.gob.pe/institucion/anpd/normas-legales","ANPD — normas legales"],
- delitos:["https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/239569-30096","Congreso — Ley 30096"],
- dl1625:["https://www.gob.pe/institucion/mimp/informes-publicaciones/6499867-decreto-legislativo-n-1625-ley-que-fortalece-las-normas-sobre-el-uso-de-tid-relacionado-a-la-difusion-de-imagenes-materiales-audiovisuales-o-audios-con-contenido-sexual","MIMP — D. Leg. 1625"],
- denuncias:["https://denuncia.mininter.gob.pe/preguntas","MININTER — Central Única de Denuncias"],
- mp:["https://portal.mpfn.gob.pe/denuncias-en-linea","Ministerio Público — denuncias en línea"]
+
+  arco: {
+    url: "https://www.gob.pe/9270-que-son-los-derechos-arco",
+    name: "ANPD — Derechos ARCO"
+  },
+
+  ley29733: {
+    url: "https://www.gob.pe/institucion/anpd/normas-legales",
+    name: "ANPD — Normas legales"
+  },
+
+  delitos: {
+    url: "https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/239569-30096",
+    name: "Congreso — Ley 30096"
+  },
+
+  dl1625: {
+    url: "https://www.gob.pe/institucion/mimp/informes-publicaciones/6499867-decreto-legislativo-n-1625-ley-que-fortalece-las-normas-sobre-el-uso-de-tid-relacionado-a-la-difusion-de-imagenes-materiales-audiovisuales-o-audios-con-contenido-sexual",
+    name: "MIMP — Decreto Legislativo 1625"
+  },
+
+  denuncias: {
+    url: "https://denuncia.mininter.gob.pe/preguntas",
+    name: "MININTER — Central Única de Denuncias"
+  },
+
+  mp: {
+    url: "https://portal.mpfn.gob.pe/denuncias-en-linea",
+    name: "Ministerio Público — Denuncias en línea"
+  }
+
 };
-function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
-function link(key){let [u,t]=SOURCES[key];return `<div class="source">Fuente: <a href="${u}" target="_blank" rel="noopener">${t}</a></div>`}
-function add(text,who="bot",source=null){
- const row=document.createElement("div"); row.className="msg "+who;
- const b=document.createElement("div"); b.className="bubble"; b.innerHTML=text+(source?link(source):"");
- row.appendChild(b); document.getElementById("chat").appendChild(row);
- document.getElementById("chat").scrollTop=document.getElementById("chat").scrollHeight;
+
+
+let lastIntent = null;
+
+
+function esc(text) {
+
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }
-function chips(items){const d=document.createElement("div");d.className="chips";items.forEach(x=>{let b=document.createElement("button");b.className="chip";b.textContent=x[0];b.onclick=()=>ask(x[1]);d.appendChild(b)});document.getElementById("chat").appendChild(d)}
-function normalize(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
-function answer(q){
- const s=normalize(q);
- if(/(imagen|foto|video).*(intim|sexual)|(intim|sexual).*(imagen|foto|video)|nudes|pack|difund/.test(s)){
-  return {t:"Si alguien comparte o amenaza con compartir imágenes, videos o audios de contenido sexual sin consentimiento, no lo tomes como un simple problema de redes. En Perú existen normas penales específicas sobre estas conductas y el Decreto Legislativo N.° 1625 reforzó el marco legal, incluyendo supuestos relacionados con chantaje sexual mediante medios digitales.\\n\\nQué hacer ahora:\\n1) No pagues ni envíes más contenido.\\n2) Guarda capturas, fechas, nombres de usuario y enlaces completos.\\n3) No borres la conversación original.\\n4) Reporta el contenido en la plataforma.\\n5) Considera acudir a la autoridad competente. Si eres menor de edad, busca además a un adulto de confianza que pueda acompañarte.\\n\\nNo necesitas avergonzarte ni justificar por qué existía la imagen: lo importante es preservar la evidencia y buscar apoyo.",k:"dl1625"}
- }
- if(/(arco|acceso.*rectific|rectific|cancel|oposicion|datos personales)/.test(s)){
-  return {t:"En Perú, los derechos ARCO son: Acceso, Rectificación, Cancelación y Oposición. Permiten ejercer control sobre tus datos personales.\\n\\n• Acceso: saber qué datos tienen, de dónde provienen, para qué se usan y con quién se comparten.\\n• Rectificación: corregir o actualizar datos erróneos, inexactos o incompletos.\\n• Cancelación: pedir que dejen de tratar tus datos cuando corresponda.\\n• Oposición: oponerte a determinados usos de tus datos cuando se cumplan los requisitos aplicables.\\n\\nPrimero se solicita el derecho a quien trata los datos. Según la ANPD, el plazo es de 20 días hábiles para acceso y 10 días hábiles para rectificación, cancelación u oposición. Si no responden o deniegan la solicitud, puedes acudir a la ANPD.",k:"arco"}
- }
- if(/(suplant|cuenta falsa|robaron mi identidad|se hacen pasar)/.test(s)){
-  return {t:"Si alguien crea una cuenta haciéndose pasar por ti, conserva la evidencia antes de bloquear o eliminar cualquier cosa: capturas con fecha y hora, URL completa del perfil, nombre de usuario, mensajes y publicaciones.\\n\\nDespués, utiliza el mecanismo de reporte de la plataforma por suplantación de identidad. Si hay fraude, amenazas, extorsión u otra posible infracción penal, puedes buscar orientación de las autoridades. La Ley N.° 30096 regula diversas conductas ilícitas relacionadas con sistemas y datos informáticos, aunque la calificación jurídica depende de los hechos concretos.",k:"delitos"}
- }
- if(/(acoso|bully|hostig|insulto|amenaz|odio|troll)/.test(s)){
-  return {t:"Si estás recibiendo acoso, amenazas o hostigamiento en internet:\\n\\n1) No respondas impulsivamente a las provocaciones.\\n2) Guarda mensajes, perfiles, enlaces, fechas y horas.\\n3) Usa las herramientas de bloqueo y reporte de la plataforma.\\n4) Si existen amenazas, extorsión o riesgo para tu seguridad, busca ayuda de una persona adulta de confianza y de las autoridades competentes.\\n\\nLa libertad de expresión no significa que toda conducta quede fuera de las normas: la evaluación legal depende del contenido, contexto y hechos.",k:"delitos"}
- }
- if(/(estafa|phishing|hack|hackear|contraseña|virus|malware|cuenta.*robar|robar.*cuenta)/.test(s)){
-  return {t:"Para proteger una cuenta o actuar ante un posible ataque:\\n\\n• Cambia la contraseña desde un dispositivo seguro y usa una contraseña única.\\n• Activa la autenticación de dos factores.\\n• Revisa sesiones/dispositivos conectados y cierra los desconocidos.\\n• No abras enlaces o archivos sospechosos.\\n• Guarda correos, mensajes, URLs y comprobantes si hubo una estafa.\\n\\nSi hubo una conducta posiblemente delictiva, la Ley N.° 30096 es parte del marco peruano sobre ciberdelincuencia. La aplicación de una figura penal concreta depende de los hechos.",k:"delitos"}
- }
- if(/(denuncia|denunciar|policia|pnp|fiscalia|autoridad)/.test(s)){
-  return {t:"En Perú existen canales oficiales para recibir denuncias u orientación. La Central Única de Denuncias del Ministerio del Interior informa que atiende a nivel nacional y ofrece la línea gratuita 1818 y su portal web. El Ministerio Público también dispone de un portal de denuncias en línea.\\n\\nAntes de denunciar, reúne una cronología breve de los hechos y conserva las evidencias originales. Si hay peligro inmediato, acude a la autoridad de emergencia correspondiente.",k:"denuncias"}
- }
- if(/(huella|netiqueta|noticias falsas|fake news|desinform|convivencia|publicar)/.test(s)){
-  return {t:"Para una convivencia digital responsable:\\n\\n• Piensa antes de publicar: una publicación puede permanecer o circular durante mucho tiempo.\\n• Practica la empatía digital: detrás de una cuenta hay una persona.\\n• No amplifiques provocaciones o discursos de odio.\\n• Verifica la fuente, fecha, autor y contexto antes de compartir una noticia.\\n• No publiques datos, fotos o conversaciones de otras personas sin considerar su privacidad y consentimiento.",k:null}
- }
- return {t:"Puedo orientarte sobre derechos digitales en Perú. Puedes preguntarme, por ejemplo:\\n\\n• “¿Qué son los derechos ARCO?”\\n• “¿Qué hago si crearon una cuenta falsa con mi nombre?”\\n• “Difundieron una foto íntima sin mi permiso, ¿qué hago?”\\n• “¿Cómo guardo evidencia de un acoso en redes?”\\n• “¿Dónde puedo denunciar?”\\n• “¿Cómo protejo mi cuenta?”",k:null}
+
+
+function link(source) {
+
+  return `
+    <a href="${source.url}"
+       target="_blank"
+       rel="noopener noreferrer">
+       ${source.name}
+    </a>
+  `;
+
 }
-function ask(q){
- q=q.trim(); if(!q)return;
- add(esc(q),"user"); const a=answer(q); setTimeout(()=>add(esc(a.t).replace(/\\n/g,"<br>"),"bot",a.k),250);
+
+
+function add(text, who = "bot") {
+
+  const chat = document.getElementById("chat");
+
+  const bubble = document.createElement("div");
+
+  bubble.className = "message " + who;
+
+  bubble.innerHTML = text;
+
+  chat.appendChild(bubble);
+
+  chat.scrollTop = chat.scrollHeight;
+
 }
-document.getElementById("send").onclick=()=>{let i=document.getElementById("input");ask(i.value);i.value=""};
-document.getElementById("input").addEventListener("keydown",e=>{if(e.key==="Enter"){document.getElementById("send").click()}});
-add("¡Hola! 👋 Soy <b>LawsBot</b>, tu asistente informativo sobre derechos digitales y seguridad en internet en Perú.<br><br>Cuéntame qué ocurrió o elige un tema. Te orientaré paso a paso y, cuando corresponda, te indicaré fuentes oficiales.","bot");
-chips([["🔐 Derechos ARCO","¿Qué son los derechos ARCO?"],["👤 Suplantación","Crearon una cuenta falsa con mi nombre"],["📸 Imagen íntima","Difundieron una imagen íntima sin mi permiso"],["🚨 Denunciar","¿Dónde puedo denunciar?"],["🛡️ Seguridad","¿Cómo protejo mi cuenta?"],["🌐 Netiqueta","¿Cómo tener una buena convivencia digital?"]]);
+
+
+function chips(items) {
+
+  const container = document.getElementById("chips");
+
+  container.innerHTML = "";
+
+  items.forEach(item => {
+
+    const button = document.createElement("button");
+
+    button.className = "chip";
+
+    button.textContent = item;
+
+    button.onclick = () => {
+
+      const input = document.getElementById("input");
+
+      input.value = item;
+
+      ask();
+
+    };
+
+    container.appendChild(button);
+
+  });
+
+}
+
+
+function normalize(text) {
+
+  return text
+
+    .toLowerCase()
+
+    .normalize("NFD")
+
+    .replace(/[\u0300-\u036f]/g, "")
+
+    .replace(/[¿?¡!.,;:()[\]{}"'`]/g, " ")
+
+    .replace(/\s+/g, " ")
+
+    .trim();
+
+}
+
+
+function hasAny(text, words) {
+
+  return words.some(word => text.includes(word));
+
+}
+
+
+function sourceBlock(sourceKeys) {
+
+  return `
+    <div class="sources">
+
+      <b>Fuentes oficiales:</b><br>
+
+      ${sourceKeys.map(key =>
+        "• " + link(SOURCES[key])
+      ).join("<br>")}
+
+    </div>
+  `;
+
+}
+
+
+
+/* =========================
+   INTENCIONES DEL CHATBOT
+========================= */
+
+
+const INTENTS = {
+
+
+  derechos: {
+
+    keywords: [
+
+      "derechos digitales",
+      "derecho digital",
+      "mis derechos",
+      "derechos en internet",
+      "derechos en linea",
+      "privacidad",
+      "vida privada",
+      "proteger mis datos",
+      "proteccion de datos"
+
+    ],
+
+    response: () => `
+
+      <b>Sí, tienes derechos digitales. 💙</b><br><br>
+
+      En Perú existen normas que protegen los datos personales
+      y determinados derechos relacionados con su tratamiento.
+
+      <br><br>
+
+      Algunos de estos derechos permiten:
+
+      <ul>
+        <li>Conocer qué datos personales tienen sobre ti.</li>
+        <li>Solicitar la corrección de información incorrecta.</li>
+        <li>Solicitar la cancelación cuando corresponda.</li>
+        <li>Oponerte a determinados tratamientos.</li>
+      </ul>
+
+      ${sourceBlock(["arco", "ley29733"])}
+
+    `
+
+  },
+
+
+  arco: {
+
+    keywords: [
+
+      "arco",
+      "derecho de acceso",
+      "acceso a mis datos",
+      "ver mis datos",
+      "rectificar mis datos",
+      "corregir mis datos",
+      "borrar mis datos",
+      "eliminar mis datos",
+      "cancelar mis datos",
+      "derecho de rectificacion",
+      "derecho de cancelacion",
+      "derecho de oposicion",
+      "oponerme"
+
+    ],
+
+    response: () => `
+
+      <b>Los Derechos ARCO se relacionan con el control de tus datos personales.</b><br><br>
+
+      <ul>
+        <li><b>Acceso:</b> saber qué datos tienen sobre ti.</li>
+        <li><b>Rectificación:</b> corregir datos incorrectos.</li>
+        <li><b>Cancelación:</b> solicitar la eliminación cuando corresponda.</li>
+        <li><b>Oposición:</b> oponerte a determinados tratamientos.</li>
+      </ul>
+
+      Puedes consultar información oficial de la Autoridad Nacional
+      de Protección de Datos Personales.
+
+      ${sourceBlock(["arco", "ley29733"])}
+
+    `
+
+  },
+
+
+  imagenIntima: {
+
+    keywords: [
+
+      "foto intima",
+      "fotos intimas",
+      "imagen intima",
+      "imagenes intimas",
+      "video intimo",
+      "videos intimos",
+      "foto desnuda",
+      "fotos desnudas",
+      "desnudo",
+      "nude",
+      "nudes",
+      "pack",
+      "contenido sexual",
+      "video sexual",
+      "imagen sexual",
+      "compartieron mis fotos",
+      "publicaron mis fotos",
+      "difundieron mis fotos",
+      "subieron mis fotos",
+      "amenazan con publicar",
+      "amenazan con difundir",
+      "amenaza con publicar",
+      "amenaza con difundir"
+
+    ],
+
+    response: () => `
+
+      <b>Si alguien está difundiendo o amenaza con difundir contenido íntimo, busca ayuda y guarda las pruebas.</b><br><br>
+
+      <b>Qué puedes hacer:</b>
+
+      <ol>
+        <li>No envíes más contenido ni dinero.</li>
+        <li>Guarda capturas, enlaces, nombres de usuario y fechas.</li>
+        <li>No borres las conversaciones antes de guardar las pruebas.</li>
+        <li>Reporta la cuenta o publicación.</li>
+        <li>Si existe una amenaza o posible delito, considera denunciar.</li>
+        <li>Si eres menor de edad, cuéntaselo a un adulto de confianza.</li>
+      </ol>
+
+      En Perú existe normativa específica relacionada con la
+      difusión de imágenes, materiales audiovisuales o audios
+      con contenido sexual.
+
+      ${sourceBlock(["dl1625", "denuncias", "mp"])}
+
+    `
+
+  },
+
+
+  suplantacion: {
+
+    keywords: [
+
+      "suplantacion",
+      "suplantaron",
+      "suplantan",
+      "cuenta falsa",
+      "perfil falso",
+      "perfil fake",
+      "se hacen pasar por mi",
+      "se hace pasar por mi",
+      "usan mi nombre",
+      "usan mi identidad",
+      "robaron mi identidad",
+      "copiaron mi cuenta",
+      "copiaron mi perfil",
+      "crearon una cuenta con mi nombre"
+
+    ],
+
+    response: () => `
+
+      <b>Si alguien se está haciendo pasar por ti, puedes tomar medidas.</b><br><br>
+
+      <ol>
+        <li>Guarda capturas del perfil falso.</li>
+        <li>Guarda el enlace y nombre de usuario.</li>
+        <li>Reporta la cuenta desde la plataforma.</li>
+        <li>Avisa a tus contactos si existe riesgo de engaño.</li>
+        <li>Si hubo fraude, amenazas o uso indebido de datos, considera denunciar.</li>
+      </ol>
+
+      ${sourceBlock(["delitos", "denuncias", "mp"])}
+
+    `
+
+  },
+
+
+  acoso: {
+
+    keywords: [
+
+      "acoso",
+      "ciberacoso",
+      "cyberbullying",
+      "bullying",
+      "bully",
+      "me molestan",
+      "me insultan",
+      "insultos",
+      "hostigamiento",
+      "hostigan",
+      "hostiga",
+      "amenazan",
+      "amenaza",
+      "amenazas",
+      "odio",
+      "troll",
+      "me persiguen",
+      "me escriben cosas feas",
+      "me atacan en redes"
+
+    ],
+
+    response: () => `
+
+      <b>Si estás sufriendo acoso o amenazas por internet, no tienes que enfrentarlo sola/o.</b><br><br>
+
+      Te recomiendo:
+
+      <ol>
+        <li>Guarda capturas, mensajes y enlaces.</li>
+        <li>No borres las evidencias.</li>
+        <li>Bloquea y reporta la cuenta.</li>
+        <li>Cuéntaselo a un adulto de confianza si eres menor.</li>
+        <li>Si existen amenazas serias, considera denunciar.</li>
+      </ol>
+
+      ${sourceBlock(["denuncias", "mp"])}
+
+    `
+
+  },
+
+
+  extorsion: {
+
+    keywords: [
+
+      "extorsion",
+      "me extorsionan",
+      "me estan extorsionando",
+      "me piden dinero",
+      "me obligan a pagar",
+      "me amenazan si no pago",
+      "chantaje",
+      "me chantajean",
+      "sextorsion",
+      "sextorsionan",
+      "me amenazan con fotos"
+
+    ],
+
+    response: () => `
+
+      <b>Si te están extorsionando o chantajeando, no entregues dinero ni más información.</b><br><br>
+
+      <ol>
+        <li>Guarda todas las pruebas.</li>
+        <li>No borres los mensajes.</li>
+        <li>No sigas las exigencias del agresor.</li>
+        <li>Guarda los datos de la cuenta o persona.</li>
+        <li>Busca apoyo de un adulto de confianza si eres menor.</li>
+        <li>Considera denunciar ante las autoridades.</li>
+      </ol>
+
+      ${sourceBlock(["denuncias", "mp", "delitos"])}
+
+    `
+
+  },
+
+
+  hackeo: {
+
+    keywords: [
+
+      "me hackearon",
+      "hackearon mi cuenta",
+      "hackearon mi instagram",
+      "hackearon mi facebook",
+      "hackearon mi tiktok",
+      "entraron a mi cuenta",
+      "entraron en mi cuenta",
+      "perdi mi cuenta",
+      "me robaron la cuenta",
+      "robaron mi cuenta",
+      "me quitaron mi cuenta",
+      "no puedo entrar",
+      "cambiaron mi contraseña",
+      "cambiaron el correo",
+      "cambiaron mi correo",
+      "cuenta comprometida",
+      "cuenta hackeada",
+      "hackearon"
+
+    ],
+
+    response: () => `
+
+      <b>Si alguien entró a tu cuenta sin permiso, intenta recuperarla y protegerla inmediatamente.</b><br><br>
+
+      <ol>
+        <li>Usa la recuperación oficial de la plataforma.</li>
+        <li>Cambia tu contraseña si todavía tienes acceso.</li>
+        <li>Activa la autenticación en dos pasos.</li>
+        <li>Cierra sesiones que no reconozcas.</li>
+        <li>Revisa el correo y teléfono asociados.</li>
+        <li>No compartas códigos de verificación.</li>
+      </ol>
+
+      Si además hubo fraude, amenazas o acceso no autorizado,
+      puedes considerar realizar una denuncia.
+
+      ${sourceBlock(["delitos", "denuncias"])}
+
+    `
+
+  },
+
+
+  phishing: {
+
+    keywords: [
+
+      "phishing",
+      "estafa",
+      "me estafaron",
+      "me quieren estafar",
+      "enlace falso",
+      "link falso",
+      "enlace sospechoso",
+      "mensaje sospechoso",
+      "correo sospechoso",
+      "me pidieron mi codigo",
+      "me pidieron mi contraseña",
+      "me pidieron datos",
+      "robaron mis datos",
+      "robaron mi informacion",
+      "estafa por internet"
+
+    ],
+
+    response: () => `
+
+      <b>Si sospechas de una estafa o phishing, no entregues contraseñas, códigos ni datos personales.</b><br><br>
+
+      <ol>
+        <li>No abras enlaces sospechosos.</li>
+        <li>No compartas códigos de verificación.</li>
+        <li>Comprueba que el sitio sea oficial.</li>
+        <li>Cambia tus contraseñas si ya entregaste información.</li>
+        <li>Activa la autenticación en dos pasos.</li>
+        <li>Guarda las evidencias si ocurrió una estafa.</li>
+      </ol>
+
+      ${sourceBlock(["denuncias", "mp"])}
+
+    `
+
+  },
+
+
+  seguridad: {
+
+    keywords: [
+
+      "seguridad",
+      "seguro en internet",
+      "segura en internet",
+      "proteger mi cuenta",
+      "proteger mis redes",
+      "como protegerme",
+      "contraseña segura",
+      "contraseñas",
+      "doble factor",
+      "dos pasos",
+      "2fa",
+      "autenticacion",
+      "privacidad en redes"
+
+    ],
+
+    response: () => `
+
+      <b>Para mejorar tu seguridad digital: 🛡️</b><br><br>
+
+      <ul>
+        <li>Usa contraseñas largas y diferentes.</li>
+        <li>Activa la autenticación en dos pasos.</li>
+        <li>No compartas códigos de verificación.</li>
+        <li>Mantén actualizado tu teléfono y aplicaciones.</li>
+        <li>Revisa la privacidad de tus redes.</li>
+        <li>Evita iniciar sesión desde dispositivos desconocidos.</li>
+        <li>Desconfía de enlaces y mensajes inesperados.</li>
+      </ul>
+
+    `
+
+  },
+
+
+  datosPersonales: {
+
+    keywords: [
+
+      "datos personales",
+      "informacion personal",
+      "numero de telefono",
+      "telefono",
+      "direccion",
+      "ubicacion",
+      "dni",
+      "documento",
+      "correo",
+      "email",
+      "datos privados",
+      "publicaron mi informacion",
+      "publicaron mis datos",
+      "doxxing",
+      "doxing",
+      "doxearon",
+      "compartieron mi direccion",
+      "compartieron mi numero"
+
+    ],
+
+    response: () => `
+
+      <b>Tus datos personales merecen protección.</b><br><br>
+
+      Si alguien publicó o compartió información personal tuya:
+
+      <ol>
+        <li>Guarda capturas y enlaces.</li>
+        <li>Reporta la publicación o cuenta.</li>
+        <li>Solicita el retiro cuando corresponda.</li>
+        <li>Revisa la privacidad de tus cuentas.</li>
+        <li>Infórmate sobre tus Derechos ARCO.</li>
+      </ol>
+
+      ${sourceBlock(["arco", "ley29733"])}
+
+    `
+
+  },
+
+
+  consentimiento: {
+
+    keywords: [
+
+      "pueden publicar mi foto",
+      "pueden subir mi foto",
+      "publicar mi foto",
+      "subir mi foto",
+      "compartir mi foto",
+      "sin permiso",
+      "sin mi permiso",
+      "sin autorizacion",
+      "me tomaron una foto",
+      "subieron una foto mia",
+      "publicaron una foto mia"
+
+    ],
+
+    response: () => `
+
+      <b>Que alguien tenga una foto tuya no significa automáticamente que pueda usarla de cualquier manera.</b><br><br>
+
+      El contexto importa: qué imagen es, dónde fue tomada,
+      para qué se usa y si existe autorización.
+
+      Si publicaron una imagen tuya:
+
+      <ol>
+        <li>Guarda evidencia.</li>
+        <li>Solicita el retiro cuando corresponda.</li>
+        <li>Reporta la publicación.</li>
+        <li>Busca orientación si existe una vulneración de privacidad.</li>
+      </ol>
+
+      ${sourceBlock(["arco", "ley29733"])}
+
+    `
+
+  },
+
+
+  denunciar: {
+
+    keywords: [
+
+      "denunciar",
+      "denuncia",
+      "como denuncio",
+      "donde denuncio",
+      "quiero denunciar",
+      "puedo denunciar",
+      "denunciar en internet",
+      "denuncia online",
+      "denuncia en linea",
+      "policia",
+      "pnp",
+      "fiscalia",
+      "ministerio publico",
+      "autoridades"
+
+    ],
+
+    response: () => `
+
+      <b>Sí puedes buscar canales oficiales para denunciar una situación ocurrida en internet.</b><br><br>
+
+      En Perú puedes consultar:
+
+      <ul>
+        <li><b>Central Única de Denuncias del MININTER</b></li>
+        <li><b>Ministerio Público</b></li>
+      </ul>
+
+      Antes de denunciar, reúne:
+
+      <ul>
+        <li>Capturas de pantalla.</li>
+        <li>Enlaces.</li>
+        <li>Nombres de usuario.</li>
+        <li>Fechas y horas.</li>
+        <li>Mensajes u otras evidencias.</li>
+      </ul>
+
+      ${sourceBlock(["denuncias", "mp"])}
+
+    `
+
+  },
+
+
+  convivencia: {
+
+    keywords: [
+
+      "netiqueta",
+      "convivencia",
+      "convivencia digital",
+      "huella digital",
+      "huella",
+      "fake news",
+      "noticias falsas",
+      "desinformacion",
+      "informacion falsa",
+      "publicar",
+      "redes sociales",
+      "comportamiento en internet",
+      "respeto en internet"
+
+    ],
+
+    response: () => `
+
+      <b>Una buena convivencia digital significa usar internet de manera responsable y respetuosa. 🌐</b><br><br>
+
+      Algunas recomendaciones:
+
+      <ul>
+        <li>Piensa antes de publicar.</li>
+        <li>Respeta la privacidad de otras personas.</li>
+        <li>No compartas información sin verificarla.</li>
+        <li>No participes en acoso o humillaciones.</li>
+        <li>Respeta opiniones diferentes.</li>
+        <li>Recuerda que lo que publicas puede formar parte de tu huella digital.</li>
+      </ul>
+
+    `
+
+  }
+
+};
+
+
+
+/* =========================
+   DETECTAR EL TEMA
+========================= */
+
+
+function detectIntent(text) {
+
+  let bestIntent = null;
+
+  let bestScore = 0;
+
+
+  for (const [name, intent] of Object.entries(INTENTS)) {
+
+    let score = 0;
+
+
+    for (const keyword of intent.keywords) {
+
+      if (text.includes(keyword)) {
+
+        /*
+          Las frases largas tienen más peso
+          porque son más específicas.
+        */
+
+        if (keyword.includes(" ")) {
+
+          score += 3;
+
+        } else {
+
+          score += 1;
+
+        }
+
+      }
+
+    }
+
+
+    if (score > bestScore) {
+
+      bestScore = score;
+
+      bestIntent = name;
+
+    }
+
+  }
+
+
+  return bestScore > 0 ? bestIntent : null;
+
+}
+
+
+
+/* =========================
+   RESPUESTA DEL CHATBOT
+========================= */
+
+
+function answer(question) {
+
+  const s = normalize(question);
+
+
+  if (!s) {
+
+    return `
+
+      Cuéntame qué pasó y trataré de orientarte. 💙<br><br>
+
+      Por ejemplo:
+
+      <ul>
+        <li>“Me hackearon Instagram”</li>
+        <li>“Alguien está usando mi nombre”</li>
+        <li>“Publicaron una foto mía”</li>
+        <li>“Me están amenazando”</li>
+        <li>“¿Cómo denuncio?”</li>
+      </ul>
+
+    `;
+
+  }
+
+
+
+  /* SALUDOS */
+
+  if (
+    /^(hola|holaa|holaaa|hey|buenas|buenos dias|buenas tardes|buenas noches|ola)$/.test(s)
+  ) {
+
+    lastIntent = null;
+
+    return `
+
+      ¡Holaaa! 💙 Soy <b>LawsBot Perú</b>.<br><br>
+
+      Puedo orientarte sobre:
+
+      <ul>
+        <li>Derechos digitales</li>
+        <li>Privacidad</li>
+        <li>Seguridad digital</li>
+        <li>Acoso y amenazas</li>
+        <li>Suplantación</li>
+        <li>Contenido íntimo</li>
+        <li>Denuncias</li>
+      </ul>
+
+      <b>Cuéntame qué pasó o hazme una pregunta. 😊</b>
+
+    `;
+
+  }
+
+
+
+  /* AGRADECIMIENTOS */
+
+  if (
+    hasAny(s, [
+      "gracias",
+      "muchas gracias",
+      "te agradezco",
+      "grx",
+      "thank"
+    ])
+  ) {
+
+    return `
+
+      ¡De nada! 💙😊<br><br>
+
+      Si necesitas ayuda con otra situación digital,
+      puedes preguntarme.
+
+    `;
+
+  }
+
+
+
+  /*
+    PREGUNTAS DE SEGUIMIENTO
+  */
+
+  const followUp = [
+
+    "que hago",
+    "y ahora",
+    "y que hago",
+    "ahora que hago",
+    "que puedo hacer",
+    "ayudame",
+    "que sigue",
+    "como sigo",
+    "entonces",
+    "y despues",
+    "que hago ahora"
+
+  ];
+
+
+  if (
+    lastIntent &&
+    hasAny(s, followUp)
+  ) {
+
+    return INTENTS[lastIntent].response();
+
+  }
+
+
+
+  /* DETECTAR INTENCIÓN */
+
+  const intent = detectIntent(s);
+
+
+  if (intent) {
+
+    lastIntent = intent;
+
+    return INTENTS[intent].response();
+
+  }
+
+
+
+  /*
+    FALLBACK
+  */
+
+  return `
+
+    <b>Quiero ayudarte 💙</b><br><br>
+
+    No encontré exactamente el tema de tu pregunta,
+    pero puedo orientarte sobre:
+
+    <ul>
+
+      <li>🔐 Cuenta hackeada o robada</li>
+
+      <li>🎭 Suplantación de identidad</li>
+
+      <li>📸 Fotos o contenido íntimo</li>
+
+      <li>🚨 Amenazas, acoso o chantaje</li>
+
+      <li>🎣 Estafas y phishing</li>
+
+      <li>🔒 Privacidad y datos personales</li>
+
+      <li>⚖️ Derechos ARCO</li>
+
+      <li>📢 Cómo denunciar</li>
+
+      <li>🛡️ Seguridad digital</li>
+
+      <li>🌐 Convivencia digital</li>
+
+    </ul>
+
+    <b>
+      También puedes contarme la situación con tus propias palabras.
+    </b>
+
+    <br><br>
+
+    Por ejemplo:
+    <i>“Alguien entró a mi cuenta y cambió mi contraseña”.</i>
+
+  `;
+
+}
+
+
+
+/* =========================
+   ENVIAR MENSAJE
+========================= */
+
+
+function ask() {
+
+  const input = document.getElementById("input");
+
+  if (!input) return;
+
+
+  const question = input.value.trim();
+
+
+  if (!question) return;
+
+
+  add(esc(question), "user");
+
+
+  input.value = "";
+
+
+  setTimeout(() => {
+
+    add(answer(question), "bot");
+
+  }, 250);
+
+}
+
+
+
+/* ENTER PARA ENVIAR */
+
+const input = document.getElementById("input");
+
+
+if (input) {
+
+  input.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+      event.preventDefault();
+
+      ask();
+
+    }
+
+  });
+
+}
+
+
+
+/* =========================
+   BOTONES DE INICIO
+========================= */
+
+
+chips([
+
+  "¿Qué son los Derechos ARCO?",
+
+  "Me hackearon mi Instagram",
+
+  "Alguien se está haciendo pasar por mí",
+
+  "Publicaron una foto mía sin permiso",
+
+  "Me están amenazando por internet",
+
+  "¿Cómo denuncio?",
+
+  "¿Cómo protejo mi cuenta?",
+
+  "¿Cuáles son mis derechos digitales?",
+
+  "¿Qué derechos o leyes protegen la vulneración de mis derechos digitales?"
+
+]);
+
+
 </script>
+
 </body>
 </html>
