@@ -15,1871 +15,2101 @@
     }
 
     body {
+      background: linear-gradient(135deg, #eef4ff, #f8faff);
       min-height: 100vh;
-      background: linear-gradient(135deg, #eef5ff, #f8fbff);
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      color: #1e293b;
     }
 
     .app {
       width: 100%;
       max-width: 850px;
       height: 90vh;
-      max-height: 850px;
+      min-height: 600px;
       background: white;
-      border-radius: 25px;
-      box-shadow: 0 15px 45px rgba(30, 64, 175, 0.15);
+      border-radius: 24px;
+      box-shadow: 0 15px 50px rgba(0,0,0,.12);
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
 
-    .header {
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
+    header {
+      background: linear-gradient(135deg, #173b8f, #2563eb);
       color: white;
-      padding: 25px;
+      padding: 22px;
       display: flex;
       align-items: center;
       gap: 15px;
     }
 
     .logo {
-      width: 58px;
-      height: 58px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
       background: white;
       color: #2563eb;
-      border-radius: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: bold;
-      flex-shrink: 0;
     }
 
-    .header h1 {
-      font-size: 25px;
+    header h1 {
+      font-size: 22px;
       margin-bottom: 4px;
     }
 
-    .header p {
-      font-size: 14px;
-      opacity: 0.9;
+    header p {
+      font-size: 13px;
+      opacity: .9;
     }
 
-    .chat {
+    #chat {
       flex: 1;
       overflow-y: auto;
-      padding: 25px;
-      background: #f8fafc;
+      padding: 24px;
+      background: #f8faff;
     }
 
     .message {
-      max-width: 82%;
-      padding: 14px 17px;
-      margin-bottom: 15px;
-      border-radius: 18px;
-      line-height: 1.55;
-      font-size: 15px;
-      word-wrap: break-word;
-    }
-
-    .message.bot {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-top-left-radius: 5px;
-      margin-right: auto;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      display: flex;
+      margin-bottom: 18px;
     }
 
     .message.user {
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      max-width: 78%;
+      padding: 14px 17px;
+      border-radius: 18px;
+      line-height: 1.5;
+      font-size: 15px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    .bot .bubble {
+      background: white;
+      color: #172033;
+      border: 1px solid #e4e9f3;
+      border-bottom-left-radius: 5px;
+    }
+
+    .user .bubble {
       background: #2563eb;
       color: white;
-      border-top-right-radius: 5px;
-      margin-left: auto;
+      border-bottom-right-radius: 5px;
     }
 
-    .message.bot b {
-      color: #1d4ed8;
-    }
-
-    .message ul,
-    .message ol {
-      margin: 10px 0 10px 22px;
-    }
-
-    .message li {
-      margin-bottom: 6px;
-    }
-
-    .sources {
-      margin-top: 15px;
-      padding-top: 12px;
-      border-top: 1px solid #e2e8f0;
-      font-size: 12px;
-      color: #64748b;
-    }
-
-    .sources a {
+    .bubble a {
       color: #2563eb;
+      font-weight: bold;
       text-decoration: none;
     }
 
-    .sources a:hover {
+    .bubble a:hover {
       text-decoration: underline;
     }
 
     .chips {
       display: flex;
-      gap: 8px;
       flex-wrap: wrap;
-      padding: 12px 20px;
-      background: white;
-      border-top: 1px solid #e2e8f0;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .chip {
-      border: 1px solid #bfdbfe;
-      background: #eff6ff;
-      color: #1d4ed8;
-      padding: 9px 13px;
+      background: white;
+      border: 1px solid #cbd5e1;
+      color: #173b8f;
       border-radius: 20px;
+      padding: 9px 13px;
       cursor: pointer;
       font-size: 13px;
-      transition: 0.2s;
+      transition: .2s;
     }
 
     .chip:hover {
-      background: #dbeafe;
+      background: #eef4ff;
       transform: translateY(-1px);
     }
 
+    .typing {
+      display: none;
+      padding: 0 24px 10px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .typing span {
+      display: inline-block;
+      animation: blink 1.2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: .3; }
+      50% { opacity: 1; }
+    }
+
     .input-area {
+      border-top: 1px solid #e5e7eb;
+      padding: 15px;
+      background: white;
       display: flex;
       gap: 10px;
-      padding: 15px 20px 20px;
-      background: white;
-      border-top: 1px solid #e2e8f0;
     }
 
     #input {
       flex: 1;
       border: 1px solid #cbd5e1;
-      border-radius: 16px;
-      padding: 13px 16px;
+      border-radius: 14px;
+      padding: 13px 15px;
       font-size: 15px;
       outline: none;
     }
 
     #input:focus {
       border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
     }
 
-    .send {
+    #send {
       border: none;
       background: #2563eb;
       color: white;
-      border-radius: 16px;
-      padding: 0 22px;
+      border-radius: 14px;
+      padding: 0 20px;
       cursor: pointer;
-      font-size: 15px;
       font-weight: bold;
-      transition: 0.2s;
+      transition: .2s;
     }
 
-    .send:hover {
-      background: #1d4ed8;
+    #send:hover {
+      background: #173b8f;
+    }
+
+    .source {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .context {
+      font-size: 11px;
+      color: #64748b;
+      margin: 0 24px 8px;
+      display: none;
     }
 
     @media (max-width: 600px) {
-
       body {
         padding: 0;
       }
 
       .app {
         height: 100vh;
-        max-height: none;
         border-radius: 0;
       }
 
-      .header {
-        padding: 18px;
+      .bubble {
+        max-width: 88%;
       }
 
-      .header h1 {
-        font-size: 21px;
+      header {
+        padding: 17px;
       }
 
-      .chat {
-        padding: 18px;
-      }
-
-      .message {
-        max-width: 90%;
-      }
-
-      .input-area {
-        padding: 10px;
-      }
-
-      .send {
-        padding: 0 16px;
+      #chat {
+        padding: 17px;
       }
     }
   </style>
 </head>
 
-
 <body>
 
 <div class="app">
 
-  <header class="header">
-
-    <div class="logo">
-      ⚖️
-    </div>
+  <header>
+    <div class="logo">L</div>
 
     <div>
       <h1>LawsBot Perú</h1>
-
-      <p>
-        Asistente virtual sobre derechos digitales y seguridad en internet
-      </p>
+      <p>Derechos digitales · Ciberseguridad · Convivencia digital</p>
     </div>
-
   </header>
 
+  <div id="context" class="context"></div>
 
-  <main class="chat" id="chat">
+  <div id="chat"></div>
 
-    <div class="message bot">
-
-      ¡Hola! 👋 Soy <b>LawsBot Perú</b>.
-
-      <br><br>
-
-      Puedo orientarte sobre derechos digitales,
-      privacidad, seguridad, acoso, denuncias y otras
-      situaciones que pueden ocurrir en internet. 💙
-
-      <br><br>
-
-      <b>Cuéntame qué pasó y podemos conversar sobre el problema paso a paso.</b>
-
-    </div>
-
-  </main>
-
-
-  <div class="chips" id="chips"></div>
-
+  <div id="typing" class="typing">
+    <span>LawsBot está escribiendo...</span>
+  </div>
 
   <div class="input-area">
-
     <input
-      type="text"
       id="input"
+      type="text"
       placeholder="Escribe tu pregunta..."
       autocomplete="off"
     >
 
-    <button class="send" onclick="ask()">
-      Enviar
-    </button>
-
+    <button id="send">Enviar</button>
   </div>
 
 </div>
 
-
-
 <script>
 
-/* =====================================================
-   FUENTES OFICIALES DEL CHATBOT
-===================================================== */
+  /* =========================================================
+     FUENTES OFICIALES
+  ========================================================= */
 
-const SOURCES = {
+  const SOURCES = {
 
-  arco: {
-    url: "https://www.gob.pe/9270-que-son-los-derechos-arco",
-    name: "ANPD — Derechos ARCO"
-  },
+    arco: {
+      title: "ANPD – Derechos ARCO",
+      url: "https://www.gob.pe/9270-que-son-los-derechos-arco"
+    },
 
-  ley29733: {
-    url: "https://www.gob.pe/institucion/anpd/normas-legales",
-    name: "ANPD — Normas legales"
-  },
+    ley29733: {
+      title: "ANPD – Normas legales",
+      url: "https://www.gob.pe/institucion/anpd/normas-legales"
+    },
 
-  delitos: {
-    url: "https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/239569-30096",
-    name: "Congreso — Ley 30096"
-  },
+    delitos: {
+      title: "Congreso – Ley 30096",
+      url: "https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/239569-30096"
+    },
 
-  dl1625: {
-    url: "https://www.gob.pe/institucion/mimp/informes-publicaciones/6499867-decreto-legislativo-n-1625-ley-que-fortalece-las-normas-sobre-el-uso-de-tid-relacionado-a-la-difusion-de-imagenes-materiales-audiovisuales-o-audios-con-contenido-sexual",
-    name: "MIMP — Decreto Legislativo 1625"
-  },
+    dl1625: {
+      title: "MIMP – Decreto Legislativo 1625",
+      url: "https://www.gob.pe/institucion/mimp/informes-publicaciones/6499867-decreto-legislativo-n-1625-ley-que-fortalece-las-normas-sobre-el-uso-de-tid-relacionado-a-la-difusion-de-imagenes-materiales-audiovisuales-o-audios-con-contenido-sexual"
+    },
 
-  denuncias: {
-    url: "https://denuncia.mininter.gob.pe/preguntas",
-    name: "MININTER — Central Única de Denuncias"
-  },
+    denuncias: {
+      title: "MININTER – Central Única de Denuncias",
+      url: "https://denuncia.mininter.gob.pe/preguntas"
+    },
 
-  mp: {
-    url: "https://portal.mpfn.gob.pe/denuncias-en-linea",
-    name: "Ministerio Público — Denuncias en línea"
-  }
-
-};
-
-
-/* =====================================================
-   MEMORIA DE CONVERSACIÓN
-===================================================== */
-
-/*
-   Esta es la parte MÁS importante.
-
-   LawsBot guarda el tema actual de conversación.
-
-   Ejemplo:
-
-   Usuario:
-   "Me hackearon Instagram"
-
-   BOT:
-   habla de hackeo
-
-   Usuario:
-   "¿Y si cambiaron mi correo?"
-
-   BOT:
-   entiende que seguimos hablando de la cuenta hackeada.
-
-   Usuario:
-   "¿Puedo denunciar?"
-
-   BOT:
-   entiende que la denuncia está relacionada
-   con el hackeo anterior.
-*/
-
-let conversation = {
-
-  currentTopic: null,
-
-  platform: null,
-
-  details: [],
-
-  history: []
-
-};
+    mp: {
+      title: "Ministerio Público – Denuncias en línea",
+      url: "https://portal.mpfn.gob.pe/denuncias-en-linea"
+    }
+  };
 
 
+  /* =========================================================
+     MEMORIA DE LA CONVERSACIÓN
+  ========================================================= */
 
-/* =====================================================
-   FUNCIONES BÁSICAS
-===================================================== */
+  let conversation = {
 
-function normalize(text) {
+    currentTopic: null,
 
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[¿?¡!.,;:()[\]{}"'`]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+    platform: null,
 
-}
+    details: {
+      accountHacked: false,
+      emailChanged: false,
+      passwordChanged: false,
+      twoFactor: false,
+      recoveryAttempted: false,
+      intimateImages: false,
+      threatened: false,
+      impersonation: false,
+      harassment: false,
+      phishing: false,
+      dataProblem: false
+    },
 
+    mentionedThings: [],
 
-function hasAny(text, words) {
+    answeredQuestions: [],
 
-  return words.some(word => text.includes(word));
+    history: [],
 
-}
-
-
-function escapeHTML(text) {
-
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
+    turn: 0
+  };
 
 
-function add(text, who = "bot") {
+  /* =========================================================
+     FUNCIONES BÁSICAS
+  ========================================================= */
 
   const chat = document.getElementById("chat");
-
-  const bubble = document.createElement("div");
-
-  bubble.className = "message " + who;
-
-  bubble.innerHTML = text;
-
-  chat.appendChild(bubble);
-
-  chat.scrollTop = chat.scrollHeight;
-
-}
+  const input = document.getElementById("input");
+  const send = document.getElementById("send");
+  const typing = document.getElementById("typing");
+  const contextBox = document.getElementById("context");
 
 
-function sourceBlock(keys) {
+  function escapeHTML(text) {
 
-  return `
-
-    <div class="sources">
-
-      <b>Fuentes oficiales:</b><br>
-
-      ${keys.map(key => {
-
-        const source = SOURCES[key];
-
-        return `
-          • <a
-              href="${source.url}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ${source.name}
-            </a>
-        `;
-
-      }).join("<br>")}
-
-    </div>
-
-  `;
-
-}
-
-
-
-/* =====================================================
-   IDENTIFICAR PLATAFORMA
-===================================================== */
-
-function detectPlatform(text) {
-
-  if (text.includes("instagram") || text.includes("insta")) {
-
-    return "Instagram";
-
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
-  if (text.includes("facebook") || text.includes("fb")) {
 
-    return "Facebook";
+  function makeLinks(text) {
 
+    return text.replace(
+      /(https?:\/\/[^\s<]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+    );
   }
 
-  if (text.includes("tiktok") || text.includes("tik tok")) {
 
-    return "TikTok";
+  function format(text) {
 
+    let safe = escapeHTML(text);
+
+    safe = safe.replace(/\n/g, "<br>");
+
+    return makeLinks(safe);
   }
 
-  if (text.includes("whatsapp") || text.includes("whats app")) {
 
-    return "WhatsApp";
+  function addMessage(text, type = "bot", source = null) {
 
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "message " + type;
+
+    const bubble = document.createElement("div");
+
+    bubble.className = "bubble";
+
+    bubble.innerHTML = format(text);
+
+    if (source) {
+
+      const sourceBox = document.createElement("div");
+
+      sourceBox.className = "source";
+
+      sourceBox.innerHTML =
+        "Fuente: <a href=\"" +
+        source.url +
+        "\" target=\"_blank\" rel=\"noopener noreferrer\">" +
+        escapeHTML(source.title) +
+        "</a>";
+
+      bubble.appendChild(sourceBox);
+    }
+
+    wrapper.appendChild(bubble);
+
+    chat.appendChild(wrapper);
+
+    chat.scrollTop = chat.scrollHeight;
   }
 
-  if (text.includes("snapchat")) {
 
-    return "Snapchat";
+  function showTyping() {
 
+    typing.style.display = "block";
+
+    chat.scrollTop = chat.scrollHeight;
   }
 
-  if (text.includes("discord")) {
 
-    return "Discord";
+  function hideTyping() {
 
+    typing.style.display = "none";
   }
 
-  return null;
 
-}
+  function updateContext() {
+
+    if (!conversation.currentTopic) {
+
+      contextBox.style.display = "none";
+
+      return;
+    }
+
+    let topicNames = {
+
+      hackeo: "Cuenta comprometida",
+
+      imagenIntima: "Imágenes íntimas",
+
+      suplantacion: "Suplantación de identidad",
+
+      extorsion: "Extorsión digital",
+
+      acoso: "Acoso digital",
+
+      phishing: "Phishing / estafa",
+
+      datos: "Datos personales",
+
+      arco: "Derechos ARCO",
+
+      denuncia: "Denuncia",
+
+      seguridad: "Ciberseguridad",
+
+      convivencia: "Convivencia digital",
+
+      derechos: "Derechos digitales"
+    };
+
+    let text =
+      "Tema actual: " +
+      (topicNames[conversation.currentTopic] ||
+      conversation.currentTopic);
+
+    if (conversation.platform) {
+
+      text += " · " + conversation.platform;
+    }
+
+    contextBox.textContent = text;
+
+    contextBox.style.display = "block";
+  }
 
 
+  /* =========================================================
+     NORMALIZACIÓN
+  ========================================================= */
 
-/* =====================================================
-   DETECTAR TEMA
-===================================================== */
+  function normalize(text) {
 
-function detectTopic(text) {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[¿?¡!.,;:()[\]{}"]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
 
-  /*
-    HACK / CUENTA
-  */
 
-  if (
-    hasAny(text, [
-      "me hackearon",
+  /* =========================================================
+     DETECTAR PLATAFORMA
+  ========================================================= */
+
+  function detectPlatform(text) {
+
+    const t = normalize(text);
+
+    if (/\b(instagram|ig)\b/.test(t)) return "Instagram";
+
+    if (/\b(facebook|fb)\b/.test(t)) return "Facebook";
+
+    if (/\b(tiktok|tik tok)\b/.test(t)) return "TikTok";
+
+    if (/\b(whatsapp|wasap|wsp)\b/.test(t)) return "WhatsApp";
+
+    if (/\b(snapchat)\b/.test(t)) return "Snapchat";
+
+    if (/\b(discord)\b/.test(t)) return "Discord";
+
+    if (/\b(twitter|x)\b/.test(t)) return "X";
+
+    return null;
+  }
+
+
+  /* =========================================================
+     DETECTAR SI REALMENTE ESTÁ CAMBIANDO DE TEMA
+  ========================================================= */
+
+  function isClearTopicChange(text) {
+
+    const t = normalize(text);
+
+    const explicitChanges = [
+
+      "cambiando de tema",
+      "otra cosa",
+      "por cierto",
+      "ahora quiero saber",
+      "ahora dime",
+      "otra pregunta",
+      "dejando eso",
+      "dejando lo anterior",
+      "olvida eso",
+      "sobre otro tema"
+    ];
+
+    return explicitChanges.some(x => t.includes(x));
+  }
+
+
+  /* =========================================================
+     DETECTAR TEMA
+  ========================================================= */
+
+  function detectTopic(text) {
+
+    const t = normalize(text);
+
+    let scores = {
+
+      hackeo: 0,
+      imagenIntima: 0,
+      suplantacion: 0,
+      extorsion: 0,
+      acoso: 0,
+      phishing: 0,
+      datos: 0,
+      arco: 0,
+      denuncia: 0,
+      seguridad: 0,
+      convivencia: 0,
+      derechos: 0
+    };
+
+
+    /* HACKING */
+
+    const hackingWords = [
+
+      "hackear",
       "hackearon",
-      "hackeada",
       "hackeado",
+      "hackeada",
+      "me hackearon",
       "me robaron la cuenta",
-      "robaron mi cuenta",
       "entraron a mi cuenta",
       "entraron en mi cuenta",
+      "no puedo entrar",
       "perdi mi cuenta",
-      "perdi acceso",
       "me quitaron mi cuenta",
-      "cambiaron mi contrasena",
-      "cambiaron mi correo",
+      "robaron mi cuenta",
       "cuenta comprometida",
-      "no puedo entrar"
-    ])
-  ) {
+      "acceso no autorizado"
+    ];
 
-    return "hackeo";
+    hackingWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.hackeo += 5;
+
+    });
 
 
-  /*
-    IMAGEN ÍNTIMA
-  */
+    if (
+      t.includes("cambiaron mi correo") ||
+      t.includes("cambiaron el correo") ||
+      t.includes("cambiaron mi email") ||
+      t.includes("cambiaron la contrasena") ||
+      t.includes("cambiaron mi contraseña")
+    ) {
 
-  if (
-    hasAny(text, [
+      scores.hackeo += 8;
+    }
+
+
+    if (
+      t.includes("activaron el 2fa") ||
+      t.includes("activaron la verificacion") ||
+      t.includes("verificacion en dos pasos")
+    ) {
+
+      scores.hackeo += 8;
+    }
+
+
+    /* IMÁGENES ÍNTIMAS */
+
+    const intimateWords = [
+
       "foto intima",
       "fotos intimas",
       "imagen intima",
       "imagenes intimas",
       "video intimo",
       "videos intimos",
-      "foto desnuda",
-      "fotos desnudas",
       "nudes",
-      "nude",
+      "desnuda",
+      "desnudo",
       "pack",
       "contenido sexual",
-      "difundieron mis fotos",
-      "publicaron mis fotos",
-      "compartieron mis fotos",
-      "amenazan con publicar mis fotos",
-      "amenazan con difundir mis fotos"
-    ])
-  ) {
+      "foto privada",
+      "fotos privadas"
+    ];
 
-    return "imagenIntima";
+    intimateWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.imagenIntima += 7;
+
+    });
 
 
-  /*
-    SUPLANTACIÓN
-  */
+    /* EXTORSIÓN */
 
-  if (
-    hasAny(text, [
+    const extortionWords = [
+
+      "me estan extorsionando",
+      "me extorsionan",
+      "extorsion",
+      "chantaje",
+      "me amenazan con publicar",
+      "me amenaza con publicar",
+      "me pide dinero",
+      "me piden dinero",
+      "si no pago",
+      "amenaza con difundir"
+    ];
+
+    extortionWords.forEach(word => {
+
+      if (t.includes(word)) scores.extorsion += 7;
+
+    });
+
+
+    /* SUPLANTACIÓN */
+
+    const impersonationWords = [
+
       "suplantacion",
       "suplantaron",
+      "se hacen pasar por mi",
+      "se hace pasar por mi",
       "cuenta falsa",
       "perfil falso",
       "perfil fake",
-      "se hacen pasar por mi",
-      "se hace pasar por mi",
-      "usan mi nombre",
-      "usan mi identidad",
       "robaron mi identidad",
-      "copiaron mi perfil"
-    ])
-  ) {
+      "usaron mi nombre",
+      "usaron mis fotos"
+    ];
 
-    return "suplantacion";
+    impersonationWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.suplantacion += 6;
 
-
-  /*
-    EXTORSIÓN / CHANTAJE
-  */
-
-  if (
-    hasAny(text, [
-      "extorsion",
-      "extorsionan",
-      "chantaje",
-      "chantajean",
-      "sextorsion",
-      "me piden dinero",
-      "me amenazan si no pago",
-      "amenazan con publicar"
-    ])
-  ) {
-
-    return "extorsion";
-
-  }
+    });
 
 
-  /*
-    ACOSO
-  */
+    /* ACOSO */
 
-  if (
-    hasAny(text, [
+    const harassmentWords = [
+
       "acoso",
-      "ciberacoso",
-      "cyberbullying",
+      "acosan",
+      "me acosan",
       "bullying",
-      "bully",
-      "me insultan",
-      "me molestan",
-      "me hostigan",
+      "ciberbullying",
       "hostigamiento",
-      "me amenazan",
-      "amenazas",
-      "me persiguen",
-      "me atacan en redes"
-    ])
-  ) {
+      "me insultan",
+      "me insultan en redes",
+      "amenazan",
+      "me molestan"
+    ];
 
-    return "acoso";
+    harassmentWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.acoso += 5;
+
+    });
 
 
-  /*
-    PHISHING / ESTAFA
-  */
+    /* PHISHING / ESTAFA */
 
-  if (
-    hasAny(text, [
+    const phishingWords = [
+
       "phishing",
       "estafa",
       "me estafaron",
       "me quieren estafar",
       "enlace falso",
       "link falso",
-      "enlace sospechoso",
-      "mensaje sospechoso",
-      "correo sospechoso",
-      "me pidieron mi codigo",
-      "me pidieron mi contrasena"
-    ])
-  ) {
+      "correo falso",
+      "mensaje falso",
+      "robaron mi contraseña",
+      "contraseña robada",
+      "contrasena robada"
+    ];
 
-    return "phishing";
+    phishingWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.phishing += 6;
+
+    });
 
 
-  /*
-    DATOS PERSONALES
-  */
+    /* DATOS PERSONALES */
 
-  if (
-    hasAny(text, [
+    const dataWords = [
+
       "datos personales",
-      "informacion personal",
       "mis datos",
-      "mi direccion",
+      "informacion personal",
+      "informacion privada",
+      "numero de telefono",
       "mi telefono",
-      "mi numero",
-      "mi dni",
-      "mi ubicacion",
-      "publicaron mis datos",
-      "publicaron mi informacion",
-      "doxxing",
-      "doxing"
-    ])
-  ) {
+      "mi direccion",
+      "mi documento",
+      "dni"
+    ];
 
-    return "datos";
+    dataWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.datos += 5;
+
+    });
 
 
-  /*
-    DERECHOS ARCO
-  */
+    /* ARCO */
 
-  if (
-    hasAny(text, [
+    const arcoWords = [
+
       "derechos arco",
-      "arco",
-      "acceso a mis datos",
-      "rectificar mis datos",
-      "corregir mis datos",
-      "borrar mis datos",
-      "eliminar mis datos",
-      "cancelar mis datos",
-      "oponerme"
-    ])
-  ) {
+      "que son los derechos arco",
+      "que es arco",
+      "acceso rectificacion cancelacion oposicion",
+      "rectificacion",
+      "cancelacion de datos",
+      "derecho de acceso",
+      "derecho de oposicion"
+    ];
 
-    return "arco";
+    arcoWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.arco += 8;
+
+    });
 
 
-  /*
-    DENUNCIA
-  */
+    /* DENUNCIA */
 
-  if (
-    hasAny(text, [
+    const reportWords = [
+
       "denunciar",
       "denuncia",
-      "como denuncio",
-      "donde denuncio",
-      "quiero denunciar",
       "puedo denunciar",
-      "denuncia online",
-      "denuncia en linea",
+      "donde denuncio",
+      "como denuncio",
       "policia",
       "pnp",
-      "fiscalia"
-    ])
-  ) {
+      "fiscalia",
+      "ministerio publico",
+      "autoridades",
+      "hacer una denuncia"
+    ];
 
-    return "denuncia";
+    reportWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.denuncia += 4;
+
+    });
 
 
-  /*
-    SEGURIDAD
-  */
+    /* SEGURIDAD */
 
-  if (
-    hasAny(text, [
+    const securityWords = [
+
       "seguridad",
-      "proteger mi cuenta",
-      "proteger mis redes",
-      "como protegerme",
+      "contraseña segura",
       "contrasena segura",
-      "doble factor",
-      "dos pasos",
       "2fa",
-      "autenticacion"
-    ])
-  ) {
+      "verificacion en dos pasos",
+      "autenticacion",
+      "malware",
+      "virus",
+      "cuenta segura",
+      "proteger mi cuenta"
+    ];
 
-    return "seguridad";
+    securityWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.seguridad += 4;
+
+    });
 
 
-  /*
-    CONVIVENCIA
-  */
+    /* CONVIVENCIA */
 
-  if (
-    hasAny(text, [
+    const coexistenceWords = [
+
       "netiqueta",
+      "convivencia digital",
       "convivencia",
-      "huella digital",
       "fake news",
       "noticias falsas",
       "desinformacion",
-      "respeto en internet"
-    ])
-  ) {
+      "publicar en redes",
+      "comportamiento en internet"
+    ];
 
-    return "convivencia";
+    coexistenceWords.forEach(word => {
 
-  }
+      if (t.includes(word)) scores.convivencia += 5;
+
+    });
 
 
-  /*
-    DERECHOS DIGITALES
-  */
+    /* DERECHOS */
 
-  if (
-    hasAny(text, [
+    const rightsWords = [
+
       "derechos digitales",
-      "derecho digital",
-      "mis derechos",
-      "derechos en internet",
-      "privacidad",
-      "vida privada"
-    ])
-  ) {
+      "mis derechos en internet",
+      "derecho a la privacidad",
+      "privacidad en internet",
+      "que derechos tengo"
+    ];
 
-    return "derechos";
+    rightsWords.forEach(word => {
 
+      if (t.includes(word)) scores.derechos += 5;
+
+    });
+
+
+    let bestTopic = null;
+
+    let bestScore = 0;
+
+    for (const topic in scores) {
+
+      if (scores[topic] > bestScore) {
+
+        bestScore = scores[topic];
+
+        bestTopic = topic;
+      }
+    }
+
+    return bestScore >= 4 ? bestTopic : null;
   }
 
 
-  return null;
+  /* =========================================================
+     DETECTAR DETALLES DEL PROBLEMA
+  ========================================================= */
 
-}
+  function updateDetails(text) {
 
+    const t = normalize(text);
 
-
-/* =====================================================
-   RESPUESTAS SEGÚN EL TEMA
-===================================================== */
-
-function responseForTopic(topic, text) {
-
-
-  /* =================================================
-     HACK
-  ================================================= */
-
-  if (topic === "hackeo") {
 
     if (
-      hasAny(text, [
-        "cambiaron mi correo",
-        "cambiaron el correo",
-        "correo",
-        "email"
-      ])
+      t.includes("hackearon") ||
+      t.includes("me hackearon") ||
+      t.includes("entraron a mi cuenta") ||
+      t.includes("robaron mi cuenta")
     ) {
 
-      return `
-
-        <b>Si cambiaron el correo de tu cuenta, todavía puedes intentar recuperarla. 🔐</b>
-
-        <br><br>
-
-        Lo más importante es utilizar la opción oficial de
-        recuperación de la plataforma.
-
-        <br><br>
-
-        Si es <b>${conversation.platform || "tu cuenta"}</b>:
-
-        <ol>
-          <li>Entra al centro oficial de recuperación.</li>
-          <li>Busca la opción para recuperar una cuenta comprometida.</li>
-          <li>Revisa si recibiste algún correo avisando del cambio.</li>
-          <li>No compartas códigos de recuperación con nadie.</li>
-        </ol>
-
-        ${sourceBlock(["delitos"])}
-
-      `;
-
+      conversation.details.accountHacked = true;
     }
 
 
     if (
-      hasAny(text, [
-        "codigo",
-        "2fa",
-        "doble factor",
-        "autenticacion",
-        "verificacion"
-      ])
+      t.includes("cambiaron mi correo") ||
+      t.includes("cambiaron el correo") ||
+      t.includes("cambiaron mi email")
     ) {
 
-      return `
-
-        <b>Si activaron la verificación en dos pasos, no significa necesariamente que hayas perdido definitivamente la cuenta.</b>
-
-        <br><br>
-
-        Utiliza las opciones oficiales de recuperación de
-        <b>${conversation.platform || "la plataforma"}</b>.
-
-        <br><br>
-
-        No intentes entrar mediante métodos no autorizados
-        ni compartas códigos con personas que prometan recuperar
-        tu cuenta.
-
-        ${sourceBlock(["delitos"])}
-
-      `;
-
+      conversation.details.emailChanged = true;
     }
 
 
     if (
-      hasAny(text, [
-        "denunciar",
-        "denuncia",
-        "policia",
-        "pnp",
-        "fiscalia"
-      ])
+      t.includes("cambiaron mi contrasena") ||
+      t.includes("cambiaron la contrasena") ||
+      t.includes("cambiaron mi contraseña")
     ) {
 
-      return `
-
-        <b>Sí, puedes considerar denunciar el acceso no autorizado.</b>
-
-        <br><br>
-
-        Como estamos hablando de una cuenta que fue comprometida,
-        conserva:
-
-        <ul>
-          <li>Capturas de pantalla.</li>
-          <li>Correos de seguridad.</li>
-          <li>Nombre de usuario.</li>
-          <li>Fechas y horas.</li>
-          <li>Mensajes relacionados con el acceso.</li>
-        </ul>
-
-        Puedes consultar los canales oficiales de denuncia:
-
-        ${sourceBlock(["denuncias", "mp", "delitos"])}
-
-      `;
-
+      conversation.details.passwordChanged = true;
     }
 
 
-    return `
+    if (
+      t.includes("2fa") ||
+      t.includes("verificacion en dos pasos") ||
+      t.includes("verificacion de dos pasos")
+    ) {
 
-      <b>Entiendo. Seguimos hablando de tu cuenta hackeada. 🔐</b>
+      conversation.details.twoFactor = true;
+    }
 
-      <br><br>
 
-      Lo primero es intentar recuperar el acceso mediante
-      los canales oficiales de <b>${conversation.platform || "la plataforma"}</b>.
+    if (
+      t.includes("foto intima") ||
+      t.includes("fotos intimas") ||
+      t.includes("video intimo") ||
+      t.includes("nudes") ||
+      t.includes("pack")
+    ) {
 
-      <br><br>
+      conversation.details.intimateImages = true;
+    }
 
-      Después:
 
-      <ol>
-        <li>Cambia tu contraseña.</li>
-        <li>Activa la autenticación en dos pasos.</li>
-        <li>Cierra sesiones desconocidas.</li>
-        <li>Revisa el correo y teléfono asociados.</li>
-        <li>Guarda las evidencias del acceso no autorizado.</li>
-      </ol>
+    if (
+      t.includes("amenazan") ||
+      t.includes("amenaza") ||
+      t.includes("chantaje") ||
+      t.includes("extorsion")
+    ) {
 
-      Si quieres, puedes preguntarme algo concreto sobre
-      <b>esa misma cuenta</b>.
+      conversation.details.threatened = true;
+    }
 
-      ${sourceBlock(["delitos", "denuncias"])}
 
-    `;
+    if (
+      t.includes("cuenta falsa") ||
+      t.includes("perfil falso") ||
+      t.includes("se hacen pasar por mi")
+    ) {
 
+      conversation.details.impersonation = true;
+    }
+
+
+    if (
+      t.includes("acoso") ||
+      t.includes("bullying") ||
+      t.includes("ciberbullying")
+    ) {
+
+      conversation.details.harassment = true;
+    }
+
+
+    if (
+      t.includes("phishing") ||
+      t.includes("link falso") ||
+      t.includes("enlace falso")
+    ) {
+
+      conversation.details.phishing = true;
+    }
+
+
+    if (
+      t.includes("datos personales") ||
+      t.includes("mis datos")
+    ) {
+
+      conversation.details.dataProblem = true;
+    }
   }
 
 
+  /* =========================================================
+     RESPUESTAS PARA HACKING
+  ========================================================= */
 
-  /* =================================================
-     IMAGEN ÍNTIMA
-  ================================================= */
+  function hackeoResponse(text) {
 
-  if (topic === "imagenIntima") {
+    const t = normalize(text);
+
 
     if (
-      hasAny(text, [
-        "denunciar",
-        "denuncia",
-        "policia",
-        "pnp",
-        "fiscalia"
-      ])
+      conversation.details.emailChanged &&
+      conversation.details.twoFactor
     ) {
 
-      return `
+      return (
+        "Si además de cambiar el correo activaron la verificación en dos pasos, " +
+        "la cuenta está más protegida contra el acceso normal, pero eso no significa " +
+        "que hayas perdido definitivamente la posibilidad de recuperarla.<br><br>" +
 
-        <b>Sí puedes buscar ayuda y consultar los canales oficiales de denuncia.</b>
+        "Lo importante es utilizar las opciones oficiales de recuperación de " +
+        conversation.platform +
+        " y demostrar que eres la persona propietaria de la cuenta. " +
 
-        <br><br>
+        "Evita pagarle al atacante o darle códigos de recuperación."
+      );
+    }
 
-        Como estamos hablando de la difusión o amenaza de difusión
-        de contenido íntimo, guarda primero todas las evidencias.
 
-        <br><br>
+    if (conversation.details.emailChanged && !conversation.details.twoFactor) {
 
-        Guarda:
+      return (
+        "Si cambiaron el correo de tu cuenta, no significa necesariamente que la hayas perdido para siempre.<br><br>" +
 
-        <ul>
-          <li>Capturas.</li>
-          <li>Enlaces.</li>
-          <li>Usuarios.</li>
-          <li>Mensajes.</li>
-          <li>Fechas.</li>
-        </ul>
+        "Busca en el correo original cualquier aviso de seguridad de " +
+        conversation.platform +
+        " y utiliza únicamente el proceso oficial de recuperación de la plataforma. " +
 
-        ${sourceBlock(["dl1625", "denuncias", "mp"])}
+        "No intentes recuperar la cuenta mediante enlaces que te envíen desconocidos."
+      );
+    }
 
-      `;
 
+    if (conversation.details.twoFactor) {
+
+      return (
+        "Si también activaron la verificación en dos pasos, el proceso puede ser más complicado, " +
+        "pero todavía debes intentar la recuperación oficial de la cuenta.<br><br>" +
+
+        "No compartas códigos, contraseñas ni información de recuperación con la persona que tomó la cuenta. " +
+
+        "Si sospechas que hubo acceso no autorizado, también puedes considerar presentar una denuncia."
+      );
+    }
+
+
+    if (conversation.details.passwordChanged) {
+
+      return (
+        "Si cambiaron la contraseña, intenta recuperar la cuenta desde las opciones oficiales de " +
+        conversation.platform +
+        ".<br><br>" +
+
+        "Si todavía tienes acceso al correo o número asociado, utilízalo para verificar tu identidad. " +
+
+        "Después de recuperar la cuenta, cambia la contraseña y revisa las sesiones o dispositivos conectados."
+      );
     }
 
 
     if (
-      hasAny(text, [
-        "dinero",
-        "pagar",
-        "pago",
-        "me pide"
-      ])
+      t.includes("recuper") ||
+      t.includes("volver a entrar") ||
+      t.includes("entrar")
     ) {
 
-      return `
+      return (
+        "Sí, puedes intentar recuperar la cuenta mediante las herramientas oficiales de " +
+        conversation.platform +
+        ".<br><br>" +
 
-        <b>No pagues ni envíes más contenido.</b>
+        "Como ya me comentaste que la cuenta fue comprometida, evita utilizar servicios externos que prometan recuperarla por dinero. " +
 
-        <br><br>
-
-        Si alguien utiliza contenido íntimo para exigirte dinero
-        o algo a cambio, guarda las pruebas y busca ayuda.
-
-        <br><br>
-
-        Si eres menor de edad, cuéntaselo inmediatamente
-        a un adulto de confianza.
-
-        ${sourceBlock(["dl1625", "denuncias"])}
-
-      `;
-
+        "Si recuperas el acceso, cambia la contraseña, revisa el correo y número asociados y activa la verificación en dos pasos."
+      );
     }
 
 
-    return `
+    if (
+      t.includes("denunciar") ||
+      t.includes("denuncia") ||
+      t.includes("policia") ||
+      t.includes("pnp") ||
+      t.includes("fiscalia")
+    ) {
 
-      <b>Entiendo. Seguimos hablando del problema con el contenido íntimo. 📸</b>
+      return (
+        "Sí. Si alguien accedió a tu cuenta sin autorización, puedes considerar denunciar el hecho.<br><br>" +
 
-      <br><br>
+        "En Perú puedes consultar la Central Única de Denuncias del MININTER o realizar una denuncia en línea ante el Ministerio Público.<br><br>" +
 
-      Lo más importante es:
+        "También conserva capturas, correos de seguridad, mensajes y cualquier evidencia relacionada con el acceso a la cuenta."
+      );
+    }
 
-      <ol>
-        <li>No enviar más contenido.</li>
-        <li>No pagar si alguien te amenaza.</li>
-        <li>Guardar las pruebas.</li>
-        <li>Reportar la cuenta o publicación.</li>
-        <li>Buscar apoyo de un adulto de confianza si eres menor.</li>
-      </ol>
 
-      En Perú existe normativa específica sobre estos casos.
+    if (conversation.turn === 1) {
 
-      ${sourceBlock(["dl1625", "denuncias", "mp"])}
+      return (
+        "Si alguien entró a tu cuenta de " +
+        conversation.platform +
+        " sin tu permiso, lo primero es intentar recuperar el acceso mediante las opciones oficiales de la plataforma.<br><br>" +
 
-    `;
+        "Después revisa si modificaron tu correo, contraseña, número de teléfono o dispositivos conectados.<br><br>" +
 
+        "No compartas códigos de seguridad con nadie."
+      );
+    }
+
+
+    return (
+      "Entiendo. Seguimos hablando del problema con tu cuenta de " +
+      conversation.platform +
+      ".<br><br>" +
+
+      "Cuéntame qué cambió exactamente después del acceso no autorizado —por ejemplo, " +
+      "si cambiaron el correo, la contraseña, activaron el 2FA o publicaron algo— y te explico qué puedes hacer en ese caso."
+    );
   }
 
 
+  /* =========================================================
+     RESPUESTAS PARA IMÁGENES ÍNTIMAS
+  ========================================================= */
 
-  /* =================================================
+  function imagenIntimaResponse(text) {
+
+    const t = normalize(text);
+
+
+    if (
+      t.includes("denunciar") ||
+      t.includes("denuncia") ||
+      t.includes("policia") ||
+      t.includes("fiscalia")
+    ) {
+
+      return (
+        "Sí. Si una persona difunde o amenaza con difundir imágenes, videos o audios de contenido sexual sin autorización, puedes buscar ayuda y considerar presentar una denuncia.<br><br>" +
+
+        "En Perú existe normativa que aborda este tipo de conductas. Conserva las pruebas, como capturas, enlaces, nombres de usuario y mensajes, sin reenviar el contenido íntimo innecesariamente.<br><br>" +
+
+        "También puedes consultar los canales del MININTER y del Ministerio Público."
+      );
+    }
+
+
+    if (
+      conversation.details.threatened ||
+      t.includes("amenazan") ||
+      t.includes("chantaje")
+    ) {
+
+      return (
+        "Si te están amenazando con publicar ese contenido, intenta no ceder al chantaje ni enviar más material.<br><br>" +
+
+        "Guarda las amenazas y capturas como evidencia, bloquea al responsable cuando sea seguro hacerlo y busca ayuda de una persona adulta de confianza.<br><br>" +
+
+        "En Perú también puedes acudir a los canales oficiales de denuncia."
+      );
+    }
+
+
+    if (conversation.turn === 1) {
+
+      return (
+        "Si alguien difundió o amenaza con difundir imágenes, videos o audios de contenido sexual sin autorización, es importante actuar con rapidez y conservar las pruebas.<br><br>" +
+
+        "No reenvíes el contenido. Guarda capturas, enlaces, nombres de usuario y mensajes relacionados.<br><br>" +
+
+        "En Perú, el Decreto Legislativo N.° 1625 fortalece las normas relacionadas con la difusión de este tipo de material."
+      );
+    }
+
+
+    return (
+      "Seguimos con el tema de las imágenes íntimas.<br><br>" +
+
+      "La respuesta depende de lo que haya ocurrido: si ya fueron publicadas, si alguien amenaza con publicarlas, si te están pidiendo dinero o si solamente tienes miedo de que ocurra.<br><br>" +
+
+      "Si me dices cuál de esas situaciones ocurre, puedo orientarte sobre el siguiente paso."
+    );
+  }
+
+
+  /* =========================================================
      SUPLANTACIÓN
-  ================================================= */
+  ========================================================= */
 
-  if (topic === "suplantacion") {
+  function suplantacionResponse(text) {
+
+    const t = normalize(text);
+
 
     if (
-      hasAny(text, [
-        "denunciar",
-        "denuncia"
-      ])
+      t.includes("denunciar") ||
+      t.includes("denuncia")
     ) {
 
-      return `
+      return (
+        "Sí, puedes considerar denunciar la suplantación y guardar evidencia del perfil o cuenta falsa.<br><br>" +
 
-        <b>Sí puedes considerar denunciar una suplantación.</b>
+        "Haz capturas donde aparezca el nombre de usuario, fotografías utilizadas, publicaciones y cualquier mensaje relacionado.<br><br>" +
 
-        <br><br>
-
-        Guarda el enlace del perfil falso, capturas,
-        nombre de usuario y cualquier mensaje relacionado.
-
-        <br><br>
-
-        También puedes reportar la cuenta directamente
-        desde la plataforma.
-
-        ${sourceBlock(["delitos", "denuncias", "mp"])}
-
-      `;
-
+        "También puedes reportar el perfil directamente desde la plataforma."
+      );
     }
 
 
     if (
-      hasAny(text, [
-        "borrar",
-        "eliminar",
-        "reportar",
-        "reporto"
-      ])
+      t.includes("eliminar") ||
+      t.includes("borrar") ||
+      t.includes("quitar")
     ) {
 
-      return `
+      return (
+        "Puedes reportar la cuenta directamente desde la plataforma indicando que se está haciendo pasar por ti.<br><br>" +
 
-        <b>Primero guarda las pruebas y después reporta el perfil.</b>
-
-        <br><br>
-
-        Conserva:
-
-        <ul>
-          <li>Capturas.</li>
-          <li>URL del perfil.</li>
-          <li>Nombre de usuario.</li>
-          <li>Mensajes.</li>
-        </ul>
-
-        Después utiliza la opción de reporte
-        de la plataforma.
-
-      `;
-
+        "Antes de hacerlo, guarda capturas del perfil falso y de cualquier contenido que esté utilizando tu identidad."
+      );
     }
 
 
-    return `
+    if (conversation.turn === 1) {
 
-      <b>Entiendo. Seguimos hablando del perfil que se hace pasar por ti. 🎭</b>
+      return (
+        "Si alguien está utilizando tu nombre, fotografías o identidad para hacerse pasar por ti, guarda pruebas del perfil falso y repórtalo en la plataforma correspondiente.<br><br>" +
 
-      <br><br>
+        "Si la situación causa un perjuicio importante o implica otros delitos, puedes considerar acudir a las autoridades."
+      );
+    }
 
-      Guarda las evidencias y reporta la cuenta.
 
-      <br><br>
+    return (
+      "Entiendo. Seguimos hablando de la suplantación.<br><br>" +
 
-      También avisa a tus contactos si el perfil falso
-      está intentando engañarlos.
-
-      ${sourceBlock(["delitos", "denuncias"])}
-
-    `;
-
+      "Si quieres, podemos revisar específicamente qué hacer con el perfil falso, cómo reportarlo o cómo reunir pruebas para una denuncia."
+    );
   }
 
 
-
-  /* =================================================
-     ACOSO
-  ================================================= */
-
-  if (topic === "acoso") {
-
-    if (
-      hasAny(text, [
-        "denunciar",
-        "denuncia"
-      ])
-    ) {
-
-      return `
-
-        <b>Si el acoso continúa o existen amenazas, puedes consultar los canales oficiales de denuncia.</b>
-
-        <br><br>
-
-        Guarda capturas, mensajes, perfiles, enlaces,
-        fechas y cualquier otra evidencia.
-
-        ${sourceBlock(["denuncias", "mp"])}
-
-      `;
-
-    }
-
-
-    if (
-      hasAny(text, [
-        "bloquear",
-        "bloqueo",
-        "reportar"
-      ])
-    ) {
-
-      return `
-
-        <b>Sí. Puedes bloquear y reportar la cuenta.</b>
-
-        <br><br>
-
-        Antes de hacerlo, si es posible,
-        guarda las pruebas de lo ocurrido.
-
-        <br><br>
-
-        Si eres menor de edad, también es recomendable
-        contárselo a un adulto de confianza.
-
-      `;
-
-    }
-
-
-    return `
-
-      <b>Entiendo. Seguimos hablando del acoso que estás recibiendo. 🚨</b>
-
-      <br><br>
-
-      No tienes que responder a la persona para demostrar nada.
-
-      <br><br>
-
-      Guarda las pruebas, bloquea o reporta la cuenta
-      y busca apoyo de una persona de confianza.
-
-      Si existen amenazas serias, puedes consultar
-      los canales oficiales de denuncia.
-
-      ${sourceBlock(["denuncias", "mp"])}
-
-    `;
-
-  }
-
-
-
-  /* =================================================
+  /* =========================================================
      EXTORSIÓN
-  ================================================= */
+  ========================================================= */
 
-  if (topic === "extorsion") {
+  function extorsionResponse(text) {
+
+    const t = normalize(text);
+
 
     if (
-      hasAny(text, [
-        "denunciar",
-        "denuncia",
-        "policia",
-        "pnp"
-      ])
+      t.includes("pagar") ||
+      t.includes("dinero") ||
+      t.includes("pago")
     ) {
 
-      return `
+      return (
+        "Si te están pidiendo dinero bajo amenaza, evita realizar pagos impulsivamente y no continúes negociando con la persona si eso puede aumentar el riesgo.<br><br>" +
 
-        <b>Si estás siendo víctima de chantaje o extorsión, puedes consultar los canales oficiales de denuncia.</b>
+        "Guarda los mensajes, capturas, números de teléfono, usuarios, cuentas utilizadas y cualquier otro dato que pueda servir como evidencia.<br><br>" +
 
-        <br><br>
-
-        Conserva las pruebas y evita borrar los mensajes.
-
-        ${sourceBlock(["denuncias", "mp", "delitos"])}
-
-      `;
-
+        "Puedes acudir a los canales oficiales de denuncia en Perú."
+      );
     }
 
 
-    return `
+    if (
+      t.includes("denunciar") ||
+      t.includes("denuncia")
+    ) {
 
-      <b>Seguimos hablando del chantaje o extorsión. 🚨</b>
+      return (
+        "Sí. Las amenazas y el chantaje pueden ser motivo para acudir a las autoridades.<br><br>" +
 
-      <br><br>
+        "Conserva las pruebas y consulta los canales oficiales del MININTER o del Ministerio Público para conocer cómo presentar la denuncia."
+      );
+    }
 
-      No entregues más dinero ni más contenido
-      para intentar detener la amenaza.
 
-      <br><br>
+    if (conversation.turn === 1) {
 
-      Guarda todas las conversaciones y evidencias.
+      return (
+        "Si alguien te amenaza para conseguir dinero, información o que hagas algo contra tu voluntad, no tienes que enfrentarlo por tu cuenta.<br><br>" +
 
-      ${sourceBlock(["denuncias", "mp", "delitos"])}
+        "No borres las conversaciones. Guarda capturas y otros datos que puedan ayudar a identificar a la persona."
+      );
+    }
 
-    `;
 
+    return (
+      "Seguimos con el problema de extorsión.<br><br>" +
+
+      "Lo más importante ahora es conservar las pruebas y evitar enviar más información o dinero bajo presión.<br><br>" +
+
+      "Si me dices qué te están exigiendo, puedo explicarte qué medidas puedes tomar."
+    );
   }
 
 
+  /* =========================================================
+     ACOSO
+  ========================================================= */
 
-  /* =================================================
+  function acosoResponse(text) {
+
+    const t = normalize(text);
+
+
+    if (
+      t.includes("denunciar") ||
+      t.includes("denuncia")
+    ) {
+
+      return (
+        "Si el acoso continúa o incluye amenazas, puedes considerar denunciarlo.<br><br>" +
+
+        "Guarda capturas de los mensajes, perfiles, fechas y cualquier otra evidencia. También puedes bloquear y reportar al usuario en la plataforma."
+      );
+    }
+
+
+    if (
+      t.includes("bloquear") ||
+      t.includes("bloqueo")
+    ) {
+
+      return (
+        "Sí, bloquear a la persona puede ayudarte a cortar el contacto directo.<br><br>" +
+
+        "Antes de bloquearla, si es posible, guarda las pruebas que puedas necesitar posteriormente para reportar o denunciar la situación."
+      );
+    }
+
+
+    if (conversation.turn === 1) {
+
+      return (
+        "Si estás sufriendo acoso en internet, no tienes que responder a cada mensaje ni enfrentarte sola a la situación.<br><br>" +
+
+        "Puedes bloquear y reportar a la persona, guardar evidencias y hablar con una persona adulta de confianza si la situación te afecta o incluye amenazas."
+      );
+    }
+
+
+    return (
+      "Seguimos hablando del acoso digital.<br><br>" +
+
+      "Podemos revisar qué hacer si la persona sigue contactándote, si creó nuevas cuentas o si las amenazas pasaron de mensajes a publicaciones."
+    );
+  }
+
+
+  /* =========================================================
      PHISHING
-  ================================================= */
+  ========================================================= */
 
-  if (topic === "phishing") {
+  function phishingResponse(text) {
+
+    const t = normalize(text);
+
 
     if (
-      hasAny(text, [
-        "ya entre",
-        "ya di",
-        "ya entregue",
-        "ya puse",
-        "ya mande",
-        "ya comparti"
-      ])
+      t.includes("di mi contrasena") ||
+      t.includes("di mi contraseña") ||
+      t.includes("puse mi contrasena") ||
+      t.includes("puse mi contraseña")
     ) {
 
-      return `
+      return (
+        "Si ingresaste tu contraseña en una página que ahora sospechas que era falsa, cámbiala inmediatamente desde la página oficial del servicio.<br><br>" +
 
-        <b>Si ya entregaste datos, todavía puedes tomar medidas.</b>
-
-        <br><br>
-
-        <ol>
-          <li>Cambia inmediatamente la contraseña afectada.</li>
-          <li>Activa la autenticación en dos pasos.</li>
-          <li>Revisa sesiones abiertas.</li>
-          <li>Contacta al servicio oficial si entregaste datos financieros.</li>
-          <li>Guarda las evidencias.</li>
-        </ol>
-
-        ${sourceBlock(["denuncias", "mp"])}
-
-      `;
-
+        "Si utilizabas esa misma contraseña en otros servicios, cámbiala también allí. Activa la verificación en dos pasos cuando esté disponible."
+      );
     }
 
 
-    return `
+    if (
+      t.includes("link") ||
+      t.includes("enlace")
+    ) {
 
-      <b>Seguimos hablando de la posible estafa o phishing. 🎣</b>
+      return (
+        "Si recibiste un enlace sospechoso, evita abrirlo nuevamente y no ingreses datos personales o contraseñas.<br><br>" +
 
-      <br><br>
+        "Si ya lo abriste, dime si llegaste a ingresar alguna información y te explico qué hacer a continuación."
+      );
+    }
 
-      No abras enlaces sospechosos,
-      no compartas códigos y verifica siempre
-      que el sitio sea oficial.
 
-      Si ya ingresaste tus datos,
-      dímelo y te explico qué hacer después.
+    if (conversation.turn === 1) {
 
-    `;
+      return (
+        "El phishing suele intentar engañarte para que entregues contraseñas, códigos o datos personales mediante mensajes o páginas falsas.<br><br>" +
 
+        "No ingreses información en enlaces sospechosos y verifica siempre que estés utilizando la página oficial del servicio."
+      );
+    }
+
+
+    return (
+      "Seguimos con el posible phishing.<br><br>" +
+
+      "Lo importante ahora es saber qué ocurrió después del mensaje: si solamente abriste el enlace, si ingresaste datos o si entregaste una contraseña o código."
+    );
   }
 
 
-
-  /* =================================================
+  /* =========================================================
      DATOS PERSONALES
-  ================================================= */
+  ========================================================= */
 
-  if (topic === "datos") {
+  function datosResponse(text) {
+
+    const t = normalize(text);
+
 
     if (
-      hasAny(text, [
-        "borrar",
-        "eliminar",
-        "quitar",
-        "retirar"
-      ])
+      t.includes("derechos arco") ||
+      t.includes("arco")
     ) {
 
-      return `
+      conversation.currentTopic = "arco";
 
-        <b>Si quieres que retiren o corrijan tus datos personales, puedes informarte sobre tus Derechos ARCO.</b>
-
-        <br><br>
-
-        Dependiendo del caso, pueden existir mecanismos
-        para solicitar acceso, rectificación, cancelación
-        u oposición.
-
-        ${sourceBlock(["arco", "ley29733"])}
-
-      `;
-
+      return arcoResponse(text);
     }
 
 
-    return `
+    if (
+      t.includes("publicaron") ||
+      t.includes("compartieron") ||
+      t.includes("difundieron")
+    ) {
 
-      <b>Seguimos hablando de tus datos personales. 🔒</b>
+      return (
+        "Si alguien publicó o compartió tus datos personales sin autorización, conviene guardar evidencia de dónde aparecen y quién los publicó.<br><br>" +
 
-      <br><br>
+        "Dependiendo de la situación, puedes tener derechos relacionados con el tratamiento de tus datos personales y puedes consultar a la Autoridad Nacional de Protección de Datos Personales."
+      );
+    }
 
-      Si alguien publicó información como tu dirección,
-      teléfono u otros datos, guarda las pruebas y
-      reporta el contenido.
 
-      <br><br>
+    if (conversation.turn === 1) {
 
-      También puedes consultar tus Derechos ARCO.
+      return (
+        "Los datos personales son información que puede identificarte directa o indirectamente, como tu nombre, teléfono, dirección o determinados datos de identificación.<br><br>" +
 
-      ${sourceBlock(["arco", "ley29733"])}
+        "En Perú existe la Ley N.° 29733, Ley de Protección de Datos Personales."
+      );
+    }
 
-    `;
 
+    return (
+      "Seguimos con el problema relacionado con tus datos personales.<br><br>" +
+
+      "Si quieres, podemos revisar específicamente qué derechos tienes, cómo solicitar que se modifique un dato o qué hacer si una persona o empresa utiliza tus datos."
+    );
   }
 
 
+  /* =========================================================
+     DERECHOS ARCO
+  ========================================================= */
 
-  /* =================================================
-     ARCO
-  ================================================= */
+  function arcoResponse(text) {
 
-  if (topic === "arco") {
+    const t = normalize(text);
 
-    return `
 
-      <b>Seguimos hablando de los Derechos ARCO. ⚖️</b>
+    if (
+      t.includes("acceso")
+    ) {
 
-      <br><br>
+      return (
+        "El derecho de acceso permite solicitar información sobre los datos personales que una entidad tiene sobre ti y determinados aspectos de su tratamiento.<br><br>" +
 
-      Estos derechos están relacionados con el control
-      de determinados tratamientos de tus datos personales.
+        "Puedes consultar la información oficial de la Autoridad Nacional de Protección de Datos Personales."
+      );
+    }
 
-      <ul>
-        <li><b>Acceso</b></li>
-        <li><b>Rectificación</b></li>
-        <li><b>Cancelación</b></li>
-        <li><b>Oposición</b></li>
-      </ul>
 
-      ${sourceBlock(["arco", "ley29733"])}
+    if (
+      t.includes("rectificacion") ||
+      t.includes("corregir") ||
+      t.includes("corregir mis datos")
+    ) {
 
-    `;
+      return (
+        "El derecho de rectificación permite solicitar la corrección de datos personales que sean inexactos, erróneos o incompletos.<br><br>" +
 
+        "La solicitud debe dirigirse al responsable del tratamiento de tus datos."
+      );
+    }
+
+
+    if (
+      t.includes("cancelacion") ||
+      t.includes("eliminar") ||
+      t.includes("borrar mis datos")
+    ) {
+
+      return (
+        "El derecho de cancelación permite solicitar que determinados datos personales dejen de ser tratados cuando corresponda según la normativa.<br><br>" +
+
+        "La aplicación concreta depende de las circunstancias y de las obligaciones legales que tenga la entidad."
+      );
+    }
+
+
+    if (
+      t.includes("oposicion") ||
+      t.includes("oponer")
+    ) {
+
+      return (
+        "El derecho de oposición permite solicitar que no se realice determinado tratamiento de tus datos personales en los casos previstos por la normativa.<br><br>" +
+
+        "Puedes consultar los requisitos en la información oficial de la ANPD."
+      );
+    }
+
+
+    if (conversation.turn === 1) {
+
+      return (
+        "Los Derechos ARCO son derechos relacionados con tus datos personales.<br><br>" +
+
+        "ARCO significa <b>Acceso, Rectificación, Cancelación y Oposición</b>.<br><br>" +
+
+        "Permiten a las personas ejercer determinados derechos sobre el tratamiento de sus datos personales en los casos establecidos por la normativa peruana."
+      );
+    }
+
+
+    return (
+      "Los Derechos ARCO se dividen en cuatro: <b>Acceso, Rectificación, Cancelación y Oposición</b>.<br><br>" +
+
+      "Si me dices cuál te interesa, puedo explicarte ese derecho específicamente y qué significa en la práctica."
+    );
   }
 
 
-
-  /* =================================================
+  /* =========================================================
      DENUNCIA
-  ================================================= */
+  ========================================================= */
 
-  if (topic === "denuncia") {
+  function denunciaResponse(text) {
 
-    return `
+    const t = normalize(text);
 
-      <b>Claro. Podemos seguir con el tema de la denuncia. 📢</b>
+    let situation = conversation.currentTopic;
 
-      <br><br>
 
-      En Perú puedes consultar los canales oficiales
-      del MININTER y del Ministerio Público.
+    if (situation === "hackeo") {
 
-      <br><br>
+      return (
+        "Sí. Como estamos hablando del acceso no autorizado a tu cuenta, puedes considerar presentar una denuncia si corresponde.<br><br>" +
 
-      Antes de denunciar, reúne:
+        "Guarda como evidencia los correos de seguridad, capturas, cambios realizados en la cuenta, nombres de usuario y mensajes relacionados.<br><br>" +
 
-      <ul>
-        <li>Capturas.</li>
-        <li>Enlaces.</li>
-        <li>Usuarios.</li>
-        <li>Fechas.</li>
-        <li>Mensajes.</li>
-      </ul>
+        "Puedes consultar la Central Única de Denuncias del MININTER:<br>" +
 
-      ${sourceBlock(["denuncias", "mp"])}
+        SOURCES.denuncias.url +
+        "<br><br>" +
 
-    `;
+        "También puedes consultar las denuncias en línea del Ministerio Público:<br>" +
 
+        SOURCES.mp.url
+      );
+    }
+
+
+    if (situation === "imagenIntima") {
+
+      return (
+        "Sí. Como estamos hablando de la difusión o amenaza de difusión de contenido íntimo, puedes acudir a las autoridades y conservar las pruebas.<br><br>" +
+
+        "Evita reenviar el contenido y guarda principalmente capturas de las amenazas, perfiles, enlaces y mensajes."
+      );
+    }
+
+
+    if (situation === "suplantacion") {
+
+      return (
+        "Sí. En el caso de una suplantación, guarda primero evidencia del perfil falso y del contenido que utiliza tu identidad.<br><br>" +
+
+        "Después puedes reportar la cuenta en la plataforma y consultar los canales oficiales de denuncia."
+      );
+    }
+
+
+    if (situation === "extorsion") {
+
+      return (
+        "Sí. Como estamos hablando de amenazas o chantaje, conserva todas las pruebas y evita borrar las conversaciones.<br><br>" +
+
+        "Puedes consultar los canales oficiales del MININTER y del Ministerio Público para conocer el procedimiento correspondiente."
+      );
+    }
+
+
+    return (
+      "Sí, puedes buscar los canales oficiales de denuncia en Perú.<br><br>" +
+
+      "MININTER – Central Única de Denuncias:<br>" +
+
+      SOURCES.denuncias.url +
+
+      "<br><br>" +
+
+      "Ministerio Público – Denuncias en línea:<br>" +
+
+      SOURCES.mp.url
+    );
   }
 
 
-
-  /* =================================================
+  /* =========================================================
      SEGURIDAD
-  ================================================= */
+  ========================================================= */
 
-  if (topic === "seguridad") {
+  function seguridadResponse(text) {
 
-    return `
+    const t = normalize(text);
 
-      <b>Seguimos hablando de seguridad digital. 🛡️</b>
 
-      <br><br>
+    if (
+      t.includes("2fa") ||
+      t.includes("verificacion en dos pasos")
+    ) {
 
-      Las medidas principales son:
+      return (
+        "La verificación en dos pasos añade una capa adicional de seguridad porque, además de la contraseña, se necesita otro método de verificación.<br><br>" +
 
-      <ul>
-        <li>Usar contraseñas diferentes.</li>
-        <li>Activar autenticación en dos pasos.</li>
-        <li>No compartir códigos.</li>
-        <li>Mantener las aplicaciones actualizadas.</li>
-        <li>Revisar sesiones abiertas.</li>
-        <li>Evitar enlaces sospechosos.</li>
-      </ul>
+        "Si tienes esta opción disponible, es recomendable activarla y conservar de forma segura los métodos de recuperación."
+      );
+    }
 
-    `;
 
+    if (
+      t.includes("contrasena") ||
+      t.includes("contraseña")
+    ) {
+
+      return (
+        "Una contraseña segura debe ser difícil de adivinar y no deberías reutilizarla en varias cuentas.<br><br>" +
+
+        "También evita compartirla y utiliza la verificación en dos pasos cuando esté disponible."
+      );
+    }
+
+
+    return (
+      "Para mejorar tu seguridad digital, utiliza contraseñas únicas, activa la verificación en dos pasos, mantén tus dispositivos actualizados y evita enlaces sospechosos.<br><br>" +
+
+      "Si me cuentas qué situación de seguridad tienes, puedo orientarte específicamente."
+    );
   }
 
 
-
-  /* =================================================
-     DERECHOS
-  ================================================= */
-
-  if (topic === "derechos") {
-
-    return `
-
-      <b>Seguimos hablando de tus derechos digitales. ⚖️</b>
-
-      <br><br>
-
-      La privacidad y la protección de datos personales
-      forman parte de los aspectos importantes de la vida digital.
-
-      <br><br>
-
-      Si quieres saber qué puedes hacer con tus
-      datos personales, puedo explicarte los
-      <b>Derechos ARCO</b>.
-
-      ${sourceBlock(["arco", "ley29733"])}
-
-    `;
-
-  }
-
-
-
-  /* =================================================
+  /* =========================================================
      CONVIVENCIA
-  ================================================= */
+  ========================================================= */
 
-  if (topic === "convivencia") {
+  function convivenciaResponse(text) {
 
-    return `
+    return (
+      "La convivencia digital implica relacionarnos en internet de forma respetuosa y responsable.<br><br>" +
 
-      <b>Seguimos hablando de convivencia digital. 🌐</b>
+      "Antes de publicar algo, considera si puede afectar a otra persona, verifica la información que compartes y evita difundir contenido privado o humillante.<br><br>" +
 
-      <br><br>
-
-      Recuerda:
-
-      <ul>
-        <li>Piensa antes de publicar.</li>
-        <li>Respeta la privacidad.</li>
-        <li>Verifica la información.</li>
-        <li>No participes en acoso.</li>
-        <li>Cuida tu huella digital.</li>
-      </ul>
-
-    `;
-
+      "Si quieres, también puedo explicarte sobre netiqueta, desinformación o privacidad."
+    );
   }
 
 
-  return null;
+  /* =========================================================
+     DERECHOS DIGITALES
+  ========================================================= */
 
-}
+  function derechosResponse(text) {
 
+    return (
+      "Los derechos digitales son derechos que también deben respetarse en el entorno de internet y las tecnologías digitales.<br><br>" +
 
+      "Entre los temas relacionados están la privacidad, la protección de datos personales, la seguridad digital y la libertad de expresión dentro de los límites establecidos por la ley.<br><br>" +
 
-/* =====================================================
-   RESPUESTA PRINCIPAL
-===================================================== */
-
-function answer(question) {
-
-  const text = normalize(question);
-
-
-  if (!text) {
-
-    return `
-      Cuéntame qué pasó y trataré de orientarte. 💙
-    `;
-
+      "Si quieres, puedo explicarte uno de estos derechos con un ejemplo."
+    );
   }
 
 
+  /* =========================================================
+     RESPUESTA SEGÚN TEMA
+  ========================================================= */
 
-  /* ============================================
+  function responseForTopic(topic, text) {
+
+    switch (topic) {
+
+      case "hackeo":
+        return hackeoResponse(text);
+
+      case "imagenIntima":
+        return imagenIntimaResponse(text);
+
+      case "suplantacion":
+        return suplantacionResponse(text);
+
+      case "extorsion":
+        return extorsionResponse(text);
+
+      case "acoso":
+        return acosoResponse(text);
+
+      case "phishing":
+        return phishingResponse(text);
+
+      case "datos":
+        return datosResponse(text);
+
+      case "arco":
+        return arcoResponse(text);
+
+      case "denuncia":
+        return denunciaResponse(text);
+
+      case "seguridad":
+        return seguridadResponse(text);
+
+      case "convivencia":
+        return convivenciaResponse(text);
+
+      case "derechos":
+        return derechosResponse(text);
+
+      default:
+
+        return (
+          "Puedo orientarte sobre derechos digitales, protección de datos, " +
+          "hackeo de cuentas, suplantación, imágenes íntimas, acoso, phishing, " +
+          "denuncias y seguridad digital en Perú."
+        );
+    }
+  }
+
+
+  /* =========================================================
+     DETECTAR PREGUNTAS CORTAS QUE DEPENDEN DEL CONTEXTO
+  ========================================================= */
+
+  function isContextualQuestion(text) {
+
+    const t = normalize(text);
+
+    const contextualWords = [
+
+      "y si",
+      "y que pasa si",
+      "y ahora",
+      "entonces",
+      "tambien",
+      "también",
+      "eso",
+      "esa cuenta",
+      "esa persona",
+      "el problema",
+      "lo mismo",
+      "ahi",
+      "alli",
+      "despues",
+      "después",
+      "en ese caso",
+      "puedo",
+      "que hago",
+      "qué hago",
+      "como hago",
+      "cómo hago",
+      "se puede",
+      "y si tambien",
+      "y si también"
+    ];
+
+    return contextualWords.some(word => t.includes(word));
+  }
+
+
+  /* =========================================================
      SALUDOS
-  ============================================ */
+  ========================================================= */
 
-  if (
-    /^(hola|holaa|holaaa|hey|buenas|buenos dias|buenas tardes|buenas noches|ola)$/.test(text)
-  ) {
+  function isGreeting(text) {
 
-    conversation.currentTopic = null;
+    const t = normalize(text);
 
-    return `
+    return [
 
-      ¡Holaaa! 💙
-
-      Soy <b>LawsBot Perú</b>.
-
-      <br><br>
-
-      Cuéntame qué sucede y podemos hablar
-      del problema paso a paso.
-
-      <br><br>
-
-      No necesitas usar una pregunta específica.
-      Puedes explicarme la situación con tus propias palabras. 😊
-
-    `;
-
+      "hola",
+      "holaa",
+      "holaaa",
+      "buenas",
+      "buenos dias",
+      "buenas tardes",
+      "buenas noches",
+      "hey",
+      "hello"
+    ].includes(t);
   }
 
 
-
-  /* ============================================
+  /* =========================================================
      AGRADECIMIENTOS
-  ============================================ */
+  ========================================================= */
 
-  if (
-    hasAny(text, [
+  function isThanks(text) {
+
+    const t = normalize(text);
+
+    return [
+
       "gracias",
       "muchas gracias",
-      "te agradezco",
-      "grx"
-    ])
-  ) {
+      "graciass",
+      "gracias bot",
+      "thank you"
 
-    return `
-
-      ¡De nada! 💙😊
-
-      Si necesitas continuar con el mismo problema,
-      puedes seguir preguntándome sin repetir todo.
-
-    `;
-
+    ].includes(t);
   }
 
 
+  /* =========================================================
+     RESPUESTA PRINCIPAL
+  ========================================================= */
 
-  /* ============================================
-     DETECTAR PLATAFORMA
-  ============================================ */
+  function answer(question) {
 
-  const platform = detectPlatform(text);
+    const original = question.trim();
 
-  if (platform) {
-
-    conversation.platform = platform;
-
-  }
+    if (!original) return;
 
 
-
-  /* ============================================
-     DETECTAR SI ES UN NUEVO TEMA
-  ============================================ */
-
-  const newTopic = detectTopic(text);
+    const normalized = normalize(original);
 
 
+    /* SALUDO */
 
-  /*
-    Si encontramos un tema claro,
-    lo guardamos como tema actual.
-  */
+    if (isGreeting(original)) {
 
-  if (newTopic) {
+      addMessage(
+        "¡Hola! 💙 Soy <b>LawsBot Perú</b>.<br><br>" +
+        "Puedo orientarte sobre derechos digitales, seguridad, privacidad, " +
+        "hackeo de cuentas, acoso, suplantación, imágenes íntimas y denuncias.<br><br>" +
+        "Cuéntame qué ocurrió y podemos hablar del tema paso a paso."
+      );
 
-    conversation.currentTopic = newTopic;
-
-  }
-
-
-
-  /*
-    Si NO encontramos un nuevo tema,
-    utilizamos el tema anterior.
-  */
-
-  const topic = newTopic || conversation.currentTopic;
-
-
-
-  /* ============================================
-     GUARDAR HISTORIAL
-  ============================================ */
-
-  conversation.history.push({
-
-    user: question,
-
-    topic: topic,
-
-    time: Date.now()
-
-  });
-
-
-
-  /* ============================================
-     RESPONDER SEGÚN EL CONTEXTO
-  ============================================ */
-
-  if (topic) {
-
-    const contextualResponse =
-      responseForTopic(topic, text);
-
-    if (contextualResponse) {
-
-      return contextualResponse;
-
+      return;
     }
 
+
+    /* AGRADECIMIENTO */
+
+    if (isThanks(original)) {
+
+      addMessage(
+        "¡De nada! 💙 Si quieres seguir con el mismo problema, puedes preguntarme directamente sin volver a explicar todo."
+      );
+
+      return;
+    }
+
+
+    conversation.turn++;
+
+
+    /* DETECTAR PLATAFORMA */
+
+    const platform = detectPlatform(original);
+
+    if (platform) {
+
+      conversation.platform = platform;
+    }
+
+
+    /* GUARDAR DETALLES */
+
+    updateDetails(original);
+
+
+    /* DETECTAR TEMA NUEVO */
+
+    let detectedTopic = detectTopic(original);
+
+
+    /* =====================================================
+       IMPORTANTE:
+       Si es una pregunta contextual, damos prioridad
+       al tema que ya está activo.
+    ===================================================== */
+
+    let topic;
+
+
+    if (
+      conversation.currentTopic &&
+      isContextualQuestion(original) &&
+      !isClearTopicChange(original)
+    ) {
+
+      topic = conversation.currentTopic;
+
+    } else if (detectedTopic) {
+
+      topic = detectedTopic;
+
+    } else if (conversation.currentTopic) {
+
+      topic = conversation.currentTopic;
+
+    } else {
+
+      topic = null;
+    }
+
+
+    /* SI EL USUARIO CAMBIÓ EXPLÍCITAMENTE DE TEMA */
+
+    if (isClearTopicChange(original)) {
+
+      if (detectedTopic) {
+
+        topic = detectedTopic;
+
+      } else {
+
+        topic = null;
+      }
+    }
+
+
+    /* GUARDAR TEMA */
+
+    if (topic) {
+
+      conversation.currentTopic = topic;
+    }
+
+
+    /* GUARDAR HISTORIAL */
+
+    conversation.history.push({
+
+      user: original,
+
+      topic: conversation.currentTopic,
+
+      platform: conversation.platform,
+
+      turn: conversation.turn
+    });
+
+
+    /* MOSTRAR MENSAJE DEL USUARIO */
+
+    addMessage(original, "user");
+
+
+    showTyping();
+
+
+    setTimeout(() => {
+
+      hideTyping();
+
+
+      let response;
+
+
+      if (conversation.currentTopic) {
+
+        response = responseForTopic(
+          conversation.currentTopic,
+          original
+        );
+
+      } else {
+
+        response =
+          "No quiero darte una respuesta equivocada porque no estoy seguro del tema.<br><br>" +
+
+          "Puedes preguntarme, por ejemplo:<br>" +
+
+          "• Me hackearon Instagram<br>" +
+          "• ¿Qué hago si cambiaron mi correo?<br>" +
+          "• ¿Qué son los Derechos ARCO?<br>" +
+          "• Alguien publicó una foto íntima<br>" +
+          "• ¿Cómo puedo denunciar?"
+      }
+
+
+      addMessage(response);
+
+      updateContext();
+
+    }, 450);
   }
 
 
+  /* =========================================================
+     ENVIAR MENSAJE
+  ========================================================= */
 
-  /* ============================================
-     PREGUNTAS GENERALES SIN TEMA
-  ============================================ */
+  function sendMessage() {
 
-  if (
-    hasAny(text, [
-      "que son mis derechos",
-      "cuales son mis derechos",
-      "que puedo hacer en internet"
-    ])
-  ) {
+    const text = input.value.trim();
 
-    conversation.currentTopic = "derechos";
+    if (!text) return;
 
-    return responseForTopic(
-      "derechos",
-      text
-    );
+    input.value = "";
 
+    answer(text);
   }
 
 
-
-  /* ============================================
-     FALLBACK
-  ============================================ */
-
-  return `
-
-    <b>Quiero ayudarte. 💙</b>
-
-    <br><br>
-
-    Puedes contarme directamente qué ocurrió.
-
-    <br><br>
-
-    Por ejemplo:
-
-    <ul>
-
-      <li>“Me hackearon Instagram.”</li>
-
-      <li>“Alguien está usando mi nombre.”</li>
-
-      <li>“Publicaron una foto mía.”</li>
-
-      <li>“Me están amenazando.”</li>
-
-      <li>“Me enviaron un enlace sospechoso.”</li>
-
-      <li>“Publicaron mis datos.”</li>
-
-      <li>“Quiero denunciar.”</li>
-
-    </ul>
-
-    <b>
-      Puedes explicarme la situación como se la contarías
-      a una persona. No necesitas utilizar palabras específicas.
-    </b>
-
-  `;
-
-}
+  send.addEventListener("click", sendMessage);
 
 
-
-/* =====================================================
-   ENVIAR MENSAJE
-===================================================== */
-
-function ask() {
-
-  const input = document.getElementById("input");
-
-  const question = input.value.trim();
-
-
-  if (!question) {
-
-    return;
-
-  }
-
-
-  /*
-    Mensaje del usuario
-  */
-
-  add(
-    escapeHTML(question),
-    "user"
-  );
-
-
-  /*
-    Limpiar input
-  */
-
-  input.value = "";
-
-
-  /*
-    Pequeña pausa para que se sienta
-    como una conversación
-  */
-
-  setTimeout(() => {
-
-    const response = answer(question);
-
-    add(response, "bot");
-
-  }, 300);
-
-}
-
-
-
-/* =====================================================
-   ENTER
-===================================================== */
-
-document
-  .getElementById("input")
-  .addEventListener("keydown", function(event) {
+  input.addEventListener("keydown", function(event) {
 
     if (event.key === "Enter") {
 
-      event.preventDefault();
-
-      ask();
-
+      sendMessage();
     }
-
   });
 
 
+  /* =========================================================
+     MENSAJE INICIAL
+  ========================================================= */
 
-/* =====================================================
-   BOTONES INICIALES
-===================================================== */
+  addMessage(
+    "¡Hola! 💙 Soy <b>LawsBot Perú</b>.<br><br>" +
 
-chips([
+    "Estoy aquí para orientarte sobre tus derechos y seguridad en internet. " +
 
-  "¿Qué son los Derechos ARCO?",
+    "Puedes contarme una situación completa y continuar preguntándome sin repetir el contexto.<br><br>" +
 
-  "Me hackearon mi Instagram",
+    "Por ejemplo, puedes decirme: <b>“Me hackearon Instagram”</b> y después preguntarme <b>“¿y si cambiaron mi correo?”</b>."
+  );
 
-  "Alguien se está haciendo pasar por mí",
 
-  "Publicaron una foto mía sin permiso",
+  /* =========================================================
+     CHIPS INICIALES
+  ========================================================= */
 
-  "Me están amenazando por internet",
+  const chipsBox = document.createElement("div");
 
-  "¿Cómo denuncio?",
+  chipsBox.className = "chips";
 
-  "¿Cómo protejo mi cuenta?",
+  const suggestions = [
 
-  "¿Qué son mis derechos digitales?"
+    "Me hackearon Instagram",
 
-]);
+    "¿Qué son los Derechos ARCO?",
+
+    "Alguien publicó una foto íntima",
+
+    "¿Cómo puedo denunciar?",
+
+    "¿Qué hago si me acosan?",
+
+    "¿Cómo protejo mi cuenta?"
+  ];
+
+
+  suggestions.forEach(text => {
+
+    const chip = document.createElement("button");
+
+    chip.className = "chip";
+
+    chip.textContent = text;
+
+    chip.onclick = () => {
+
+      input.value = text;
+
+      sendMessage();
+    };
+
+    chipsBox.appendChild(chip);
+  });
+
+
+  chat.appendChild(chipsBox);
 
 </script>
 
