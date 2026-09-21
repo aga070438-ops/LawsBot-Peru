@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LawsBot Perú — Derechos digitales</title>
+<meta name="description" content="LawsBot: asistente informativo sobre derechos digitales, privacidad y ciberseguridad en Perú.">
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#687386;--brand:#2447d8;--brand2:#6d5dfc;--border:#e5e9f2;--user:#2447d8;--bot:#eef2ff;--danger:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#f5f7fb,#eef1ff);color:var(--text)}
+.app{max-width:1000px;margin:auto;min-height:100vh;display:flex;flex-direction:column}.top{padding:22px 20px 12px;display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:#fff;font-size:25px;box-shadow:0 8px 25px #2447d833}.title h1{font-size:20px;margin:0}.title p{margin:3px 0 0;color:var(--muted);font-size:13px}.notice{margin:0 20px 12px;padding:10px 13px;background:#fff8e7;border:1px solid #f5df9a;border-radius:12px;font-size:12px;color:#634d13}.chat{flex:1;padding:12px 20px 110px;overflow:auto}.msg{display:flex;margin:10px 0}.msg.bot{justify-content:flex-start}.msg.user{justify-content:flex-end}.bubble{max-width:78%;padding:13px 15px;border-radius:17px;line-height:1.5;font-size:14px;white-space:pre-wrap}.bot .bubble{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:5px}.user .bubble{background:var(--user);color:#fff;border-bottom-right-radius:5px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.chip{border:1px solid #ccd4ed;background:#fff;color:#263b85;padding:8px 11px;border-radius:999px;cursor:pointer;font-size:12px}.chip:hover{background:#eef2ff}.composer{position:fixed;bottom:0;left:0;right:0;background:#ffffffee;backdrop-filter:blur(12px);border-top:1px solid var(--border)}.composer-inner{max-width:1000px;margin:auto;padding:12px 20px;display:flex;gap:9px}.composer input{flex:1;border:1px solid #cfd6e5;border-radius:14px;padding:13px 14px;font-size:14px;outline:none}.composer input:focus{border-color:var(--brand)}button.send{border:0;background:var(--brand);color:white;border-radius:14px;padding:0 18px;font-weight:700;cursor:pointer}.footer{text-align:center;color:var(--muted);font-size:11px;padding:0 20px 75px}.source{margin-top:9px;font-size:11px;color:#667085}.source a{color:#2447d8}.small{font-size:12px;color:var(--muted)}
+@media(max-width:600px){.bubble{max-width:88%}.top{padding-top:16px}.notice{margin-left:12px;margin-right:12px}.chat{padding-left:12px;padding-right:12px}.composer-inner{padding-left:12px;padding-right:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="logo">⚖️</div>
+  <div class="title"><h1>LawsBot Perú</h1><p>Derechos digitales · privacidad · ciberseguridad</p></div>
+</header>
+<div class="notice">ℹ️ Información orientativa para Perú. LawsBot no reemplaza el asesoramiento ni patrocinio de un abogado. Si existe peligro inmediato, busca ayuda de emergencia o de una autoridad competente.</div>
+<main id="chat" class="chat"></main>
+<div class="footer">Fuentes oficiales: Congreso de la República · ANPD · MINJUSDH · MININTER · Ministerio Público.</div>
+<div class="composer"><div class="composer-inner">
+  <input id="input" placeholder="Escribe tu consulta..." autocomplete="off">
+  <button class="send" id="send">Enviar</button>
+</div></div>
+</div>
+<script>
+const SOURCES = {
+ arco:["https://www.gob.pe/9270-que-son-los-derechos-arco","ANPD — Derechos ARCO"],
+ ley29733:["https://www.gob.pe/institucion/anpd/normas-legales","ANPD — normas legales"],
+ delitos:["https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/239569-30096","Congreso — Ley 30096"],
+ dl1625:["https://www.gob.pe/institucion/mimp/informes-publicaciones/6499867-decreto-legislativo-n-1625-ley-que-fortalece-las-normas-sobre-el-uso-de-tid-relacionado-a-la-difusion-de-imagenes-materiales-audiovisuales-o-audios-con-contenido-sexual","MIMP — D. Leg. 1625"],
+ denuncias:["https://denuncia.mininter.gob.pe/preguntas","MININTER — Central Única de Denuncias"],
+ mp:["https://portal.mpfn.gob.pe/denuncias-en-linea","Ministerio Público — denuncias en línea"]
+};
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function link(key){let [u,t]=SOURCES[key];return `<div class="source">Fuente: <a href="${u}" target="_blank" rel="noopener">${t}</a></div>`}
+function add(text,who="bot",source=null){
+ const row=document.createElement("div"); row.className="msg "+who;
+ const b=document.createElement("div"); b.className="bubble"; b.innerHTML=text+(source?link(source):"");
+ row.appendChild(b); document.getElementById("chat").appendChild(row);
+ document.getElementById("chat").scrollTop=document.getElementById("chat").scrollHeight;
+}
+function chips(items){const d=document.createElement("div");d.className="chips";items.forEach(x=>{let b=document.createElement("button");b.className="chip";b.textContent=x[0];b.onclick=()=>ask(x[1]);d.appendChild(b)});document.getElementById("chat").appendChild(d)}
+function normalize(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function answer(q){
+ const s=normalize(q);
+ if(/(imagen|foto|video).*(intim|sexual)|(intim|sexual).*(imagen|foto|video)|nudes|pack|difund/.test(s)){
+  return {t:"Si alguien comparte o amenaza con compartir imágenes, videos o audios de contenido sexual sin consentimiento, no lo tomes como un simple problema de redes. En Perú existen normas penales específicas sobre estas conductas y el Decreto Legislativo N.° 1625 reforzó el marco legal, incluyendo supuestos relacionados con chantaje sexual mediante medios digitales.\\n\\nQué hacer ahora:\\n1) No pagues ni envíes más contenido.\\n2) Guarda capturas, fechas, nombres de usuario y enlaces completos.\\n3) No borres la conversación original.\\n4) Reporta el contenido en la plataforma.\\n5) Considera acudir a la autoridad competente. Si eres menor de edad, busca además a un adulto de confianza que pueda acompañarte.\\n\\nNo necesitas avergonzarte ni justificar por qué existía la imagen: lo importante es preservar la evidencia y buscar apoyo.",k:"dl1625"}
+ }
+ if(/(arco|acceso.*rectific|rectific|cancel|oposicion|datos personales)/.test(s)){
+  return {t:"En Perú, los derechos ARCO son: Acceso, Rectificación, Cancelación y Oposición. Permiten ejercer control sobre tus datos personales.\\n\\n• Acceso: saber qué datos tienen, de dónde provienen, para qué se usan y con quién se comparten.\\n• Rectificación: corregir o actualizar datos erróneos, inexactos o incompletos.\\n• Cancelación: pedir que dejen de tratar tus datos cuando corresponda.\\n• Oposición: oponerte a determinados usos de tus datos cuando se cumplan los requisitos aplicables.\\n\\nPrimero se solicita el derecho a quien trata los datos. Según la ANPD, el plazo es de 20 días hábiles para acceso y 10 días hábiles para rectificación, cancelación u oposición. Si no responden o deniegan la solicitud, puedes acudir a la ANPD.",k:"arco"}
+ }
+ if(/(suplant|cuenta falsa|robaron mi identidad|se hacen pasar)/.test(s)){
+  return {t:"Si alguien crea una cuenta haciéndose pasar por ti, conserva la evidencia antes de bloquear o eliminar cualquier cosa: capturas con fecha y hora, URL completa del perfil, nombre de usuario, mensajes y publicaciones.\\n\\nDespués, utiliza el mecanismo de reporte de la plataforma por suplantación de identidad. Si hay fraude, amenazas, extorsión u otra posible infracción penal, puedes buscar orientación de las autoridades. La Ley N.° 30096 regula diversas conductas ilícitas relacionadas con sistemas y datos informáticos, aunque la calificación jurídica depende de los hechos concretos.",k:"delitos"}
+ }
+ if(/(acoso|bully|hostig|insulto|amenaz|odio|troll)/.test(s)){
+  return {t:"Si estás recibiendo acoso, amenazas o hostigamiento en internet:\\n\\n1) No respondas impulsivamente a las provocaciones.\\n2) Guarda mensajes, perfiles, enlaces, fechas y horas.\\n3) Usa las herramientas de bloqueo y reporte de la plataforma.\\n4) Si existen amenazas, extorsión o riesgo para tu seguridad, busca ayuda de una persona adulta de confianza y de las autoridades competentes.\\n\\nLa libertad de expresión no significa que toda conducta quede fuera de las normas: la evaluación legal depende del contenido, contexto y hechos.",k:"delitos"}
+ }
+ if(/(estafa|phishing|hack|hackear|contraseña|virus|malware|cuenta.*robar|robar.*cuenta)/.test(s)){
+  return {t:"Para proteger una cuenta o actuar ante un posible ataque:\\n\\n• Cambia la contraseña desde un dispositivo seguro y usa una contraseña única.\\n• Activa la autenticación de dos factores.\\n• Revisa sesiones/dispositivos conectados y cierra los desconocidos.\\n• No abras enlaces o archivos sospechosos.\\n• Guarda correos, mensajes, URLs y comprobantes si hubo una estafa.\\n\\nSi hubo una conducta posiblemente delictiva, la Ley N.° 30096 es parte del marco peruano sobre ciberdelincuencia. La aplicación de una figura penal concreta depende de los hechos.",k:"delitos"}
+ }
+ if(/(denuncia|denunciar|policia|pnp|fiscalia|autoridad)/.test(s)){
+  return {t:"En Perú existen canales oficiales para recibir denuncias u orientación. La Central Única de Denuncias del Ministerio del Interior informa que atiende a nivel nacional y ofrece la línea gratuita 1818 y su portal web. El Ministerio Público también dispone de un portal de denuncias en línea.\\n\\nAntes de denunciar, reúne una cronología breve de los hechos y conserva las evidencias originales. Si hay peligro inmediato, acude a la autoridad de emergencia correspondiente.",k:"denuncias"}
+ }
+ if(/(huella|netiqueta|noticias falsas|fake news|desinform|convivencia|publicar)/.test(s)){
+  return {t:"Para una convivencia digital responsable:\\n\\n• Piensa antes de publicar: una publicación puede permanecer o circular durante mucho tiempo.\\n• Practica la empatía digital: detrás de una cuenta hay una persona.\\n• No amplifiques provocaciones o discursos de odio.\\n• Verifica la fuente, fecha, autor y contexto antes de compartir una noticia.\\n• No publiques datos, fotos o conversaciones de otras personas sin considerar su privacidad y consentimiento.",k:null}
+ }
+ return {t:"Puedo orientarte sobre derechos digitales en Perú. Puedes preguntarme, por ejemplo:\\n\\n• “¿Qué son los derechos ARCO?”\\n• “¿Qué hago si crearon una cuenta falsa con mi nombre?”\\n• “Difundieron una foto íntima sin mi permiso, ¿qué hago?”\\n• “¿Cómo guardo evidencia de un acoso en redes?”\\n• “¿Dónde puedo denunciar?”\\n• “¿Cómo protejo mi cuenta?”",k:null}
+}
+function ask(q){
+ q=q.trim(); if(!q)return;
+ add(esc(q),"user"); const a=answer(q); setTimeout(()=>add(esc(a.t).replace(/\\n/g,"<br>"),"bot",a.k),250);
+}
+document.getElementById("send").onclick=()=>{let i=document.getElementById("input");ask(i.value);i.value=""};
+document.getElementById("input").addEventListener("keydown",e=>{if(e.key==="Enter"){document.getElementById("send").click()}});
+add("¡Hola! 👋 Soy <b>LawsBot</b>, tu asistente informativo sobre derechos digitales y seguridad en internet en Perú.<br><br>Cuéntame qué ocurrió o elige un tema. Te orientaré paso a paso y, cuando corresponda, te indicaré fuentes oficiales.","bot");
+chips([["🔐 Derechos ARCO","¿Qué son los derechos ARCO?"],["👤 Suplantación","Crearon una cuenta falsa con mi nombre"],["📸 Imagen íntima","Difundieron una imagen íntima sin mi permiso"],["🚨 Denunciar","¿Dónde puedo denunciar?"],["🛡️ Seguridad","¿Cómo protejo mi cuenta?"],["🌐 Netiqueta","¿Cómo tener una buena convivencia digital?"]]);
+</script>
+</body>
+</html>
