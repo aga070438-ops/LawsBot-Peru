@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,50 +16,48 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
-      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
       background: linear-gradient(135deg, #eef2ff, #f8f9ff);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      color: #20243a;
     }
 
-    .chat-container {
-      width: 100%;
-      max-width: 850px;
-      height: 90vh;
+    .app {
+      width: 95%;
+      max-width: 950px;
+      height: 92vh;
       max-height: 850px;
       background: white;
       border-radius: 24px;
+      box-shadow: 0 15px 50px rgba(36, 71, 216, 0.18);
       overflow: hidden;
-      box-shadow: 0 15px 45px rgba(36, 71, 216, 0.18);
       display: flex;
       flex-direction: column;
     }
 
-    /* ENCABEZADO */
-
-    .header {
+    header {
       background: linear-gradient(135deg, #2447d8, #6d5dfc);
       color: white;
-      padding: 18px 22px;
+      padding: 18px 24px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 15px;
     }
 
     .logo {
       width: 58px;
       height: 58px;
-      object-fit: cover;
       border-radius: 16px;
+      object-fit: cover;
       background: white;
       padding: 3px;
-      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .header-text h1 {
@@ -73,14 +70,11 @@
       opacity: 0.9;
     }
 
-    /* MENSAJES */
-
-    .messages {
+    .chat {
       flex: 1;
       overflow-y: auto;
-      padding: 25px;
+      padding: 24px;
       background: #f8f9ff;
-      scroll-behavior: smooth;
     }
 
     .message {
@@ -88,84 +82,72 @@
       margin-bottom: 18px;
     }
 
-    .message.bot {
-      justify-content: flex-start;
-    }
-
     .message.user {
       justify-content: flex-end;
     }
 
     .bubble {
-      max-width: 80%;
-      padding: 14px 17px;
+      max-width: 78%;
+      padding: 13px 16px;
       border-radius: 18px;
       line-height: 1.55;
       font-size: 15px;
-      white-space: normal;
+      white-space: pre-line;
     }
 
     .bot .bubble {
       background: #eef2ff;
-      color: #20243a;
       border-bottom-left-radius: 5px;
+      color: #252a48;
     }
 
     .user .bubble {
-      background: #2447d8;
+      background: linear-gradient(135deg, #2447d8, #6d5dfc);
       color: white;
       border-bottom-right-radius: 5px;
     }
 
-    .bot .bubble strong {
-      color: #2447d8;
-    }
-
-    /* SUGERENCIAS */
-
     .suggestions {
-      padding: 10px 18px;
-      background: white;
-      border-top: 1px solid #eee;
+      padding: 10px 20px 4px;
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
-      overflow-x: auto;
+      background: white;
     }
 
     .suggestion {
-      border: 1px solid #d9defa;
+      border: 1px solid #d8ddf7;
       background: #f5f6ff;
       color: #2447d8;
-      padding: 8px 12px;
       border-radius: 20px;
+      padding: 8px 13px;
       cursor: pointer;
-      white-space: nowrap;
-      font-size: 12px;
+      font-size: 13px;
+      transition: 0.2s;
     }
 
     .suggestion:hover {
-      background: #e8ebff;
+      background: #e9ecff;
+      transform: translateY(-1px);
     }
 
-    /* INPUT */
-
     .input-area {
-      padding: 15px;
-      background: white;
-      border-top: 1px solid #eee;
       display: flex;
       gap: 10px;
+      padding: 15px;
+      border-top: 1px solid #e6e8f5;
+      background: white;
     }
 
     #userInput {
       flex: 1;
-      border: 1px solid #d8dcf0;
-      border-radius: 14px;
+      border: 1px solid #d9dded;
+      border-radius: 16px;
       padding: 13px 15px;
       outline: none;
       font-size: 15px;
       resize: none;
-      min-height: 46px;
+      min-height: 48px;
       max-height: 120px;
     }
 
@@ -174,36 +156,33 @@
       box-shadow: 0 0 0 3px rgba(109, 93, 252, 0.1);
     }
 
-    #sendButton {
-      width: 48px;
+    #sendBtn {
+      width: 52px;
       height: 48px;
       border: none;
-      border-radius: 14px;
+      border-radius: 15px;
       background: linear-gradient(135deg, #2447d8, #6d5dfc);
       color: white;
       font-size: 20px;
       cursor: pointer;
-      flex-shrink: 0;
+      transition: 0.2s;
     }
 
-    #sendButton:hover {
+    #sendBtn:hover {
       transform: scale(1.04);
     }
 
-    .typing {
-      display: none;
-      background: #f8f9ff;
-      color: #777;
-      font-size: 13px;
-      padding: 0 25px 10px;
+    .disclaimer {
+      text-align: center;
+      font-size: 11px;
+      color: #858aa3;
+      padding: 0 15px 10px;
+      background: white;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 0;
-      }
-
-      .chat-container {
+    @media (max-width: 650px) {
+      .app {
+        width: 100%;
         height: 100vh;
         max-height: none;
         border-radius: 0;
@@ -213,17 +192,12 @@
         max-width: 88%;
       }
 
-      .messages {
-        padding: 18px;
+      header {
+        padding: 15px;
       }
 
-      .header {
-        padding: 14px 16px;
-      }
-
-      .logo {
-        width: 50px;
-        height: 50px;
+      .chat {
+        padding: 16px;
       }
     }
   </style>
@@ -231,11 +205,9 @@
 
 <body>
 
-<div class="chat-container">
+<div class="app">
 
-  <!-- ENCABEZADO -->
-  <div class="header">
-
+  <header>
     <img
       src="Logo.jpg.jpeg"
       alt="Logo de LawsBot Perú"
@@ -246,67 +218,56 @@
       <h1>LawsBot Perú 🇵🇪</h1>
       <p>Derechos digitales, privacidad y ciberseguridad</p>
     </div>
+  </header>
 
-  </div>
+  <main class="chat" id="chat"></main>
 
-
-  <!-- MENSAJES -->
-  <div class="messages" id="messages"></div>
-
-  <div class="typing" id="typing">
-    LawsBot está escribiendo...
-  </div>
-
-
-  <!-- SUGERENCIAS -->
   <div class="suggestions">
-
-    <button class="suggestion"
-      onclick="quickQuestion('¿Qué es la huella digital?')">
+    <button class="suggestion" onclick="quickQuestion('¿Qué es la huella digital?')">
       Huella digital
     </button>
 
-    <button class="suggestion"
-      onclick="quickQuestion('¿Qué es el derecho al olvido?')">
+    <button class="suggestion" onclick="quickQuestion('¿Qué es el derecho al olvido?')">
       Derecho al olvido
     </button>
 
-    <button class="suggestion"
-      onclick="quickQuestion('¿Qué es el doxing?')">
+    <button class="suggestion" onclick="quickQuestion('¿Qué es el doxing?')">
       Doxing
     </button>
 
-    <button class="suggestion"
-      onclick="quickQuestion('¿Qué es la netiqueta?')">
+    <button class="suggestion" onclick="quickQuestion('¿Qué es la netiqueta?')">
       Netiqueta
     </button>
 
-    <button class="suggestion"
-      onclick="quickQuestion('¿Qué son los derechos ARCO?')">
+    <button class="suggestion" onclick="quickQuestion('¿Qué son los derechos ARCO?')">
       Derechos ARCO
     </button>
 
-    <button class="suggestion"
-      onclick="quickQuestion('¿Qué es el phishing?')">
+    <button class="suggestion" onclick="quickQuestion('¿Qué es el phishing?')">
       Phishing
     </button>
 
+    <button class="suggestion" onclick="quickQuestion('¿Qué es la brecha digital?')">
+      Brecha digital
+    </button>
+
+    <button class="suggestion" onclick="quickQuestion('¿Qué es la neutralidad de la red?')">
+      Neutralidad de red
+    </button>
   </div>
 
-
-  <!-- INPUT -->
   <div class="input-area">
-
     <textarea
       id="userInput"
       placeholder="Escribe tu pregunta..."
       rows="1"
     ></textarea>
 
-    <button id="sendButton" onclick="sendMessage()">
-      ➤
-    </button>
+    <button id="sendBtn" onclick="sendMessage()">➤</button>
+  </div>
 
+  <div class="disclaimer">
+    LawsBot brinda información general y educativa. No reemplaza asesoría legal profesional.
   </div>
 
 </div>
@@ -314,1019 +275,1344 @@
 
 <script>
 
-/* ============================================================
-   LAWSBOT PERÚ
-   ASISTENTE DE DERECHOS DIGITALES
-============================================================ */
+  /* =========================================================
+     CONFIGURACIÓN GENERAL
+  ========================================================= */
+
+  let lastTopic = null;
 
 
-/* ------------------------------------------------------------
-   MEMORIA DEL TEMA
------------------------------------------------------------- */
+  /* =========================================================
+     NORMALIZAR TEXTO
+     Permite reconocer:
+     "¿Qué es la Brecha Digital?"
+     "brecha digital"
+     "BRECHA DIGITAL"
+     "brecha-digital"
+     etc.
+  ========================================================= */
 
-let lastTopic = null;
+  function normalizeText(text) {
 
-
-/* ------------------------------------------------------------
-   NORMALIZAR TEXTO
------------------------------------------------------------- */
-
-function normalizeText(text) {
-
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[¿?¡!.,;:()[\]{}"'`´]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-}
-
-
-/* ------------------------------------------------------------
-   AGREGAR MENSAJE
------------------------------------------------------------- */
-
-function addMessage(text, sender) {
-
-  const messages = document.getElementById("messages");
-
-  const message = document.createElement("div");
-  message.className = "message " + sender;
-
-  const bubble = document.createElement("div");
-  bubble.className = "bubble";
-
-  bubble.innerHTML = text;
-
-  message.appendChild(bubble);
-  messages.appendChild(message);
-
-  messages.scrollTop = messages.scrollHeight;
-
-}
-
-
-/* ------------------------------------------------------------
-   RESPUESTA DE BIENVENIDA
------------------------------------------------------------- */
-
-function showWelcome() {
-
-  addMessage(
-    "¡Hola! 👋 Soy <strong>LawsBot Perú</strong> 🇵🇪<br><br>" +
-    "Soy un asistente informativo sobre <strong>derechos digitales, privacidad, " +
-    "ciberseguridad y convivencia digital</strong>.<br><br>" +
-
-    "Puedes preguntarme cosas como:<br>" +
-    "• ¿Qué es la huella digital?<br>" +
-    "• ¿Qué es el derecho al olvido?<br>" +
-    "• ¿Qué es el doxing?<br>" +
-    "• ¿Qué acción promueve la netiqueta ante un desacuerdo?<br>" +
-    "• ¿Qué son los derechos ARCO?<br>" +
-    "• ¿Cuál es la norma fundamental al utilizar contenido ajeno?<br>" +
-    "• ¿Qué es el phishing?<br>" +
-    "• ¿Qué hago si hackearon mi Instagram?<br><br>" +
-
-    "💙 ¡Hazme cualquier pregunta sobre estos temas!",
-    "bot"
-  );
-
-}
-
-
-/* ============================================================
-   RESPUESTAS
-============================================================ */
-
-function getBotResponse(question) {
-
-  const q = normalizeText(question);
-
-
-  /* ==========================================================
-     SALUDOS
-  ========================================================== */
-
-  if (
-    q === "hola" ||
-    q === "holaa" ||
-    q === "holaaa" ||
-    q === "hey" ||
-    q === "buenas" ||
-    q.includes("buenos dias") ||
-    q.includes("buenas tardes") ||
-    q.includes("buenas noches")
-  ) {
-
-    lastTopic = null;
-
-    return (
-      "¡Hola! 👋💙 Soy <strong>LawsBot Perú</strong>.<br><br>" +
-      "Puedo ayudarte con derechos digitales, privacidad, " +
-      "ciberseguridad y convivencia digital.<br><br>" +
-      "¿Qué quieres saber?"
-    );
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[¿?¡!.,;:()"']/g, " ")
+      .replace(/[-_/]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
 
   }
 
 
-  /* ==========================================================
-     GRACIAS
-  ========================================================== */
+  /* =========================================================
+     FUNCIONES AUXILIARES
+  ========================================================= */
 
-  if (
-    q.includes("gracias") ||
-    q.includes("muchas gracias") ||
-    q.includes("te agradezco")
-  ) {
+  function hasAny(text, words) {
 
-    return (
-      "¡De nada! 💙😊<br><br>" +
-      "Si tienes otra duda sobre derechos digitales, " +
-      "puedes preguntarme."
-    );
+    return words.some(word => text.includes(normalizeText(word)));
 
   }
 
 
-  /* ==========================================================
-     QUÉ PUEDO HACER
-  ========================================================== */
+  function hasAll(text, words) {
 
-  if (
-    q.includes("que puedes hacer") ||
-    q.includes("en que puedes ayudar") ||
-    q.includes("que puedo preguntar") ||
-    q.includes("que temas conoces")
-  ) {
-
-    return (
-      "<strong>💙 Puedo ayudarte con:</strong><br><br>" +
-
-      "🔐 Privacidad y datos personales<br>" +
-      "📱 Huella digital<br>" +
-      "🗑️ Derecho al olvido<br>" +
-      "📚 Derechos ARCO<br>" +
-      "©️ Derecho de autor<br>" +
-      "🎣 Phishing<br>" +
-      "🔎 Doxing<br>" +
-      "💬 Netiqueta<br>" +
-      "🤝 Convivencia digital<br>" +
-      "🚨 Ciberacoso<br>" +
-      "🔑 Contraseñas y seguridad<br>" +
-      "📲 Redes sociales<br>" +
-      "🪪 Identidad digital"
-    );
+    return words.every(word => text.includes(normalizeText(word)));
 
   }
 
 
-  /* ==========================================================
-     HUELLA DIGITAL
-  ========================================================== */
+  /*
+    Devuelve cuántas coincidencias tiene una lista de palabras.
+  */
 
-  if (
-    q.includes("huella digital") ||
-    q.includes("rastro digital") ||
-    q.includes("que es la huella")
-  ) {
+  function countMatches(text, words) {
 
-    lastTopic = "huella";
+    let count = 0;
 
-    return (
-      "<strong>📱 ¿Qué es la huella digital?</strong><br><br>" +
+    words.forEach(word => {
 
-      "La <strong>huella digital</strong> es el conjunto de información y datos " +
-      "que una persona deja como resultado de sus actividades en internet.<br><br>" +
+      if (text.includes(normalizeText(word))) {
+        count++;
+      }
 
-      "Puede incluir publicaciones, comentarios, fotografías, videos, " +
-      "reacciones, búsquedas, perfiles y otras actividades digitales.<br><br>" +
+    });
 
-      "Por eso es importante pensar antes de publicar y revisar qué información " +
-      "hacemos pública."
-    );
+    return count;
 
   }
 
 
-  /* ==========================================================
-     DERECHO AL OLVIDO
-  ========================================================== */
+  /* =========================================================
+     RESPUESTAS POR TEMA
+  ========================================================= */
 
-  if (
-    q.includes("derecho al olvido") ||
-    q.includes("principio del derecho al olvido") ||
-    q.includes("consiste el derecho al olvido") ||
-    (q.includes("olvido") && q.includes("entorno digital"))
-  ) {
+  const responses = {
 
-    lastTopic = "olvido";
 
-    return (
-      "<strong>🗑️ ¿En qué consiste el derecho al olvido?</strong><br><br>" +
+    saludo: `
+¡Hola! 👋🇵🇪 Soy LawsBot Perú.
 
-      "El llamado <strong>derecho al olvido</strong> se relaciona con la " +
-      "posibilidad de solicitar que determinada información personal deje " +
-      "de aparecer en ciertos resultados de búsqueda cuando existen razones " +
-      "jurídicas para ello.<br><br>" +
+Puedo orientarte sobre derechos digitales, privacidad, ciberseguridad y convivencia digital.
 
-      "No significa que cualquier persona pueda eliminar automáticamente " +
-      "todo contenido sobre sí misma de internet. Su aplicación depende " +
-      "de las circunstancias del caso y de la normativa aplicable.<br><br>" +
+Por ejemplo, puedes preguntarme:
+• ¿Qué es el doxing?
+• ¿Qué hago si me hackearon Instagram?
+• ¿Qué es la brecha digital?
+• ¿Puedo subir una foto donde aparece otra persona?
+• ¿Qué hago ante grooming o sextorsión?
+• ¿Qué son los derechos ARCO?
+`,
 
-      "También debe considerarse el equilibrio entre la privacidad y otros " +
-      "derechos, como la libertad de información y expresión."
-    );
+
+    ayuda: `
+Puedo ayudarte con temas como:
+
+🔐 Seguridad digital
+📱 Redes sociales
+🛡️ Privacidad y datos personales
+⚖️ Derechos digitales
+👥 Ciberacoso y convivencia digital
+🚨 Grooming y sextorsión
+📸 Derecho a la imagen
+©️ Derecho de autor
+🌐 Neutralidad de la red
+📚 Brecha digital y acceso a Internet
+
+También puedes contarme un caso concreto y te indicaré qué opciones existen.
+`,
+
+
+    huellaDigital: `
+La **huella digital** es el conjunto de rastros de información que una persona deja al utilizar Internet.
+
+Puede incluir publicaciones, comentarios, fotografías, videos, búsquedas, cuentas, reacciones y otros datos asociados a su actividad digital.
+
+Por eso es importante pensar antes de publicar y revisar periódicamente la privacidad de nuestras cuentas.
+`,
+
+
+    derechoOlvido: `
+El **derecho al olvido** se relaciona con la posibilidad de solicitar, en determinadas circunstancias, que información personal que aparece en Internet deje de estar disponible o sea desindexada cuando existe una justificación legal para ello.
+
+⚠️ No significa que cualquier persona pueda exigir automáticamente que se elimine absolutamente toda la información sobre ella. Se debe analizar el caso, el tipo de información, su relevancia, la fuente y los derechos involucrados.
+
+En Perú, la protección de datos personales y los derechos relacionados con su tratamiento se encuentran regulados por la normativa de protección de datos personales.
+`,
+
+
+    netiqueta: `
+La **netiqueta** es el conjunto de buenas prácticas para mantener una comunicación respetuosa y responsable en Internet.
+
+Ante un desacuerdo en un foro, lo recomendable es:
+
+• expresar la opinión sin insultar;
+• responder a las ideas y no atacar a la persona;
+• evitar provocaciones;
+• utilizar un lenguaje respetuoso;
+• aportar argumentos y fuentes cuando corresponda.
+
+El objetivo es resolver las diferencias sin convertirlas en ataques personales.
+`,
+
+
+    doxing: `
+El **doxing** consiste en recopilar y difundir información personal de una persona en Internet sin autorización, especialmente cuando se hace con la intención de exponerla, intimidarla o ponerla en riesgo.
+
+Puede incluir datos como:
+• dirección;
+• teléfono;
+• lugar de estudio o trabajo;
+• información familiar;
+• fotografías;
+• otros datos que permitan identificar o localizar a una persona.
+
+Puede vulnerar la privacidad y generar riesgos para la seguridad de la víctima.
+`,
+
+
+    derechoAutor: `
+El **derecho de autor** protege las obras creadas por una persona, incluyendo determinadas fotografías, videos, textos, ilustraciones, música y otras creaciones.
+
+Como regla general, no debemos asumir que porque una obra está publicada en Internet podemos copiarla, modificarla o volver a publicarla libremente.
+
+Cuando corresponda, se debe contar con autorización del titular o aplicar una excepción legal.
+
+En Perú, el Indecopi señala que existen derechos morales y patrimoniales sobre las obras fotográficas y mecanismos para protegerlas.
+`,
+
+
+    neutralidadRed: `
+La **Neutralidad de la Red** es un principio regulatorio que busca proteger la libre elección de los usuarios del servicio de acceso a Internet.
+
+En Perú fue adoptada mediante la Ley N.° 29904 y su reglamento.
+
+En términos sencillos, busca que los usuarios puedan acceder legalmente a aplicaciones, protocolos, servicios y tráfico disponible en su conexión, evitando determinadas prácticas arbitrarias de bloqueo, interferencia, discriminación o restricción.
+
+OSIPTEL regula este principio en el ámbito de las telecomunicaciones.
+`,
+
+
+    consentimientoImagenes: `
+El **consentimiento informado** significa que una persona debe conocer qué se hará con su información o imagen y aceptar de manera válida cuando la ley exige su consentimiento.
+
+Si quieres compartir una fotografía o video donde aparece otra persona identificable, debes tener en cuenta su privacidad, su derecho a la imagen y las normas de protección de datos que puedan resultar aplicables.
+
+⚠️ No toda fotografía tomada en un lugar público puede publicarse automáticamente sin considerar los derechos de las personas que aparecen en ella.
+
+Si aparecen menores de edad, se debe tener especial cuidado con su protección.
+`,
+
+
+    brechaDigital: `
+La **Brecha Digital** se refiere a las desigualdades que existen entre personas o grupos respecto al acceso, uso y aprovechamiento de las tecnologías digitales.
+
+El objetivo de los derechos de acceso y de las políticas de inclusión digital es **reducir esas desigualdades**, procurando que las personas puedan acceder a Internet, dispositivos, conectividad y conocimientos digitales.
+
+Esto favorece la participación en áreas como:
+
+📚 educación;
+💼 trabajo;
+🏥 salud;
+🏛️ servicios públicos;
+👥 participación social.
+
+En resumen: busca que la tecnología no sea un privilegio limitado a determinados grupos.
+`,
+
+
+    arco: `
+Los **derechos ARCO** son derechos relacionados con la protección de los datos personales:
+
+🔹 **Acceso:** saber qué datos personales se tienen y cómo se están utilizando.
+
+🔹 **Rectificación:** solicitar que los datos incorrectos o incompletos sean corregidos.
+
+🔹 **Cancelación:** solicitar la eliminación de datos cuando corresponda legalmente.
+
+🔹 **Oposición:** oponerse al tratamiento de datos personales en determinados casos.
+
+Estos derechos forman parte del sistema peruano de protección de datos personales.
+`,
+
+
+    phishing: `
+El **phishing** es una técnica utilizada para engañar a una persona y conseguir información como contraseñas, códigos o datos bancarios.
+
+Por ejemplo, alguien puede enviar un mensaje que parece provenir de un banco, Instagram, TikTok o una empresa conocida y pedirte que ingreses a un enlace.
+
+🚨 Si recibes uno:
+
+• no abras enlaces sospechosos;
+• no entregues códigos;
+• verifica la dirección del sitio;
+• cambia la contraseña si ingresaste tus datos;
+• activa la autenticación de dos factores.
+`,
+
+
+    privacidad: `
+La **privacidad digital** consiste en proteger la información personal que compartimos y la manera en que otras personas, empresas o plataformas pueden utilizarla.
+
+Algunos datos que debemos proteger son:
+
+• nombre y dirección;
+• teléfono;
+• fotografías;
+• ubicación;
+• contraseñas;
+• información familiar;
+• datos escolares;
+• información financiera.
+
+Revisa siempre las configuraciones de privacidad y evita compartir públicamente información innecesaria.
+`,
+
+
+    datosPersonales: `
+Los **datos personales** son información que identifica o puede hacer identificable a una persona.
+
+Por ejemplo:
+
+• nombre;
+• número telefónico;
+• dirección;
+• fotografía identificable;
+• correo electrónico;
+• ubicación;
+• información relacionada con una persona.
+
+En Perú existe una normativa específica para proteger los datos personales y regular su tratamiento.
+`,
+
+
+    ciberacoso: `
+El **ciberacoso** es una forma de acoso realizada mediante medios digitales, como redes sociales, chats, videojuegos o plataformas de Internet.
+
+Puede incluir:
+
+• insultos repetidos;
+• amenazas;
+• humillaciones;
+• difusión de contenido para avergonzar;
+• exclusión intencional;
+• creación de cuentas para burlarse de alguien.
+
+Si eres víctima, conserva las evidencias, evita responder a las provocaciones, utiliza las herramientas de bloqueo y denuncia de la plataforma y busca apoyo de una persona adulta de confianza o de las autoridades cuando corresponda.
+`,
+
+
+    fotoEditadaAcoso: `
+Si alguien publicó una **foto tuya editada para burlarse de ti**, puede tratarse de una situación de ciberacoso y también puede involucrar derechos relacionados con tu imagen y privacidad.
+
+Te recomiendo:
+
+1. 📸 Guarda capturas de pantalla.
+2. 🔗 Guarda el enlace, nombre del grupo y perfil de quien publicó el contenido.
+3. 🚩 Reporta la publicación o cuenta en WhatsApp u otra plataforma.
+4. 🚫 Evita entrar en discusiones con la persona que lo publicó.
+5. 👩‍🏫 Si eres menor de edad, cuéntaselo a una persona adulta de confianza.
+6. 🚨 Si existen amenazas, hostigamiento grave o riesgos para tu seguridad, puedes acudir a las autoridades.
+
+No borres las evidencias antes de guardarlas.
+`,
+
+
+    suplantacion: `
+Si alguien está utilizando tu **nombre y fotografía para crear una cuenta falsa**, puede tratarse de una suplantación de identidad o de una conducta que vulnere tu privacidad y reputación, dependiendo del caso.
+
+Puedes:
+
+1. 📸 Tomar capturas de la cuenta falsa.
+2. 🔗 Guardar el enlace del perfil.
+3. 🚩 Reportar la cuenta directamente en TikTok como suplantación.
+4. Avisar a tus contactos para evitar que crean que eres tú.
+5. 🔐 Revisar la seguridad de tus propias cuentas.
+6. Si existen amenazas, fraude, extorsión o perjuicios graves, conservar las evidencias y acudir a las autoridades.
+`,
+
+
+    sextorsion: `
+Si alguien te amenaza con **difundir fotos íntimas si no haces lo que te pide**, estás ante una situación grave que puede corresponder a sextorsión o extorsión sexual.
+
+🚨 Lo más importante:
+
+• **No pagues ni cumplas las exigencias.**
+• No envíes más imágenes.
+• Guarda capturas de las amenazas, perfiles, números y enlaces.
+• No borres las conversaciones antes de conservar las evidencias.
+• Reporta las cuentas en la plataforma.
+• Busca ayuda de una persona adulta de confianza.
+
+Si estás en Perú, puedes acudir a la **Policía Nacional**, a la **DIVINDAT** o utilizar los canales oficiales de denuncia del Ministerio del Interior.
+
+Si eres menor de edad, recuerda que **no es tu culpa** y que pedir ayuda no significa que hayas hecho algo malo.
+
+Si temes que alguien pueda hacerte daño inmediatamente, busca ayuda de emergencia.
+`,
+
+
+    chatsPrivados: `
+Compartir capturas de conversaciones privadas para burlarse de otra persona **no debería considerarse simplemente una "pesadez" sin importancia**.
+
+Dependiendo de lo que se haya compartido y de las circunstancias, puede involucrar derechos relacionados con:
+
+• privacidad;
+• datos personales;
+• imagen;
+• honor o reputación;
+• intimidad.
+
+No todos los casos constituyen automáticamente un delito: la calificación jurídica depende de los hechos concretos.
+
+Si ocurre en un entorno escolar, también puede ser una situación de acoso o ciberacoso.
+`,
+
+
+    resubirContenido: `
+Si otra página resube tus fotos o videos sin permiso, primero hay que distinguir qué tipo de contenido es y qué derechos tienes sobre él.
+
+Si tú creaste una fotografía, video u otra obra original, puedes tener **derechos de autor** sobre esa creación.
+
+Puedes:
+
+• guardar capturas y enlaces;
+• revisar si la plataforma ofrece un mecanismo de reclamación por copyright;
+• solicitar el retiro del contenido cuando corresponda;
+• identificar si la página obtuvo autorización o existe alguna excepción legal aplicable.
+
+En Perú, Indecopi cuenta con mecanismos relacionados con la protección del derecho de autor.
+`,
+
+
+    controlParental: `
+Los padres o responsables pueden utilizar herramientas de **control parental** para ayudar a proteger a sus hijos en Internet.
+
+Estas herramientas pueden permitir:
+
+• establecer límites de tiempo;
+• filtrar determinados contenidos;
+• administrar aplicaciones;
+• controlar algunas configuraciones de seguridad;
+• recibir información sobre determinados riesgos.
+
+Pero la protección no debería basarse únicamente en vigilancia total. También es importante conversar con los hijos sobre privacidad, seguridad, límites y riesgos digitales.
+
+La idea es combinar **protección + educación digital + respeto progresivo de la privacidad**.
+`,
+
+
+    grooming: `
+El **grooming** ocurre cuando una persona adulta utiliza Internet para contactar y ganarse la confianza de un niño, niña o adolescente con una finalidad sexual o de explotación.
+
+Si un desconocido contacta a una menor y le pide información personal:
+
+🚨 No debe enviarle información, fotografías ni ubicación.
+
+Conviene:
+
+1. 📸 Guardar capturas de la conversación.
+2. 🔗 Guardar el perfil y enlaces.
+3. 🚫 No continuar la conversación si eso aumenta el riesgo.
+4. 🚩 Reportar la cuenta en Instagram.
+5. 👨‍👩‍👧 Buscar inmediatamente a una persona adulta de confianza.
+6. ⚖️ Si existen indicios de grooming, acudir a las autoridades.
+
+En Perú existen canales oficiales como la Central Única de Denuncias del Ministerio del Interior y servicios de orientación para situaciones que involucren a menores.
+`,
+
+
+    derechoImagen: `
+El **derecho a la imagen** protege frente al uso de la imagen de una persona en determinadas circunstancias.
+
+Si tomas una fotografía en la calle y aparece otra persona, eso **no significa automáticamente que esté prohibido publicarla**, pero tampoco significa que puedas hacer cualquier uso de ella sin considerar derechos.
+
+Hay que tener en cuenta factores como:
+
+• si la persona es identificable;
+• cuál es el contexto de la fotografía;
+• para qué quieres utilizarla;
+• si la persona es el elemento principal de la imagen;
+• si existe algún perjuicio;
+• si hay menores de edad.
+
+Por eso, si una persona aparece claramente como protagonista de la fotografía, es recomendable contar con su autorización antes de publicarla, especialmente si el uso puede afectar su privacidad o reputación.
+`,
+
+
+    testigoAcoso: `
+Si eres testigo de acoso en redes hacia otra persona, puedes ayudar sin exponerte directamente.
+
+Puedes:
+
+• no participar ni compartir el contenido;
+• guardar evidencias si hacerlo es seguro;
+• reportar la publicación o cuenta;
+• avisar a una persona adulta, docente o responsable;
+• acompañar a la víctima para que busque ayuda;
+• evitar enfrentarte directamente al agresor si eso puede ponerte en riesgo.
+
+Ser testigo no significa que tengas que convertirte en el objetivo del agresor. Puedes intervenir de forma segura y responsable.
+`,
+
+
+    identidadDigital: `
+La **identidad digital** es la representación de una persona en Internet a través de sus perfiles, publicaciones, fotografías, comentarios, interacciones y otros datos.
+
+Construir una identidad digital responsable implica:
+
+• proteger las cuentas;
+• cuidar lo que publicamos;
+• respetar a otras personas;
+• revisar nuestra privacidad;
+• evitar compartir información sensible.
+`,
+
+
+    convivencia: `
+La **convivencia digital** consiste en relacionarnos de manera responsable, respetuosa y segura mediante Internet.
+
+Incluye:
+
+🤝 respetar a otras personas;
+🔐 proteger la privacidad;
+🚫 evitar el acoso;
+📚 verificar información;
+💬 comunicarnos respetuosamente;
+©️ respetar derechos de autor.
+`,
+
+
+    contrasenas: `
+Para proteger tus cuentas:
+
+🔐 utiliza contraseñas largas y diferentes;
+🔑 evita reutilizar la misma contraseña;
+📱 activa la autenticación de dos factores;
+🚫 nunca compartas códigos de verificación;
+📧 protege especialmente tu correo electrónico;
+⚠️ evita iniciar sesión desde dispositivos desconocidos.
+`,
+
+
+    instagramHackeado: `
+Si te hackearon Instagram:
+
+1. Intenta recuperar la cuenta desde las opciones oficiales de recuperación.
+2. Revisa tu correo para detectar cambios de seguridad.
+3. Cambia la contraseña del correo asociado.
+4. Activa la autenticación de dos factores.
+5. Revisa las sesiones abiertas.
+6. Reporta la cuenta si ya no tienes acceso.
+7. No entregues códigos de recuperación a desconocidos.
+`,
+
+
+    instagramCorreo: `
+Si alguien cambió el correo electrónico de tu Instagram, actúa rápido.
+
+📧 Revisa el correo original por si Instagram te envió una notificación sobre el cambio.
+
+Después:
+
+• utiliza el proceso oficial de recuperación;
+• cambia la contraseña del correo electrónico;
+• activa la autenticación de dos factores;
+• revisa dispositivos y sesiones;
+• no compartas códigos con nadie.
+
+Si también cambiaron otros datos de seguridad, utiliza las opciones oficiales de recuperación de Instagram.
+`,
+
+
+    consentimiento: `
+El **consentimiento** en el entorno digital significa aceptar de manera válida y consciente determinada actividad.
+
+Para que un consentimiento sea realmente informado, la persona debe conocer qué se hará, para qué y, cuando corresponda, quién tratará o utilizará la información.
+
+En temas de datos personales, la normativa peruana establece requisitos específicos para el consentimiento y también contempla excepciones previstas por ley.
+`,
+
+
+    copyright: `
+El contenido publicado en Internet no se vuelve automáticamente de libre uso.
+
+Si una persona crea una fotografía, ilustración, video, texto, música u otra obra protegida, puede tener derechos de autor sobre ella.
+
+Por eso, antes de reutilizar contenido ajeno conviene comprobar:
+
+• quién es el autor;
+• si existe una licencia;
+• si tienes autorización;
+• si existe una excepción legal aplicable;
+• si debes mencionar al autor y la fuente.
+
+Dar crédito no siempre sustituye la autorización cuando esta es necesaria.
+`,
+
+
+    accesoDigital: `
+El acceso a Internet y a las tecnologías digitales es importante para participar en la educación, el trabajo, los servicios públicos y la sociedad.
+
+Los conceptos de **derechos de acceso, inclusión digital y reducción de la brecha digital** buscan disminuir las desigualdades que impiden que determinadas personas o comunidades aprovechen las tecnologías.
+`,
+
+
+
+    desconocido: `
+No estoy seguro de haber identificado el tema exacto 🤔.
+
+Puedes preguntarme de otra forma o contarme el caso con un poco más de detalle.
+
+Por ejemplo:
+
+• "Alguien creó una cuenta falsa usando mi nombre."
+• "Me amenazan con publicar fotos íntimas."
+• "¿Puedo publicar una foto donde aparece otra persona?"
+• "¿Qué hago si alguien me contacta para pedirme información?"
+• "¿Qué es la brecha digital?"
+• "¿Qué derechos tengo sobre mis fotos?"
+• "¿Cómo denuncio el ciberacoso?"
+
+También puedo ayudarte a identificar qué derecho digital está relacionado con tu caso.
+`
+
+  };
+
+
+  /* =========================================================
+     DETECCIÓN INTELIGENTE DE TEMAS
+     
+     En lugar de buscar UNA frase exacta,
+     asignamos puntos a cada tema.
+
+     Ejemplo:
+     "cuenta falsa + nombre + foto + TikTok"
+
+     suma muchos puntos para "suplantacion".
+  ========================================================= */
+
+  function detectTopic(q) {
+
+    const topics = [];
+
+    function add(id, score) {
+      topics.push({ id, score });
+    }
+
+
+    /* BRECHA DIGITAL */
+
+    if (hasAny(q, [
+      "brecha digital",
+      "brecha-digital",
+      "inclusion digital",
+      "inclusión digital"
+    ])) {
+      add("brechaDigital", 12);
+    }
+
+    if (
+      hasAny(q, ["brecha", "desigualdad"]) &&
+      hasAny(q, ["digital", "internet", "tecnologia", "acceso"])
+    ) {
+      add("brechaDigital", 7);
+    }
+
+    if (
+      hasAny(q, ["derechos de acceso", "derecho de acceso"]) &&
+      hasAny(q, ["internet", "digital", "tecnologia"])
+    ) {
+      add("brechaDigital", 8);
+    }
+
+    if (
+      hasAny(q, ["acceso a internet", "acceso digital"]) &&
+      hasAny(q, ["igualdad", "desigualdad", "personas", "derechos"])
+    ) {
+      add("brechaDigital", 7);
+    }
+
+
+    /* NEUTRALIDAD DE RED */
+
+    if (hasAny(q, [
+      "neutralidad de la red",
+      "neutralidad de red",
+      "neutralidad en internet"
+    ])) {
+      add("neutralidadRed", 15);
+    }
+
+    if (
+      hasAny(q, ["internet", "red"]) &&
+      hasAny(q, ["bloquear", "bloqueo", "discriminar", "trafico", "trafico de datos"])
+    ) {
+      add("neutralidadRed", 5);
+    }
+
+
+    /* CONSENTIMIENTO + IMÁGENES */
+
+    if (
+      hasAny(q, ["consentimiento informado"]) &&
+      hasAny(q, ["imagen", "imagenes", "foto", "fotos", "video", "videos"])
+    ) {
+      add("consentimientoImagenes", 15);
+    }
+
+    if (
+      hasAny(q, ["compartir imagen", "compartir fotos", "foto de otra persona", "foto de terceros"]) &&
+      hasAny(q, ["permiso", "consentimiento", "autorizacion"])
+    ) {
+      add("consentimientoImagenes", 10);
+    }
+
+
+    /* DERECHO A LA IMAGEN */
+
+    if (
+      hasAny(q, ["derecho a la imagen", "derecho sobre mi imagen"]) ||
+      (
+        hasAny(q, ["foto", "fotografia", "fotografía"]) &&
+        hasAny(q, ["otra persona", "tercera persona", "alguien"]) &&
+        hasAny(q, ["calle", "publicar", "subir", "redes"])
+      )
+    ) {
+      add("derechoImagen", 12);
+    }
+
+
+    /* SUPLANTACIÓN */
+
+    if (hasAny(q, [
+      "cuenta falsa",
+      "perfil falso",
+      "perfil fake",
+      "suplantacion",
+      "suplantación",
+      "se hacen pasar por mi",
+      "se hace pasar por mi",
+      "usan mi nombre",
+      "usan mi foto"
+    ])) {
+      add("suplantacion", 12);
+    }
+
+    if (
+      hasAny(q, ["nombre", "foto", "fotografia"]) &&
+      hasAny(q, ["cuenta", "perfil"]) &&
+      hasAny(q, ["falsa", "falso", "fake", "tiktok", "instagram"])
+    ) {
+      add("suplantacion", 10);
+    }
+
+
+    /* SEXTORSIÓN */
+
+    if (hasAny(q, [
+      "sextorsion",
+      "sextorsión",
+      "fotos intimas",
+      "fotos íntimas",
+      "imagenes intimas",
+      "imágenes íntimas",
+      "amenaza con publicar",
+      "amenazan con publicar"
+    ])) {
+      add("sextorsion", 15);
+    }
+
+    if (
+      hasAny(q, ["amenaza", "amenazan", "amenazando"]) &&
+      hasAny(q, ["fotos", "imagenes", "videos"]) &&
+      hasAny(q, ["intimas", "íntimas", "privadas"]) &&
+      hasAny(q, ["dinero", "hacer", "pagar", "si no"])
+    ) {
+      add("sextorsion", 12);
+    }
+
+
+    /* GROOMING */
+
+    if (hasAny(q, [
+      "grooming",
+      "acoso sexual a menores",
+      "adulto contacta a mi hija",
+      "desconocido contacta a mi hija",
+      "desconocido habla con mi hija"
+    ])) {
+      add("grooming", 15);
+    }
+
+    if (
+      hasAny(q, ["hija", "hijo", "menor", "adolescente", "niña", "niño"]) &&
+      hasAny(q, ["instagram", "tiktok", "red social", "internet"]) &&
+      hasAny(q, ["desconocido", "desconocida", "persona desconocida"]) &&
+      hasAny(q, ["informacion", "información", "datos", "foto", "fotografia"])
+    ) {
+      add("grooming", 12);
+    }
+
+
+    /* FOTO EDITADA + BURLA / ACOSO */
+
+    if (
+      hasAny(q, ["foto editada", "imagen editada", "foto modificada"]) &&
+      hasAny(q, ["burlarse", "burla", "humillar", "molestar", "grupo", "whatsapp"])
+    ) {
+      add("fotoEditadaAcoso", 14);
+    }
+
+
+    /* CIBERACOSO */
+
+    if (hasAny(q, [
+      "ciberacoso",
+      "ciberbullying",
+      "acoso en redes",
+      "acoso escolar en redes",
+      "acoso digital"
+    ])) {
+      add("ciberacoso", 12);
+    }
+
+    if (
+      hasAny(q, ["burlarse", "humillar", "insultar", "acosar", "hostigar"]) &&
+      hasAny(q, ["redes", "internet", "whatsapp", "instagram", "tiktok", "grupo"])
+    ) {
+      add("ciberacoso", 8);
+    }
+
+
+    /* TESTIGO DE ACOSO */
+
+    if (
+      hasAny(q, ["soy testigo", "testigo de", "vi que", "estoy viendo"]) &&
+      hasAny(q, ["acoso", "bullying", "ciberacoso", "hostigamiento"])
+    ) {
+      add("testigoAcoso", 15);
+    }
+
+
+    /* CHATS PRIVADOS */
+
+    if (
+      hasAny(q, ["capturas", "captura de pantalla", "screenshots"]) &&
+      hasAny(q, ["chat", "conversacion", "conversación", "mensaje", "privado"]) &&
+      hasAny(q, ["burlarse", "burla", "compartir", "publicar", "difundir"])
+    ) {
+      add("chatsPrivados", 14);
+    }
+
+
+    /* DERECHO DE AUTOR */
+
+    if (hasAny(q, [
+      "derecho de autor",
+      "copyright",
+      "contenido ajeno",
+      "contenido de terceros",
+      "obra ajena",
+      "fotos de otras personas",
+      "video de otra persona"
+    ])) {
+      add("derechoAutor", 12);
+    }
+
+    if (
+      hasAny(q, ["foto", "fotos", "video", "videos", "musica", "musica"]) &&
+      hasAny(q, ["resubir", "resube", "copiar", "copiaron", "republicar", "repostear"]) &&
+      hasAny(q, ["sin permiso", "sin autorizacion", "sin autorización"])
+    ) {
+      add("resubirContenido", 14);
+    }
+
+    if (
+      hasAny(q, ["mis fotos", "mis videos", "lo que subo", "contenido que subo"]) &&
+      hasAny(q, ["otra pagina", "otra página", "otra cuenta", "resube", "republica"]) &&
+      hasAny(q, ["permiso", "autorizacion", "autorización"])
+    ) {
+      add("resubirContenido", 15);
+    }
+
+
+    /* DOXING */
+
+    if (hasAny(q, ["doxing", "doxxing"])) {
+      add("doxing", 15);
+    }
+
+    if (
+      hasAny(q, ["publicar", "difundir", "exponer"]) &&
+      hasAny(q, ["direccion", "dirección", "telefono", "teléfono", "datos personales"]) &&
+      hasAny(q, ["sin permiso", "sin autorizacion", "sin autorización"])
+    ) {
+      add("doxing", 10);
+    }
+
+
+    /* DERECHO AL OLVIDO */
+
+    if (hasAny(q, [
+      "derecho al olvido",
+      "derecho de olvido",
+      "eliminar mi informacion",
+      "eliminar mi información",
+      "borrar mi historial",
+      "borrar toda mi informacion",
+      "borrar toda mi información"
+    ])) {
+      add("derechoOlvido", 13);
+    }
+
+    if (
+      hasAny(q, ["google", "buscador", "red social"]) &&
+      hasAny(q, ["eliminar", "borrar", "retirar", "desindexar"]) &&
+      hasAny(q, ["informacion", "información", "historial", "datos"])
+    ) {
+      add("derechoOlvido", 11);
+    }
+
+
+    /* CONTROL PARENTAL */
+
+    if (hasAny(q, [
+      "control parental",
+      "controles parentales",
+      "lo que mis hijos ven",
+      "lo que mis hijos comparten",
+      "controlar lo que mis hijos"
+    ])) {
+      add("controlParental", 15);
+    }
+
+    if (
+      hasAny(q, ["hijos", "hijo", "hija", "menor"]) &&
+      hasAny(q, ["internet", "redes", "online"]) &&
+      hasAny(q, ["controlar", "supervisar", "proteger"])
+    ) {
+      add("controlParental", 10);
+    }
+
+
+    /* ARCO */
+
+    if (hasAny(q, [
+      "derechos arco",
+      "arco",
+      "acceso rectificacion cancelacion oposicion",
+      "acceso rectificación cancelación oposición"
+    ])) {
+      add("arco", 15);
+    }
+
+
+    /* PHISHING */
+
+    if (hasAny(q, [
+      "phishing",
+      "mensaje falso",
+      "correo falso",
+      "enlace sospechoso",
+      "link sospechoso",
+      "me pidieron un codigo",
+      "me pidieron un código"
+    ])) {
+      add("phishing", 12);
+    }
+
+
+    /* PRIVACIDAD */
+
+    if (hasAny(q, [
+      "privacidad",
+      "datos personales",
+      "informacion personal",
+      "información personal"
+    ])) {
+      add("privacidad", 7);
+    }
+
+
+    /* CONTRASEÑAS */
+
+    if (hasAny(q, [
+      "contraseña",
+      "contrasena",
+      "contraseñas",
+      "contrasenas",
+      "seguridad de mi cuenta",
+      "autenticacion de dos factores",
+      "autenticación de dos factores"
+    ])) {
+      add("contrasenas", 8);
+    }
+
+
+    /* INSTAGRAM HACKEADO */
+
+    if (
+      hasAny(q, ["instagram"]) &&
+      hasAny(q, ["hackearon", "hackeado", "hackear", "robaron", "no tengo acceso"])
+    ) {
+      add("instagramHackeado", 15);
+    }
+
+
+    /* CAMBIO DE CORREO */
+
+    if (
+      hasAny(q, ["instagram"]) &&
+      hasAny(q, ["cambiaron mi correo", "cambio el correo", "cambiaron el email", "correo cambiado"])
+    ) {
+      add("instagramCorreo", 18);
+    }
+
+
+    /* IDENTIDAD DIGITAL */
+
+    if (hasAny(q, [
+      "identidad digital",
+      "identidad en internet",
+      "quien soy en internet"
+    ])) {
+      add("identidadDigital", 12);
+    }
+
+
+    /* CONVIVENCIA DIGITAL */
+
+    if (hasAny(q, [
+      "convivencia digital",
+      "convivir en internet",
+      "comportamiento en internet"
+    ])) {
+      add("convivencia", 10);
+    }
+
+
+    /* NETIQUETA */
+
+    if (hasAny(q, ["netiqueta"])) {
+      add("netiqueta", 15);
+    }
+
+    if (
+      hasAny(q, ["desacuerdo", "discusion", "discusión"]) &&
+      hasAny(q, ["foro", "internet", "comentario"])
+    ) {
+      add("netiqueta", 10);
+    }
+
+
+    /* CONSENTIMIENTO GENERAL */
+
+    if (
+      hasAny(q, ["consentimiento", "consentir"]) &&
+      !hasAny(q, ["imagen", "imagenes", "foto", "fotos", "video", "videos"])
+    ) {
+      add("consentimiento", 8);
+    }
+
+
+    /* ACCESO DIGITAL */
+
+    if (
+      hasAny(q, ["acceso a internet", "acceso digital"]) &&
+      !hasAny(q, ["brecha", "desigualdad"])
+    ) {
+      add("accesoDigital", 8);
+    }
+
+
+    /* ORDENAR POR PUNTAJE */
+
+    topics.sort((a, b) => b.score - a.score);
+
+    if (topics.length === 0) {
+      return null;
+    }
+
+    return topics[0].id;
 
   }
 
 
-  /* ==========================================================
-     NETIQUETA
-  ========================================================== */
+  /* =========================================================
+     RESPUESTAS CON CONTEXTO
+  ========================================================= */
 
-  if (
-    q.includes("netiqueta") ||
-    q.includes("desacuerdo en un foro") ||
-    q.includes("desacuerdo en foro") ||
-    (q.includes("foro") && q.includes("desacuerdo")) ||
-    (q.includes("desacuerdo") && q.includes("convivencia digital"))
-  ) {
+  function contextualResponse(q) {
 
-    lastTopic = "netiqueta";
-
-    return (
-      "<strong>💬 Netiqueta ante un desacuerdo</strong><br><br>" +
-
-      "La <strong>netiqueta</strong> reúne normas y buenas prácticas para " +
-      "mantener una comunicación respetuosa en internet.<br><br>" +
-
-      "Ante un desacuerdo en un foro en línea, lo adecuado es " +
-      "<strong>expresar la opinión con respeto, argumentar las ideas " +
-      "y evitar ataques personales o insultos</strong>.<br><br>" +
-
-      "También es importante escuchar otros puntos de vista y responder " +
-      "al contenido de la opinión, no atacar a la persona."
-    );
-
-  }
+    if (!lastTopic) return null;
 
 
-  /* ==========================================================
-     DEFINICIÓN DE NETIQUETA
-  ========================================================== */
+    /* FOLLOW-UP PARA INSTAGRAM */
 
-  if (
-    q.includes("que es la netiqueta") ||
-    q.includes("que significa netiqueta") ||
-    q.includes("definicion de netiqueta")
-  ) {
+    if (lastTopic === "instagramHackeado") {
 
-    lastTopic = "netiqueta";
+      if (
+        hasAny(q, [
+          "cambiaron mi correo",
+          "cambio el correo",
+          "cambiaron el email",
+          "correo cambiado"
+        ])
+      ) {
 
-    return (
-      "<strong>💬 ¿Qué es la netiqueta?</strong><br><br>" +
+        lastTopic = "instagramCorreo";
 
-      "La <strong>netiqueta</strong> es el conjunto de normas y recomendaciones " +
-      "que ayudan a mantener una comunicación respetuosa y responsable en " +
-      "los espacios digitales.<br><br>" +
+        return responses.instagramCorreo;
 
-      "Incluye respetar a otras personas, evitar insultos, cuidar la privacidad " +
-      "y pensar antes de publicar o responder."
-    );
+      }
 
-  }
+    }
 
 
-  /* ==========================================================
-     DOXING
-  ========================================================== */
+    /* FOLLOW-UP PARA SEXTORSIÓN */
 
-  if (
-    q.includes("doxing") ||
-    q.includes("doxxing") ||
-    q.includes("que es el doxing") ||
-    q.includes("que significa doxing")
-  ) {
+    if (lastTopic === "sextorsion") {
 
-    lastTopic = "doxing";
+      if (
+        hasAny(q, [
+          "tengo miedo",
+          "que hago",
+          "qué hago",
+          "y si publica",
+          "si lo publica",
+          "no quiero decirle a nadie"
+        ])
+      ) {
 
-    return (
-      "<strong>🔎 ¿Qué es el doxing?</strong><br><br>" +
+        return `
+Entiendo que tengas miedo. 💙
 
-      "El <strong>doxing</strong> consiste en recopilar y divulgar públicamente " +
-      "información personal o identificable de una persona en internet, " +
-      "generalmente sin su autorización.<br><br>" +
+Lo más importante es que **no enfrentes esto sola/o**.
 
-      "Puede incluir datos como dirección, teléfono, lugar de trabajo, " +
-      "fotografías u otra información que permita identificar o localizar " +
-      "a una persona.<br><br>" +
+No pagues ni envíes más contenido. Guarda las pruebas y busca a una persona adulta de confianza.
 
-      "Puede afectar la <strong>privacidad y seguridad</strong> y perjudicar " +
-      "la convivencia digital, especialmente cuando la información se utiliza " +
-      "para acosar, intimidar o amenazar."
-    );
+Si eres menor de edad, contarle a un adulto responsable puede ayudarte a estar más protegida/o y a realizar una denuncia si corresponde.
 
-  }
+Si existe un peligro inmediato, busca ayuda de emergencia.
+`;
+
+      }
+
+    }
 
 
-  /* ==========================================================
-     DERECHO DE AUTOR
-  ========================================================== */
+    /* FOLLOW-UP PARA GROOMING */
 
-  if (
-    q.includes("derecho de autor") ||
-    q.includes("derechos de autor") ||
-    q.includes("contenido ajeno") ||
-    q.includes("contenidos ajenos") ||
-    q.includes("contenido de terceros") ||
-    q.includes("contenidos de terceros") ||
-    q.includes("obra ajena") ||
-    q.includes("obras ajenas") ||
-    q.includes("obra de otra persona") ||
-    q.includes("contenido de otra persona") ||
-    q.includes("contenido de otras personas") ||
-    q.includes("utilizar contenido ajeno") ||
-    q.includes("usar contenido ajeno") ||
-    q.includes("utilizar contenidos ajenos") ||
-    q.includes("usar contenidos ajenos") ||
-    q.includes("copiar contenido") ||
-    q.includes("copiar una obra") ||
-    q.includes("utilizar una obra")
-  ) {
+    if (lastTopic === "grooming") {
 
-    lastTopic = "autor";
+      if (
+        hasAny(q, [
+          "que hago",
+          "qué hago",
+          "como denuncio",
+          "cómo denuncio",
+          "donde denuncio",
+          "dónde denuncio"
+        ])
+      ) {
 
-    return (
-      "<strong>©️ Derecho de autor y contenido ajeno</strong><br><br>" +
+        return `
+Si sospechas de grooming:
 
-      "La norma fundamental al utilizar contenido creado por otras personas " +
-      "es <strong>respetar los derechos de autor</strong> y verificar si se " +
-      "cuenta con autorización o una licencia que permita utilizar ese contenido.<br><br>" +
+1. No envíes más información ni fotografías.
+2. Guarda capturas de pantalla.
+3. Guarda el perfil y los mensajes.
+4. Reporta la cuenta en la plataforma.
+5. Cuéntaselo a una persona adulta de confianza.
+6. Puedes acudir a la Policía Nacional o utilizar los canales oficiales de denuncia.
 
-      "Que una imagen, texto, canción, video o cualquier otra obra esté " +
-      "publicada en internet <strong>no significa automáticamente que pueda " +
-      "copiarse o utilizarse libremente</strong>.<br><br>" +
+Si hay riesgo inmediato para la menor, busca ayuda urgente.
+`;
 
-      "Antes de utilizar contenido ajeno, es recomendable comprobar las " +
-      "condiciones de uso o licencia y, cuando corresponda, " +
-      "<strong>reconocer al autor y citar la fuente</strong>."
-    );
+      }
+
+    }
+
+
+    return null;
 
   }
 
 
-  /* ==========================================================
-     COPYRIGHT
-  ========================================================== */
+  /* =========================================================
+     OBTENER RESPUESTA
+  ========================================================= */
 
-  if (
-    q.includes("copyright") ||
-    q.includes("propiedad intelectual") ||
-    q.includes("autor de una obra")
-  ) {
+  function getBotResponse(question) {
 
-    lastTopic = "autor";
-
-    return (
-      "<strong>©️ Propiedad intelectual y derecho de autor</strong><br><br>" +
-
-      "El derecho de autor protege las obras creadas por sus autores y " +
-      "regula determinados usos que otras personas pueden realizar de ellas.<br><br>" +
-
-      "Antes de utilizar una obra ajena, es importante revisar si existe " +
-      "una licencia o autorización que permita el uso y respetar las " +
-      "condiciones establecidas."
-    );
-
-  }
+    const q = normalizeText(question);
 
 
-  /* ==========================================================
-     DERECHOS ARCO
-  ========================================================== */
+    /* SALUDOS */
 
-  if (
-    q.includes("derechos arco") ||
-    q.includes("derecho arco") ||
-    q.includes("que son los arco") ||
-    q.includes("acceso rectificacion cancelacion oposicion")
-  ) {
+    if (
+      hasAny(q, [
+        "hola",
+        "holaa",
+        "holaaa",
+        "buenas",
+        "buenos dias",
+        "buenas tardes",
+        "buenas noches"
+      ])
+    ) {
 
-    lastTopic = "arco";
+      lastTopic = null;
+      return responses.saludo;
 
-    return (
-      "<strong>🔐 ¿Qué son los derechos ARCO?</strong><br><br>" +
-
-      "Los derechos <strong>ARCO</strong> están relacionados con la protección " +
-      "y el tratamiento de los datos personales.<br><br>" +
-
-      "<strong>A — Acceso:</strong> conocer qué datos personales se están tratando.<br><br>" +
-
-      "<strong>R — Rectificación:</strong> solicitar la corrección de datos " +
-      "inexactos o incompletos.<br><br>" +
-
-      "<strong>C — Cancelación:</strong> solicitar la eliminación de datos " +
-      "cuando corresponda legalmente.<br><br>" +
-
-      "<strong>O — Oposición:</strong> oponerse al tratamiento de datos " +
-      "en determinados supuestos establecidos por la normativa."
-    );
-
-  }
+    }
 
 
-  /* ==========================================================
-     DATOS PERSONALES
-  ========================================================== */
+    /* AGRADECIMIENTOS */
 
-  if (
-    q.includes("datos personales") ||
-    q.includes("dato personal") ||
-    q.includes("que son los datos")
-  ) {
+    if (
+      hasAny(q, [
+        "gracias",
+        "muchas gracias",
+        "te agradezco"
+      ])
+    ) {
 
-    lastTopic = "datos";
+      return `
+¡De nada! 💙🇵🇪
 
-    return (
-      "<strong>🪪 ¿Qué son los datos personales?</strong><br><br>" +
+Si tienes otra pregunta sobre derechos digitales, privacidad o seguridad en Internet, puedes escribírmela.
+`;
 
-      "Son datos que permiten identificar o hacer identificable a una " +
-      "persona, directa o indirectamente.<br><br>" +
-
-      "Pueden incluir nombres, documentos de identidad, dirección, teléfono, " +
-      "fotografías y otra información relacionada con una persona.<br><br>" +
-
-      "Es importante proteger estos datos y evitar compartirlos " +
-      "innecesariamente."
-    );
-
-  }
+    }
 
 
-  /* ==========================================================
-     PRIVACIDAD
-  ========================================================== */
+    /* AYUDA */
 
-  if (
-    q.includes("privacidad digital") ||
-    q.includes("privacidad en internet") ||
-    q.includes("privacidad online") ||
-    q.includes("proteger mi privacidad")
-  ) {
+    if (
+      hasAny(q, [
+        "que puedes hacer",
+        "qué puedes hacer",
+        "ayuda",
+        "que temas conoces",
+        "qué temas conoces"
+      ])
+    ) {
 
-    lastTopic = "privacidad";
+      return responses.ayuda;
 
-    return (
-      "<strong>🔒 Privacidad digital</strong><br><br>" +
+    }
 
-      "La privacidad digital se refiere a la protección y control de " +
-      "la información personal cuando utilizamos internet y servicios digitales.<br><br>" +
 
-      "Puedes protegerla revisando la configuración de privacidad, " +
-      "limitando la información que publicas, utilizando contraseñas seguras " +
-      "y activando la autenticación de dos factores."
-    );
+    /* PRIMERO: CONTEXTO */
+
+    const contextual = contextualResponse(q);
+
+    if (contextual) {
+      return contextual;
+    }
+
+
+    /* SEGUNDO: DETECTAR TEMA */
+
+    const topic = detectTopic(q);
+
+
+    if (topic) {
+
+      lastTopic = topic;
+
+      return responses[topic] || responses.desconocido;
+
+    }
+
+
+    /* TERCERO: PREGUNTAS GENERALES */
+
+    if (
+      hasAny(q, [
+        "que es",
+        "qué es",
+        "en que consiste",
+        "en qué consiste",
+        "cual es",
+        "cuál es",
+        "que significa",
+        "qué significa"
+      ])
+    ) {
+
+      return responses.desconocido;
+
+    }
+
+
+    return responses.desconocido;
 
   }
 
 
-  /* ==========================================================
-     PHISHING
-  ========================================================== */
+  /* =========================================================
+     MOSTRAR MENSAJES
+  ========================================================= */
 
-  if (
-    q.includes("phishing") ||
-    q.includes("correo falso") ||
-    q.includes("mensaje falso") ||
-    q.includes("enlace sospechoso")
-  ) {
+  function addMessage(text, sender) {
 
-    lastTopic = "phishing";
+    const chat = document.getElementById("chat");
 
-    return (
-      "<strong>🎣 ¿Qué es el phishing?</strong><br><br>" +
+    const message = document.createElement("div");
+    message.className = "message " + sender;
 
-      "El <strong>phishing</strong> es una técnica de engaño utilizada para " +
-      "obtener información como contraseñas, datos personales o información " +
-      "financiera mediante mensajes, correos o sitios web falsos.<br><br>" +
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
 
-      "Para protegerte:<br>" +
-      "• No abras enlaces sospechosos.<br>" +
-      "• Comprueba el remitente y la dirección web.<br>" +
-      "• Nunca compartas códigos de seguridad.<br>" +
-      "• Activa la autenticación de dos factores."
-    );
+    bubble.textContent = text.trim();
+
+    message.appendChild(bubble);
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
 
   }
 
 
-  /* ==========================================================
-     CIBERACOSO
-  ========================================================== */
+  /* =========================================================
+     ENVIAR MENSAJE
+  ========================================================= */
 
-  if (
-    q.includes("ciberacoso") ||
-    q.includes("cyberbullying") ||
-    q.includes("acoso digital") ||
-    q.includes("acoso en internet")
-  ) {
+  function sendMessage() {
 
-    lastTopic = "ciberacoso";
+    const input = document.getElementById("userInput");
 
-    return (
-      "<strong>🚨 ¿Qué es el ciberacoso?</strong><br><br>" +
+    const text = input.value.trim();
 
-      "El <strong>ciberacoso</strong> es una forma de acoso que utiliza " +
-      "medios digitales para hostigar, humillar, amenazar o perjudicar " +
-      "a otra persona.<br><br>" +
+    if (!text) return;
 
-      "Si ocurre, es recomendable guardar evidencias, bloquear o limitar " +
-      "el contacto cuando sea posible, utilizar las herramientas de denuncia " +
-      "de la plataforma y buscar apoyo de una persona adulta de confianza."
-    );
+    addMessage(text, "user");
 
-  }
+    input.value = "";
 
+    setTimeout(() => {
 
-  /* ==========================================================
-     CONTRASEÑAS
-  ========================================================== */
+      const response = getBotResponse(text);
 
-  if (
-    q.includes("contraseña segura") ||
-    q.includes("contrasena segura") ||
-    q.includes("como crear una contraseña") ||
-    q.includes("como proteger mi contraseña")
-  ) {
+      addMessage(response, "bot");
 
-    lastTopic = "contraseña";
-
-    return (
-      "<strong>🔑 ¿Cómo crear una contraseña segura?</strong><br><br>" +
-
-      "Una contraseña segura debe ser difícil de adivinar y no debería " +
-      "reutilizarse en varias cuentas.<br><br>" +
-
-      "Es recomendable utilizar contraseñas largas y únicas y, cuando sea " +
-      "posible, un administrador de contraseñas junto con autenticación " +
-      "de dos factores."
-    );
+    }, 300);
 
   }
 
 
-  /* ==========================================================
-     IDENTIDAD DIGITAL
-  ========================================================== */
+  /* =========================================================
+     BOTONES DE SUGERENCIAS
+  ========================================================= */
 
-  if (
-    q.includes("identidad digital") ||
-    q.includes("que es mi identidad digital") ||
-    q.includes("identidad en internet")
-  ) {
+  function quickQuestion(question) {
 
-    lastTopic = "identidad";
+    const input = document.getElementById("userInput");
 
-    return (
-      "<strong>🪪 ¿Qué es la identidad digital?</strong><br><br>" +
-
-      "La <strong>identidad digital</strong> es la representación de una " +
-      "persona en los espacios digitales y está formada por información, " +
-      "perfiles, actividades y datos asociados a ella en internet.<br><br>" +
-
-      "Por eso es importante proteger las cuentas, cuidar la información " +
-      "que compartimos y mantener una conducta responsable en línea."
-    );
-
-  }
-
-
-  /* ==========================================================
-     CONVIVENCIA DIGITAL
-  ========================================================== */
-
-  if (
-    q.includes("convivencia digital") ||
-    q.includes("convivir en internet") ||
-    q.includes("buena convivencia en internet")
-  ) {
-
-    lastTopic = "convivencia";
-
-    return (
-      "<strong>🤝 Convivencia digital</strong><br><br>" +
-
-      "La convivencia digital consiste en relacionarnos de manera " +
-      "responsable y respetuosa en los espacios digitales.<br><br>" +
-
-      "Incluye respetar a otras personas, proteger la privacidad, " +
-      "evitar el acoso, verificar información antes de compartirla " +
-      "y pensar en las consecuencias de nuestras publicaciones."
-    );
-
-  }
-
-
-  /* ==========================================================
-     REDES SOCIALES
-  ========================================================== */
-
-  if (
-    q.includes("seguridad en redes") ||
-    q.includes("proteger mis redes") ||
-    q.includes("seguridad de mis redes")
-  ) {
-
-    lastTopic = "redes";
-
-    return (
-      "<strong>📲 Seguridad en redes sociales</strong><br><br>" +
-
-      "Para proteger tus cuentas puedes:<br>" +
-      "• Utilizar contraseñas únicas.<br>" +
-      "• Activar la autenticación de dos factores.<br>" +
-      "• Revisar quién puede ver tus publicaciones.<br>" +
-      "• Evitar compartir datos personales innecesarios.<br>" +
-      "• Revisar las sesiones abiertas.<br>" +
-      "• Desconfiar de enlaces y mensajes inesperados."
-    );
-
-  }
-
-
-  /* ==========================================================
-     INSTAGRAM HACKEADO
-  ========================================================== */
-
-  if (
-    q.includes("hackearon instagram") ||
-    q.includes("hackearon mi instagram") ||
-    q.includes("me hackearon instagram") ||
-    q.includes("instagram hackeado")
-  ) {
-
-    lastTopic = "instagram";
-
-    return (
-      "<strong>📱 Si hackearon tu Instagram</strong><br><br>" +
-
-      "Si todavía puedes acceder:<br>" +
-      "1. Cambia la contraseña.<br>" +
-      "2. Activa la autenticación de dos factores.<br>" +
-      "3. Revisa las sesiones abiertas.<br>" +
-      "4. Comprueba el correo y número asociados.<br>" +
-      "5. Revisa si hubo cambios que tú no realizaste.<br><br>" +
-
-      "Si ya no puedes entrar, utiliza las opciones oficiales de recuperación " +
-      "de Instagram. Nunca entregues códigos de seguridad a otras personas."
-    );
-
-  }
-
-
-  /* ==========================================================
-     CORREO DE INSTAGRAM CAMBIADO
-  ========================================================== */
-
-  if (
-    (
-      q.includes("cambiaron mi correo") ||
-      q.includes("cambiaron el correo") ||
-      q.includes("cambio mi correo")
-    )
-    &&
-    (
-      q.includes("instagram") ||
-      lastTopic === "instagram"
-    )
-  ) {
-
-    lastTopic = "instagram";
-
-    return (
-      "<strong>📧 Si cambiaron el correo de tu Instagram</strong><br><br>" +
-
-      "Revisa el correo que estaba asociado anteriormente por si recibiste " +
-      "una notificación relacionada con el cambio y utiliza las opciones " +
-      "oficiales de recuperación de la cuenta.<br><br>" +
-
-      "Cuando recuperes la cuenta, cambia la contraseña, activa la " +
-      "autenticación de dos factores y revisa las sesiones abiertas."
-    );
-
-  }
-
-
-  /* ==========================================================
-     SEGUIMIENTO DEL DOXING
-  ========================================================== */
-
-  if (
-    lastTopic === "doxing" &&
-    (
-      q.includes("como me protejo") ||
-      q.includes("como puedo protegerme") ||
-      q.includes("como evitarlo") ||
-      q.includes("que hago")
-    )
-  ) {
-
-    return (
-      "<strong>🛡️ ¿Cómo protegerte del doxing?</strong><br><br>" +
-
-      "Evita publicar datos como tu dirección, teléfono o información " +
-      "que permita localizarte. Revisa la privacidad de tus redes y limita " +
-      "la información pública sobre ti.<br><br>" +
-
-      "Si alguien publica tus datos sin autorización, guarda capturas " +
-      "y otras evidencias y utiliza las herramientas de denuncia de la plataforma."
-    );
-
-  }
-
-
-  /* ==========================================================
-     SEGUIMIENTO DE PHISHING
-  ========================================================== */
-
-  if (
-    lastTopic === "phishing" &&
-    (
-      q.includes("como me protejo") ||
-      q.includes("como evitarlo") ||
-      q.includes("que hago")
-    )
-  ) {
-
-    return (
-      "<strong>🛡️ Para protegerte del phishing</strong><br><br>" +
-
-      "No abras enlaces sospechosos, verifica el remitente, comprueba " +
-      "la dirección del sitio web y nunca compartas contraseñas o códigos " +
-      "de seguridad."
-    );
-
-  }
-
-
-  /* ==========================================================
-     SEGUIMIENTO DE HUELLA DIGITAL
-  ========================================================== */
-
-  if (
-    lastTopic === "huella" &&
-    (
-      q.includes("como me protejo") ||
-      q.includes("como protegerla") ||
-      q.includes("como cuidarla") ||
-      q.includes("como evitarlo")
-    )
-  ) {
-
-    return (
-      "<strong>🛡️ ¿Cómo cuidar tu huella digital?</strong><br><br>" +
-
-      "Piensa antes de publicar, revisa la privacidad de tus cuentas, " +
-      "evita compartir datos personales innecesarios y comprueba periódicamente " +
-      "qué información pública aparece sobre ti."
-    );
-
-  }
-
-
-  /* ==========================================================
-     SEGUIMIENTO DERECHO DE AUTOR
-  ========================================================== */
-
-  if (
-    lastTopic === "autor" &&
-    (
-      q.includes("tengo que citar") ||
-      q.includes("debo citar") ||
-      q.includes("hay que citar") ||
-      q.includes("puedo usarlo") ||
-      q.includes("puedo utilizarlo") ||
-      q.includes("como puedo usarlo") ||
-      q.includes("como usarlo")
-    )
-  ) {
-
-    return (
-      "<strong>©️ Sobre el uso de contenido ajeno</strong><br><br>" +
-
-      "Depende de las condiciones de uso de la obra. Algunas obras tienen " +
-      "licencias que permiten determinados usos, mientras que otras pueden " +
-      "requerir autorización del titular de los derechos.<br><br>" +
-
-      "Cuando corresponda, debes reconocer al autor y citar la fuente, " +
-      "además de respetar las condiciones de la licencia."
-    );
-
-  }
-
-
-  /* ==========================================================
-     SEGUIMIENTO NETIQUETA
-  ========================================================== */
-
-  if (
-    lastTopic === "netiqueta" &&
-    (
-      q.includes("como actuar") ||
-      q.includes("que hago") ||
-      q.includes("como responder") ||
-      q.includes("como debo responder")
-    )
-  ) {
-
-    return (
-      "<strong>💬 ¿Cómo responder ante un desacuerdo?</strong><br><br>" +
-
-      "Expresa tu opinión de forma respetuosa, explica tus argumentos, " +
-      "evita insultos o ataques personales y considera los argumentos " +
-      "de las demás personas."
-    );
-
-  }
-
-
-  /* ==========================================================
-     SEGURIDAD GENERAL
-  ========================================================== */
-
-  if (
-    q.includes("seguridad digital") ||
-    q.includes("como protegerme en internet") ||
-    q.includes("como estar seguro en internet")
-  ) {
-
-    return (
-      "<strong>🛡️ Seguridad digital</strong><br><br>" +
-
-      "Algunas medidas importantes son:<br>" +
-      "• Utilizar contraseñas únicas y seguras.<br>" +
-      "• Activar la autenticación de dos factores.<br>" +
-      "• Mantener actualizado el dispositivo.<br>" +
-      "• Evitar enlaces sospechosos.<br>" +
-      "• Proteger los datos personales.<br>" +
-      "• Revisar la privacidad de las cuentas."
-    );
-
-  }
-
-
-  /* ==========================================================
-     RESPUESTA POR TEMAS RELACIONADOS
-  ========================================================== */
-
-  if (
-    q.includes("privad") ||
-    q.includes("dato personal") ||
-    q.includes("datos")
-  ) {
-
-    lastTopic = "privacidad";
-
-    return (
-      "<strong>🔐 Tu pregunta parece estar relacionada con privacidad " +
-      "y datos personales.</strong><br><br>" +
-
-      "Los datos personales deben tratarse de acuerdo con las normas " +
-      "aplicables y es importante evitar compartir información personal " +
-      "innecesariamente.<br><br>" +
-
-      "Puedes preguntarme, por ejemplo: <strong>“¿Qué son los datos " +
-      "personales?”</strong>, <strong>“¿Qué son los derechos ARCO?”</strong> " +
-      "o <strong>“¿Cómo protejo mi privacidad?”</strong>."
-    );
-
-  }
-
-
-  if (
-    q.includes("autor") ||
-    q.includes("copiar") ||
-    q.includes("imagen") ||
-    q.includes("video") ||
-    q.includes("cancion")
-  ) {
-
-    lastTopic = "autor";
-
-    return (
-      "<strong>©️ Tu pregunta parece estar relacionada con derecho de autor.</strong><br><br>" +
-
-      "Antes de utilizar una obra, imagen, video, canción o texto creado " +
-      "por otra persona, revisa sus condiciones de uso o licencia y respeta " +
-      "los derechos de su autor.<br><br>" +
-
-      "Puedes preguntarme: <strong>“¿Cuál es la norma fundamental al " +
-      "utilizar contenido ajeno?”</strong>."
-    );
-
-  }
-
-
-  /* ==========================================================
-     RESPUESTA FINAL
-  ========================================================== */
-
-  return (
-    "<strong>🤔 No encontré una respuesta específica para esa pregunta.</strong><br><br>" +
-
-    "Pero puedo ayudarte con temas como:<br>" +
-    "📱 Huella digital<br>" +
-    "🗑️ Derecho al olvido<br>" +
-    "💬 Netiqueta<br>" +
-    "🔎 Doxing<br>" +
-    "©️ Derecho de autor<br>" +
-    "🔐 Privacidad y datos personales<br>" +
-    "📚 Derechos ARCO<br>" +
-    "🎣 Phishing<br>" +
-    "🚨 Ciberacoso<br>" +
-    "🔑 Seguridad digital<br>" +
-    "📲 Redes sociales<br>" +
-    "🪪 Identidad digital<br><br>" +
-
-    "Intenta formular tu pregunta nuevamente y trataré de identificar " +
-    "el tema."
-  );
-
-}
-
-
-/* ============================================================
-   ENVIAR MENSAJE
-============================================================ */
-
-function sendMessage() {
-
-  const input = document.getElementById("userInput");
-  const question = input.value.trim();
-
-  if (!question) return;
-
-  addMessage(question, "user");
-
-  input.value = "";
-
-  const typing = document.getElementById("typing");
-  typing.style.display = "block";
-
-  setTimeout(() => {
-
-    const response = getBotResponse(question);
-
-    typing.style.display = "none";
-
-    addMessage(response, "bot");
-
-  }, 350);
-
-}
-
-
-/* ============================================================
-   PREGUNTAS RÁPIDAS
-============================================================ */
-
-function quickQuestion(question) {
-
-  document.getElementById("userInput").value = question;
-
-  sendMessage();
-
-}
-
-
-/* ============================================================
-   ENTER PARA ENVIAR
-============================================================ */
-
-document.getElementById("userInput").addEventListener("keydown", function(event) {
-
-  if (event.key === "Enter" && !event.shiftKey) {
-
-    event.preventDefault();
+    input.value = question;
 
     sendMessage();
 
   }
 
-});
+
+  /* =========================================================
+     ENTER PARA ENVIAR
+  ========================================================= */
+
+  document
+    .getElementById("userInput")
+    .addEventListener("keydown", function(event) {
+
+      if (event.key === "Enter" && !event.shiftKey) {
+
+        event.preventDefault();
+
+        sendMessage();
+
+      }
+
+    });
 
 
-/* ============================================================
-   INICIAR CHAT
-============================================================ */
+  /* =========================================================
+     MENSAJE INICIAL
+  ========================================================= */
 
-showWelcome();
+  addMessage(`
+¡Hola! 👋🇵🇪 Soy LawsBot Perú.
+
+Estoy aquí para orientarte sobre derechos digitales, privacidad, ciberseguridad y convivencia digital.
+
+Puedes hacerme una pregunta directamente o contarme un caso concreto. 💙
+`, "bot");
 
 </script>
 
 </body>
 </html>
-```
