@@ -271,115 +271,108 @@
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- ENCABEZADO -->
-    <div class="header">
-      <div class="logo-container">
+  <!-- ENCABEZADO -->
+  <div class="header">
+    <div class="logo-container">
 
-        <!-- IMPORTANTE:
-             El archivo debe llamarse exactamente Logo.jpg.jpeg
-             y estar en la misma carpeta que index.html -->
-        <img
-          src="Logo.jpg.jpeg"
-          alt="Logo de LawsBot Perú"
-          class="logo"
-        >
+      <img
+        src="Logo.jpg.jpeg"
+        alt="Logo de LawsBot Perú"
+        class="logo"
+      >
 
-        <div>
-          <h1>⚖️ LawsBot Perú</h1>
-          <p>
-            Asistente informativo sobre derechos digitales,
-            privacidad, ciberseguridad y convivencia digital en Perú.
-          </p>
+      <div>
+        <h1>⚖️ LawsBot Perú</h1>
+
+        <p>
+          Asistente informativo sobre derechos digitales,
+          privacidad, ciberseguridad y convivencia digital en Perú.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- CHAT -->
+  <div class="chat-box">
+
+    <div class="chat-messages" id="chatMessages">
+
+      <div class="message bot">
+
+        <div class="bubble">
+
+          👋 ¡Hola! Soy <strong>LawsBot Perú</strong> 💙
+
+          <br><br>
+
+          Estoy aquí para orientarte sobre:
+
+          <ul>
+            <li>🔐 Ciberseguridad</li>
+            <li>📱 Derechos digitales</li>
+            <li>🔒 Privacidad y datos personales</li>
+            <li>🛡️ Protección de cuentas</li>
+            <li>💬 Convivencia digital</li>
+            <li>🚨 Acoso, amenazas o suplantación</li>
+          </ul>
+
+          Puedes contarme directamente qué te ocurrió
+          o hacerme una pregunta.
+
         </div>
 
       </div>
+
     </div>
 
 
-    <!-- CHAT -->
-    <div class="chat-box">
+    <!-- SUGERENCIAS -->
+    <div class="suggestions">
 
-      <div class="chat-messages" id="chatMessages">
-
-        <div class="message bot">
-          <div class="bubble">
-            👋 ¡Hola! Soy <strong>LawsBot Perú</strong> 💙<br><br>
-
-            Estoy aquí para orientarte sobre:
-            <ul>
-              <li>🔐 Ciberseguridad</li>
-              <li>📱 Derechos digitales</li>
-              <li>🔒 Privacidad y datos personales</li>
-              <li>🛡️ Protección de cuentas</li>
-              <li>💬 Convivencia digital</li>
-              <li>🚨 Situaciones de acoso, amenazas o suplantación</li>
-            </ul>
-
-            Puedes contarme directamente qué te ocurrió o hacerme una pregunta.
-          </div>
-        </div>
-
+      <div class="suggestions-title">
+        Preguntas frecuentes:
       </div>
 
+      <div class="suggestion-buttons">
 
-      <!-- SUGERENCIAS -->
-      <div class="suggestions">
+        <button
+          class="suggestion"
+          onclick="askQuestion('¿Qué son los derechos digitales?')">
+          ¿Qué son los derechos digitales?
+        </button>
 
-        <div class="suggestions-title">
-          Preguntas frecuentes:
-        </div>
+        <button
+          class="suggestion"
+          onclick="askQuestion('¿Cuáles son los 10 derechos digitales?')">
+          10 derechos digitales
+        </button>
 
-        <div class="suggestion-buttons">
+        <button
+          class="suggestion"
+          onclick="askQuestion('¿Qué es la ciberseguridad?')">
+          ¿Qué es la ciberseguridad?
+        </button>
 
-          <button class="suggestion"
-            onclick="askQuestion('¿Qué son los derechos digitales?')">
-            ¿Qué son los derechos digitales?
-          </button>
+        <button
+          class="suggestion"
+          onclick="askQuestion('¿Cómo puedo proteger mis cuentas?')">
+          ¿Cómo protejo mis cuentas?
+        </button>
 
-          <button class="suggestion"
-            onclick="askQuestion('¿Qué es la ciberseguridad?')">
-            ¿Qué es la ciberseguridad?
-          </button>
+        <button
+          class="suggestion"
+          onclick="askQuestion('¿Qué son los datos personales?')">
+          ¿Qué son los datos personales?
+        </button>
 
-          <button class="suggestion"
-            onclick="askQuestion('¿Cómo puedo proteger mis cuentas?')">
-            ¿Cómo protejo mis cuentas?
-          </button>
-
-          <button class="suggestion"
-            onclick="askQuestion('¿Qué son los datos personales?')">
-            ¿Qué son los datos personales?
-          </button>
-
-          <button class="suggestion"
-            onclick="askQuestion('¿Qué hago si me hackearon Instagram?')">
-            Me hackearon Instagram
-          </button>
-
-          <button class="suggestion"
-            onclick="askQuestion('¿Cómo puedo mantener una sana convivencia en un entorno digital?')">
-            Convivencia digital
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- INPUT -->
-      <div class="input-area">
-
-        <input
-          type="text"
-          id="userInput"
-          placeholder="Escribe tu pregunta..."
-          autocomplete="off"
-        >
-
-        <button id="sendBtn" onclick="sendMessage()">
-          Enviar
+        <button
+          class="suggestion"
+          onclick="askQuestion('¿Cómo puedo mantener una sana convivencia en un entorno digital?')">
+          Convivencia digital
         </button>
 
       </div>
@@ -387,14 +380,38 @@
     </div>
 
 
-    <div class="notice">
-      💙 <strong>Importante:</strong> LawsBot brinda información y orientación
-      general. No reemplaza la asesoría de una autoridad, abogado o especialista.
-      En situaciones de riesgo, amenazas o delitos, busca ayuda de las autoridades
-      correspondientes.
+    <!-- INPUT -->
+    <div class="input-area">
+
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Escribe tu pregunta..."
+        autocomplete="off"
+      >
+
+      <button id="sendBtn" onclick="sendMessage()">
+        Enviar
+      </button>
+
     </div>
 
   </div>
+
+
+  <!-- AVISO -->
+  <div class="notice">
+
+    💙 <strong>Importante:</strong>
+    LawsBot brinda información y orientación general.
+    No reemplaza la asesoría de una autoridad, abogado o especialista.
+
+    En situaciones de riesgo, amenazas o delitos,
+    busca ayuda de las autoridades correspondientes.
+
+  </div>
+
+</div>
 
 
 <script>
@@ -406,16 +423,6 @@
   const chatMessages = document.getElementById("chatMessages");
   const userInput = document.getElementById("userInput");
 
-  /*
-    Guarda el último tema de conversación.
-    Esto permite que LawsBot entienda preguntas de seguimiento.
-
-    Ejemplo:
-    Usuario: Me hackearon Instagram.
-    Usuario: ¿Y si cambiaron mi correo?
-
-    El bot mantiene el contexto de Instagram/hackeo.
-  */
   let ultimoTema = "";
 
 
@@ -441,17 +448,21 @@
   function addMessage(texto, tipo) {
 
     const message = document.createElement("div");
+
     message.className = "message " + tipo;
 
     const bubble = document.createElement("div");
+
     bubble.className = "bubble";
 
     bubble.innerHTML = texto;
 
     message.appendChild(bubble);
+
     chatMessages.appendChild(message);
 
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
   }
 
 
@@ -462,6 +473,7 @@
   function responder(preguntaOriginal) {
 
     const pregunta = normalizar(preguntaOriginal);
+
 
     /* =====================================================
        SALUDOS
@@ -479,23 +491,28 @@
       ultimoTema = "saludo";
 
       return `
-        👋 ¡Hola! 💙 Soy <strong>LawsBot Perú</strong>.<br><br>
+        👋 ¡Hola! 💙 Soy <strong>LawsBot Perú</strong>.
 
-        Puedo orientarte sobre <strong>derechos digitales,
-        privacidad, ciberseguridad y convivencia digital</strong>.<br><br>
+        <br><br>
+
+        Puedo orientarte sobre
+        <strong>derechos digitales, privacidad,
+        ciberseguridad y convivencia digital.</strong>
+
+        <br><br>
 
         Cuéntame qué necesitas saber o qué situación te ocurrió.
       `;
+
     }
 
 
     /* =====================================================
-       FUNCIÓN DEL CHATBOT
+       FUNCIÓN DE LAWSBOT
     ===================================================== */
 
     if (
       pregunta.includes("cual es tu funcion") ||
-      pregunta.includes("cual es tu función") ||
       pregunta.includes("para que sirves") ||
       pregunta.includes("que puedes hacer") ||
       pregunta.includes("que haces") ||
@@ -506,9 +523,12 @@
 
       return `
         🤖 Soy <strong>LawsBot Perú</strong>, un asistente informativo
-        sobre el entorno digital.<br><br>
+        sobre el entorno digital.
+
+        <br><br>
 
         Puedo orientarte sobre:
+
         <ul>
           <li>🔐 Ciberseguridad</li>
           <li>📱 Derechos digitales</li>
@@ -521,6 +541,98 @@
         También puedo ayudarte a entender qué pasos generales
         puedes considerar ante una situación digital.
       `;
+
+    }
+
+
+    /* =====================================================
+       LOS 10 DERECHOS DIGITALES
+    ===================================================== */
+
+    if (
+      pregunta.includes("10 derechos digitales") ||
+      pregunta.includes("diez derechos digitales") ||
+      pregunta.includes("cuales son los 10 derechos digitales") ||
+      pregunta.includes("cuales son los diez derechos digitales") ||
+      pregunta.includes("lista de derechos digitales") ||
+      pregunta.includes("lista de los derechos digitales") ||
+      pregunta.includes("menciona los derechos digitales") ||
+      pregunta.includes("menciona 10 derechos digitales") ||
+      pregunta.includes("dime los 10 derechos digitales") ||
+      pregunta.includes("dime los diez derechos digitales") ||
+      pregunta.includes("enumera los derechos digitales") ||
+      pregunta.includes("enumera los 10 derechos digitales")
+    ) {
+
+      ultimoTema = "10 derechos digitales";
+
+      return `
+
+        💙 <strong>Los 10 derechos digitales clave son:</strong>
+
+        <br><br>
+
+        <strong>1. 🔒 Privacidad</strong><br>
+        Derecho a controlar qué información personal compartes
+        y quién puede verla.
+
+        <br><br>
+
+        <strong>2. 🗣️ Libertad de expresión</strong><br>
+        Derecho a opinar y difundir información sin censura previa,
+        respetando los límites establecidos por la ley.
+
+        <br><br>
+
+        <strong>3. 🔎 Acceso a la información</strong><br>
+        Derecho a buscar y recibir datos de forma libre,
+        segura y sin discriminación.
+
+        <br><br>
+
+        <strong>4. 🌐 Neutralidad de la red</strong><br>
+        Principio por el cual los proveedores no pueden bloquear
+        o discriminar contenidos por motivos técnicos o económicos.
+
+        <br><br>
+
+        <strong>5. 🗑️ Derecho al olvido</strong><br>
+        Capacidad de borrar o eliminar determinados datos personales
+        obsoletos, inexactos o no pertinentes de buscadores y redes,
+        cuando corresponda.
+
+        <br><br>
+
+        <strong>6. 🛡️ Protección de datos personales</strong><br>
+        Derecho a decidir y conocer cómo se almacenan,
+        usan y recopilan tus datos personales.
+
+        <br><br>
+
+        <strong>7. 🔐 Seguridad digital</strong><br>
+        Garantía de navegar y utilizar servicios digitales
+        protegidos contra ataques o fraudes.
+
+        <br><br>
+
+        <strong>8. 🎓 Educación digital</strong><br>
+        Derecho a adquirir habilidades tecnológicas para
+        desenvolverse con seguridad en la red.
+
+        <br><br>
+
+        <strong>9. ©️ Propiedad intelectual</strong><br>
+        Protección de las creaciones y contenidos propios
+        compartidos en Internet.
+
+        <br><br>
+
+        <strong>10. 👤 Identidad digital</strong><br>
+        Derecho a gestionar de forma segura la imagen,
+        perfiles y datos que conforman tu identidad en línea.
+
+      `;
+
     }
 
 
@@ -540,14 +652,20 @@
       ultimoTema = "ciberseguridad";
 
       return `
-        🔐 <strong>¿Qué es la ciberseguridad?</strong><br><br>
+
+        🔐 <strong>¿Qué es la ciberseguridad?</strong>
+
+        <br><br>
 
         La <strong>ciberseguridad</strong> es el conjunto de medidas,
         prácticas y herramientas utilizadas para proteger dispositivos,
         cuentas, redes, sistemas y datos frente a accesos no autorizados,
-        ataques y otras amenazas digitales.<br><br>
+        ataques y otras amenazas digitales.
+
+        <br><br>
 
         Por ejemplo, incluye:
+
         <ul>
           <li>Usar contraseñas seguras y diferentes.</li>
           <li>Activar la verificación en dos pasos.</li>
@@ -558,7 +676,52 @@
 
         💡 En resumen: la ciberseguridad busca reducir los riesgos
         y proteger nuestra información cuando utilizamos Internet.
+
       `;
+
+    }
+
+
+    /* =====================================================
+       DERECHOS DIGITALES
+    ===================================================== */
+
+    if (
+      pregunta.includes("que son los derechos digitales") ||
+      pregunta.includes("que es un derecho digital") ||
+      pregunta === "derechos digitales" ||
+      pregunta === "derecho digital"
+    ) {
+
+      ultimoTema = "derechos digitales";
+
+      return `
+
+        📱 Los <strong>derechos digitales</strong> son los derechos
+        que las personas pueden ejercer en el entorno digital.
+
+        <br><br>
+
+        Entre los principales se encuentran:
+
+        <ul>
+          <li>🔒 Privacidad</li>
+          <li>🗣️ Libertad de expresión</li>
+          <li>🔎 Acceso a la información</li>
+          <li>🌐 Neutralidad de la red</li>
+          <li>🗑️ Derecho al olvido</li>
+          <li>🛡️ Protección de datos personales</li>
+          <li>🔐 Seguridad digital</li>
+          <li>🎓 Educación digital</li>
+          <li>©️ Propiedad intelectual</li>
+          <li>👤 Identidad digital</li>
+        </ul>
+
+        Si quieres, también puedo explicarte los
+        <strong>10 derechos digitales uno por uno.</strong>
+
+      `;
+
     }
 
 
@@ -577,6 +740,7 @@
       ultimoTema = "cuentas";
 
       return `
+
         🛡️ Para proteger tus cuentas puedes seguir estas recomendaciones:
 
         <ul>
@@ -591,46 +755,14 @@
 
         Si una cuenta ya fue comprometida, puedo orientarte
         sobre los pasos generales para recuperarla.
+
       `;
+
     }
 
 
     /* =====================================================
-       DATOS PERSONALES
-    ===================================================== */
-
-    if (
-      pregunta.includes("que son los datos personales") ||
-      pregunta.includes("que es un dato personal") ||
-      pregunta.includes("datos personales")
-    ) {
-
-      ultimoTema = "datos";
-
-      return `
-        🔒 Los <strong>datos personales</strong> son información que
-        permite identificar o hacer identificable a una persona.
-
-        <br><br>
-
-        Algunos ejemplos son:
-        <ul>
-          <li>Nombre y apellidos.</li>
-          <li>Número de teléfono.</li>
-          <li>Dirección.</li>
-          <li>Correo electrónico.</li>
-          <li>Fotografías.</li>
-          <li>Información relacionada con una persona identificable.</li>
-        </ul>
-
-        💡 Por eso es importante pensar antes de publicar o compartir
-        información personal en Internet.
-      `;
-    }
-
-
-    /* =====================================================
-       PROTEGER DATOS EN INTERNET
+       PROTEGER DATOS
     ===================================================== */
 
     if (
@@ -642,6 +774,7 @@
       ultimoTema = "datos";
 
       return `
+
         🔒 Para proteger tus datos en Internet:
 
         <ul>
@@ -650,48 +783,50 @@
           <li>Activa la verificación en dos pasos.</li>
           <li>Revisa la privacidad de tus redes sociales.</li>
           <li>Desconfía de mensajes o páginas sospechosas.</li>
-          <li>Evita conectarte a redes públicas desconocidas para realizar acciones sensibles.</li>
+          <li>Evita realizar acciones sensibles en redes públicas desconocidas.</li>
           <li>Revisa qué permisos tienen las aplicaciones.</li>
         </ul>
 
-        También puedes ejercer derechos relacionados con el tratamiento
-        de tus datos personales según corresponda.
       `;
+
     }
 
 
     /* =====================================================
-       DERECHOS DIGITALES
+       DATOS PERSONALES
     ===================================================== */
 
     if (
-      pregunta.includes("que son los derechos digitales") ||
-      pregunta.includes("que es un derecho digital") ||
-      pregunta.includes("derechos digitales") ||
-      pregunta.includes("derecho digital")
+      pregunta.includes("que son los datos personales") ||
+      pregunta.includes("que es un dato personal") ||
+      pregunta === "datos personales"
     ) {
 
-      ultimoTema = "derechos digitales";
+      ultimoTema = "datos";
 
       return `
-        📱 Los <strong>derechos digitales</strong> son los derechos
-        que las personas pueden ejercer en el entorno digital.
+
+        🔒 Los <strong>datos personales</strong> son información
+        que permite identificar o hacer identificable a una persona.
 
         <br><br>
 
-        Se relacionan, entre otros aspectos, con:
+        Algunos ejemplos son:
+
         <ul>
-          <li>🔒 La privacidad.</li>
-          <li>🛡️ La protección de datos personales.</li>
-          <li>💬 La libertad de expresión dentro del marco legal.</li>
-          <li>🔐 La seguridad digital.</li>
-          <li>📸 El control y protección de la información personal.</li>
+          <li>Nombre y apellidos.</li>
+          <li>Número de teléfono.</li>
+          <li>Dirección.</li>
+          <li>Correo electrónico.</li>
+          <li>Fotografías.</li>
+          <li>Información relacionada con una persona identificable.</li>
         </ul>
 
-        En Perú, estos temas se relacionan con distintas normas
-        sobre protección de datos personales, delitos informáticos
-        y otros derechos aplicables al entorno digital.
+        💡 Por eso es importante pensar antes de publicar
+        o compartir información personal en Internet.
+
       `;
+
     }
 
 
@@ -711,7 +846,9 @@
       ultimoTema = "convivencia";
 
       return `
-        💙 Para mantener una <strong>sana convivencia en un entorno digital</strong>:
+
+        💙 Para mantener una
+        <strong>sana convivencia en un entorno digital</strong>:
 
         <ul>
           <li>🤝 Trata a las demás personas con respeto.</li>
@@ -725,7 +862,9 @@
 
         Internet también es un espacio donde debemos ejercer
         nuestros derechos y respetar los derechos de los demás.
+
       `;
+
     }
 
 
@@ -744,7 +883,9 @@
       ultimoTema = "instagram";
 
       return `
-        🚨 Si crees que alguien entró a tu Instagram sin autorización:
+
+        🚨 Si crees que alguien entró a tu Instagram
+        sin autorización:
 
         <ul>
           <li>🔑 Intenta cambiar inmediatamente la contraseña.</li>
@@ -757,12 +898,14 @@
 
         Si ya no puedes entrar, utiliza las opciones oficiales
         de recuperación de la cuenta de Instagram.
+
       `;
+
     }
 
 
     /* =====================================================
-       CORREO CAMBIADO - CONTEXTO INSTAGRAM
+       CORREO CAMBIADO EN INSTAGRAM
     ===================================================== */
 
     if (
@@ -777,21 +920,23 @@
     ) {
 
       return `
-        🚨 Si cambiaron el correo de tu Instagram sin tu autorización,
-        intenta recuperar la cuenta utilizando las opciones oficiales
-        de recuperación de Instagram.
+
+        🚨 Si cambiaron el correo de tu Instagram
+        sin tu autorización, intenta recuperar la cuenta
+        utilizando las opciones oficiales de recuperación.
 
         <br><br>
 
-        También revisa el correo electrónico que estaba vinculado
-        anteriormente. Instagram puede enviar avisos de seguridad
-        cuando se modifica información importante de una cuenta.
+        También revisa el correo electrónico que estaba
+        vinculado anteriormente.
 
         <br><br>
 
-        🔐 No compartas códigos de recuperación con personas que
-        te contacten diciendo que pueden devolverte la cuenta.
+        🔐 No compartas códigos de recuperación con personas
+        que te contacten diciendo que pueden devolverte la cuenta.
+
       `;
+
     }
 
 
@@ -810,13 +955,15 @@
       ultimoTema = "phishing";
 
       return `
-        🎣 El <strong>phishing</strong> es una técnica utilizada para
-        engañar a una persona y conseguir información como contraseñas,
-        códigos o datos personales.
+
+        🎣 El <strong>phishing</strong> es una técnica utilizada
+        para engañar a una persona y conseguir información como
+        contraseñas, códigos o datos personales.
 
         <br><br>
 
         Puede aparecer mediante:
+
         <ul>
           <li>📧 Correos falsos.</li>
           <li>💬 Mensajes de texto.</li>
@@ -826,7 +973,9 @@
 
         ⚠️ Antes de ingresar información, verifica cuidadosamente
         quién envió el mensaje y la dirección de la página.
+
       `;
+
     }
 
 
@@ -844,6 +993,7 @@
       ultimoTema = "contraseñas";
 
       return `
+
         🔑 Una contraseña segura debería ser difícil de adivinar.
 
         <ul>
@@ -854,7 +1004,9 @@
           <li>Considera utilizar un administrador de contraseñas.</li>
           <li>Activa la verificación en dos pasos cuando esté disponible.</li>
         </ul>
+
       `;
+
     }
 
 
@@ -872,6 +1024,7 @@
       ultimoTema = "ciberacoso";
 
       return `
+
         🚨 El <strong>ciberacoso</strong> consiste en conductas
         de acoso realizadas mediante medios digitales.
 
@@ -887,9 +1040,8 @@
           <li>👨‍👩‍👧 Cuéntaselo a un adulto de confianza si eres menor de edad.</li>
         </ul>
 
-        Si existen amenazas o una situación que pueda constituir
-        un delito, considera acudir a las autoridades correspondientes.
       `;
+
     }
 
 
@@ -901,15 +1053,16 @@
       pregunta.includes("cuenta falsa") ||
       pregunta.includes("perfil falso") ||
       pregunta.includes("suplantaron mi identidad") ||
-      pregunta.includes("suplantacion") ||
-      pregunta.includes("suplantación")
+      pregunta.includes("suplantacion")
     ) {
 
       ultimoTema = "suplantacion";
 
       return `
-        🚨 Si alguien creó una cuenta falsa utilizando tu nombre,
-        fotografías o información para hacerse pasar por ti:
+
+        🚨 Si alguien creó una cuenta falsa utilizando
+        tu nombre, fotografías o información para hacerse
+        pasar por ti:
 
         <ul>
           <li>📸 Guarda capturas del perfil y publicaciones.</li>
@@ -920,8 +1073,8 @@
               considera acudir a las autoridades.</li>
         </ul>
 
-        Evita enfrentarte directamente con la persona responsable.
       `;
+
     }
 
 
@@ -935,15 +1088,15 @@
       pregunta.includes("video sin permiso") ||
       pregunta.includes("publicaron mis fotos") ||
       pregunta.includes("publicaron una foto mia") ||
-      pregunta.includes("publicaron una foto mía") ||
       pregunta.includes("difundieron mis fotos")
     ) {
 
       ultimoTema = "fotos";
 
       return `
-        📸 Si alguien publicó o difundió una fotografía o video tuyo
-        sin autorización, puedes:
+
+        📸 Si alguien publicó o difundió una fotografía
+        o video tuyo sin autorización, puedes:
 
         <ul>
           <li>📸 Guardar evidencia de la publicación.</li>
@@ -953,10 +1106,8 @@
           <li>👨‍👩‍👧 Si eres menor de edad, comunicarlo a un adulto de confianza.</li>
         </ul>
 
-        Si el contenido es íntimo, involucra a un menor de edad,
-        existen amenazas o se utiliza para extorsionarte, busca
-        ayuda de inmediato y considera acudir a las autoridades.
       `;
+
     }
 
 
@@ -967,13 +1118,13 @@
     if (
       pregunta.includes("me amenazan") ||
       pregunta.includes("amenazas por internet") ||
-      pregunta.includes("me estan amenazando") ||
-      pregunta.includes("me están amenazando")
+      pregunta.includes("me estan amenazando")
     ) {
 
       ultimoTema = "amenazas";
 
       return `
+
         🚨 Si alguien te amenaza por Internet:
 
         <ul>
@@ -986,7 +1137,9 @@
         </ul>
 
         Tu seguridad física es prioritaria.
+
       `;
+
     }
 
 
@@ -996,16 +1149,14 @@
 
     if (
       pregunta.includes("sextorsion") ||
-      pregunta.includes("sextorsión") ||
       pregunta.includes("amenazan con publicar fotos intimas") ||
-      pregunta.includes("amenazan con publicar fotos íntimas") ||
-      pregunta.includes("fotos intimas") ||
-      pregunta.includes("fotos íntimas")
+      pregunta.includes("fotos intimas")
     ) {
 
       ultimoTema = "sextorsion";
 
       return `
+
         🚨 Si alguien amenaza con publicar imágenes íntimas
         para obligarte a hacer algo, no estás obligado/a a ceder.
 
@@ -1019,9 +1170,8 @@
           <li>🚨 Considera acudir a las autoridades correspondientes.</li>
         </ul>
 
-        Si eres menor de edad, busca ayuda de un adulto de confianza
-        lo antes posible.
       `;
+
     }
 
 
@@ -1038,10 +1188,11 @@
       ultimoTema = "grooming";
 
       return `
-        ⚠️ El <strong>grooming</strong> se refiere a conductas mediante
-        las cuales una persona adulta busca ganarse la confianza de
-        un menor de edad por medios digitales con fines sexuales
-        o de explotación.
+
+        ⚠️ El <strong>grooming</strong> se refiere a conductas
+        mediante las cuales una persona adulta busca ganarse
+        la confianza de un menor de edad por medios digitales
+        con fines sexuales o de explotación.
 
         <br><br>
 
@@ -1054,44 +1205,59 @@
           <li>👨‍👩‍👧 Cuéntaselo inmediatamente a un adulto de confianza.</li>
           <li>🚨 Considera acudir a las autoridades correspondientes.</li>
         </ul>
+
       `;
+
     }
 
 
     /* =====================================================
-       ARCO
+       DERECHOS ARCO
     ===================================================== */
 
     if (
       pregunta.includes("arco") ||
       pregunta.includes("derechos arco") ||
-      pregunta.includes("acceso rectificacion cancelacion oposicion") ||
-      pregunta.includes("acceso rectificación cancelación oposición")
+      pregunta.includes("acceso rectificacion cancelacion oposicion")
     ) {
 
       ultimoTema = "arco";
 
       return `
+
         🔐 Los derechos <strong>ARCO</strong> están relacionados
         con el tratamiento de datos personales.
 
         <ul>
-          <li><strong>A — Acceso:</strong> conocer qué datos personales
-          se tienen y cómo son tratados.</li>
 
-          <li><strong>R — Rectificación:</strong> solicitar la corrección
-          de datos inexactos o incompletos.</li>
+          <li>
+            <strong>A — Acceso:</strong>
+            conocer qué datos personales se tienen
+            y cómo son tratados.
+          </li>
 
-          <li><strong>C — Cancelación:</strong> solicitar la eliminación
-          de datos cuando corresponda.</li>
+          <li>
+            <strong>R — Rectificación:</strong>
+            solicitar la corrección de datos inexactos
+            o incompletos.
+          </li>
 
-          <li><strong>O — Oposición:</strong> oponerse al tratamiento
-          de datos en los casos previstos por la normativa.</li>
+          <li>
+            <strong>C — Cancelación:</strong>
+            solicitar la eliminación de datos
+            cuando corresponda.
+          </li>
+
+          <li>
+            <strong>O — Oposición:</strong>
+            oponerse al tratamiento de datos
+            en los casos previstos por la normativa.
+          </li>
+
         </ul>
 
-        En Perú, el ejercicio de estos derechos está relacionado
-        con la normativa de protección de datos personales.
       `;
+
     }
 
 
@@ -1101,26 +1267,26 @@
 
     if (
       pregunta.includes("derecho al olvido") ||
-      pregunta.includes("eliminar informacion de internet") ||
-      pregunta.includes("eliminar información de internet")
+      pregunta.includes("eliminar informacion de internet")
     ) {
 
       ultimoTema = "olvido";
 
       return `
-        🗑️ El llamado <strong>derecho al olvido</strong> se relaciona
-        con determinadas solicitudes para que información personal
-        deje de aparecer o difundirse en determinados contextos digitales.
+
+        🗑️ El llamado <strong>derecho al olvido</strong>
+        se relaciona con determinadas solicitudes para que
+        información personal deje de aparecer o difundirse
+        en determinados contextos digitales.
 
         <br><br>
 
-        Su aplicación depende del caso concreto, del tipo de información,
-        de dónde se encuentra publicada y de los derechos e intereses
-        involucrados.
+        Su aplicación depende del caso concreto, del tipo
+        de información, de dónde se encuentra publicada y
+        de los derechos e intereses involucrados.
 
-        Si se trata de datos personales, puede ser necesario utilizar
-        los mecanismos correspondientes de protección de datos.
       `;
+
     }
 
 
@@ -1130,16 +1296,15 @@
 
     if (
       pregunta.includes("desinformacion") ||
-      pregunta.includes("desinformación") ||
       pregunta.includes("noticias falsas") ||
       pregunta.includes("fake news") ||
-      pregunta.includes("informacion falsa") ||
-      pregunta.includes("información falsa")
+      pregunta.includes("informacion falsa")
     ) {
 
       ultimoTema = "desinformacion";
 
       return `
+
         🔎 Para evitar compartir desinformación:
 
         <ul>
@@ -1147,11 +1312,12 @@
           <li>Comprueba la fecha.</li>
           <li>Busca la misma noticia en otras fuentes confiables.</li>
           <li>Lee más allá del titular.</li>
-          <li>Revisa si las imágenes o videos corresponden realmente
-              al acontecimiento.</li>
+          <li>Revisa si las imágenes o videos corresponden realmente al acontecimiento.</li>
           <li>No compartas contenido únicamente porque parece sorprendente.</li>
         </ul>
+
       `;
+
     }
 
 
@@ -1168,6 +1334,7 @@
       ultimoTema = "privacidad";
 
       return `
+
         🔒 Para cuidar tu privacidad digital:
 
         <ul>
@@ -1178,26 +1345,30 @@
           <li>Usa contraseñas seguras.</li>
           <li>Activa la autenticación en dos pasos.</li>
         </ul>
+
       `;
+
     }
 
 
     /* =====================================================
-       SI PREGUNTA "¿Y SI...?" DESPUÉS DE UN TEMA
+       SEGUIMIENTO DE INSTAGRAM
     ===================================================== */
 
     if (
-      ultimoTema === "cuentas" &&
+      ultimoTema === "instagram" &&
       (
         pregunta.includes("y si") ||
         pregunta.includes("que hago despues") ||
-        pregunta.includes("qué hago después")
+        pregunta.includes("que hago ahora")
       )
     ) {
 
       return `
-        🔐 Si tu cuenta presenta un problema adicional, cuéntame
-        exactamente qué ocurrió. Por ejemplo:
+
+        🚨 Cuéntame exactamente qué cambió en tu cuenta.
+
+        Por ejemplo:
 
         <br><br>
 
@@ -1206,8 +1377,12 @@
         <strong>“Me quitaron el número”</strong><br>
         <strong>“Hay otro dispositivo conectado”</strong>
 
+        <br><br>
+
         Así puedo orientarte según la situación.
+
       `;
+
     }
 
 
@@ -1221,43 +1396,16 @@
     ) {
 
       return `
+
         💙 ¡De nada! Me alegra poder ayudarte.
-
-        Si tienes otra duda sobre derechos digitales,
-        privacidad o ciberseguridad, puedes preguntarme.
-      `;
-    }
-
-
-    /* =====================================================
-       RESPUESTA PARA SEGUIMIENTO
-    ===================================================== */
-
-    if (
-      ultimoTema &&
-      (
-        pregunta.includes("y si") ||
-        pregunta.includes("y que pasa") ||
-        pregunta.includes("y qué pasa") ||
-        pregunta.includes("que hago") ||
-        pregunta.includes("qué hago")
-      )
-    ) {
-
-      return `
-        💙 Entiendo. Para orientarte mejor necesito saber un poco
-        más sobre la situación.
-
-        Puedes contarme qué ocurrió después o qué cambió.
-        Por ejemplo:
 
         <br><br>
 
-        <strong>“Cambiaron mi correo”</strong><br>
-        <strong>“No puedo entrar a mi cuenta”</strong><br>
-        <strong>“Publicaron la información”</strong><br>
-        <strong>“Me están amenazando”</strong>
+        Si tienes otra duda sobre derechos digitales,
+        privacidad o ciberseguridad, puedes preguntarme.
+
       `;
+
     }
 
 
@@ -1266,6 +1414,7 @@
     ===================================================== */
 
     return `
+
       🤔 No estoy seguro de haber identificado el tema exacto.
 
       <br><br>
@@ -1275,8 +1424,10 @@
       <br><br>
 
       Por ejemplo:
+
       <ul>
         <li>“¿Qué es la ciberseguridad?”</li>
+        <li>“¿Cuáles son los 10 derechos digitales?”</li>
         <li>“¿Qué son los derechos digitales?”</li>
         <li>“¿Cómo puedo proteger mis cuentas?”</li>
         <li>“¿Cómo puedo proteger mis datos en Internet?”</li>
@@ -1287,6 +1438,7 @@
       </ul>
 
       💙 Cuéntame tu situación y trataré de orientarte.
+
     `;
 
   }
@@ -1308,10 +1460,6 @@
 
     userInput.value = "";
 
-    /*
-      Pequeña pausa para que parezca una conversación natural.
-    */
-
     setTimeout(() => {
 
       const respuesta = responder(texto);
@@ -1324,7 +1472,7 @@
 
 
   /* =========================================================
-     PREGUNTAS DE LOS BOTONES
+     BOTONES DE SUGERENCIAS
   ========================================================= */
 
   function askQuestion(texto) {
@@ -1343,8 +1491,11 @@
   userInput.addEventListener("keydown", function(event) {
 
     if (event.key === "Enter") {
+
       event.preventDefault();
+
       sendMessage();
+
     }
 
   });
