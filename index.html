@@ -1,772 +1,988 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LawsBot Perú — Derechos digitales y derechos humanos</title>
+  <meta name="description" content="LawsBot Perú: asistente educativo sobre derechos humanos, derechos digitales, privacidad, protección de datos y ciberseguridad.">
 
-<title>LawsBot Perú — Derechos Digitales</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<meta
-  name="description"
-  content="LawsBot Perú: asistente informativo sobre derechos digitales, privacidad, protección de datos y ciberseguridad."
->
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8f9ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #20243a;
+    }
 
-<style>
+    .app {
+      width: 95%;
+      max-width: 1000px;
+      height: 94vh;
+      max-height: 900px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 15px 50px rgba(36, 71, 216, 0.18);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+    header {
+      background: linear-gradient(135deg, #2447d8, #6d5dfc);
+      color: white;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-body{
-  font-family:Arial, Helvetica, sans-serif;
-  background:linear-gradient(135deg,#eef2ff,#f8f9ff);
-  min-height:100vh;
-  color:#1f2937;
-}
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      object-fit: cover;
+      background: white;
+      padding: 3px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    }
 
-.app{
-  width:100%;
-  max-width:1050px;
-  margin:0 auto;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
+    .header-text h1 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
 
-/* =========================
-   ENCABEZADO
-========================= */
+    .header-text p {
+      font-size: 13px;
+      opacity: .92;
+    }
 
-.header{
-  background:linear-gradient(135deg,#2447d8,#6d5dfc);
-  color:white;
-  padding:20px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  box-shadow:0 4px 20px rgba(36,71,216,.25);
-}
+    .memory-status {
+      margin-left: auto;
+      font-size: 11px;
+      opacity: .9;
+      text-align: right;
+    }
 
-.logo{
-  width:65px;
-  height:65px;
-  object-fit:cover;
-  border-radius:18px;
-  background:white;
-  padding:3px;
-  box-shadow:0 4px 12px rgba(0,0,0,.2);
-}
+    .chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      background: #f8f9ff;
+    }
 
-.header-text h1{
-  font-size:25px;
-  margin-bottom:5px;
-}
+    .message {
+      display: flex;
+      margin-bottom: 18px;
+    }
 
-.header-text p{
-  font-size:14px;
-  opacity:.92;
-}
+    .message.user {
+      justify-content: flex-end;
+    }
 
-/* =========================
-   CONTENEDOR
-========================= */
+    .bubble {
+      max-width: 82%;
+      padding: 13px 16px;
+      border-radius: 18px;
+      line-height: 1.55;
+      font-size: 15px;
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+    }
 
-.chat-container{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  background:white;
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-}
+    .bot .bubble {
+      background: #eef2ff;
+      border-bottom-left-radius: 5px;
+      color: #252a48;
+    }
 
-/* =========================
-   BARRA DE ESTADO
-========================= */
+    .user .bubble {
+      background: linear-gradient(135deg, #2447d8, #6d5dfc);
+      color: white;
+      border-bottom-right-radius: 5px;
+    }
 
-.status{
-  padding:10px 18px;
-  background:#f8faff;
-  border-bottom:1px solid #e5e7eb;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:12px;
-  color:#667085;
-}
+    .suggestions {
+      padding: 9px 18px 5px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      background: white;
+    }
 
-.status-left{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
+    .suggestion {
+      border: 1px solid #d8ddf7;
+      background: #f5f6ff;
+      color: #2447d8;
+      border-radius: 20px;
+      padding: 7px 11px;
+      cursor: pointer;
+      font-size: 12px;
+    }
 
-.status-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#22c55e;
-}
+    .suggestion:hover {
+      background: #e9ecff;
+    }
 
-/* =========================
-   CHAT
-========================= */
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 14px;
+      border-top: 1px solid #e6e8f5;
+      background: white;
+    }
 
-.chat{
-  flex:1;
-  padding:22px;
-  overflow-y:auto;
-  min-height:500px;
-  max-height:calc(100vh - 260px);
-  scroll-behavior:smooth;
-}
+    #userInput {
+      flex: 1;
+      border: 1px solid #d9dded;
+      border-radius: 16px;
+      padding: 13px 15px;
+      outline: none;
+      font-size: 15px;
+      resize: none;
+      min-height: 48px;
+      max-height: 130px;
+    }
 
-.message{
-  display:flex;
-  margin-bottom:16px;
-  animation:appear .2s ease;
-}
+    #userInput:focus {
+      border-color: #6d5dfc;
+      box-shadow: 0 0 0 3px rgba(109,93,252,.1);
+    }
 
-@keyframes appear{
-  from{
-    opacity:0;
-    transform:translateY(5px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
+    #sendBtn {
+      width: 52px;
+      height: 48px;
+      border: 0;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #2447d8, #6d5dfc);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
 
-.message.user{
-  justify-content:flex-end;
-}
+    .bottom {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 12px 9px;
+      background: white;
+    }
 
-.bubble{
-  max-width:82%;
-  padding:13px 16px;
-  border-radius:18px;
-  line-height:1.55;
-  font-size:14px;
-  word-wrap:break-word;
-}
+    .clear-memory {
+      border: 0;
+      background: transparent;
+      color: #5b6280;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
 
-.bot .bubble{
-  background:#eef2ff;
-  color:#1f2937;
-  border-bottom-left-radius:5px;
-}
+    .disclaimer {
+      text-align: center;
+      font-size: 11px;
+      color: #858aa3;
+      background: white;
+      padding: 0 15px 10px;
+    }
 
-.user .bubble{
-  background:#2447d8;
-  color:white;
-  border-bottom-right-radius:5px;
-}
+    @media(max-width:650px) {
+      .app {
+        width: 100%;
+        height: 100vh;
+        max-height: none;
+        border-radius: 0;
+      }
 
-.source{
-  margin-top:10px;
-  padding-top:8px;
-  border-top:1px solid rgba(0,0,0,.08);
-  font-size:11px;
-  color:#667085;
-  line-height:1.4;
-}
+      .bubble {
+        max-width: 90%;
+      }
 
-.user .source{
-  display:none;
-}
+      .chat {
+        padding: 16px;
+      }
 
-/* =========================
-   BIENVENIDA
-========================= */
-
-.welcome-card{
-  background:linear-gradient(135deg,#f5f7ff,#ffffff);
-  border:1px solid #dce3ff;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:20px;
-}
-
-.welcome-card h2{
-  color:#2447d8;
-  margin-bottom:8px;
-  font-size:20px;
-}
-
-.welcome-card p{
-  font-size:14px;
-  line-height:1.6;
-  color:#475467;
-}
-
-/* =========================
-   SUGERENCIAS
-========================= */
-
-.suggestions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:14px;
-}
-
-.suggestion{
-  border:1px solid #cfd7ff;
-  background:white;
-  color:#2447d8;
-  padding:8px 12px;
-  border-radius:999px;
-  cursor:pointer;
-  font-size:12px;
-  transition:.2s;
-}
-
-.suggestion:hover{
-  background:#eef2ff;
-  transform:translateY(-1px);
-}
-
-/* =========================
-   TYPING
-========================= */
-
-.typing{
-  display:flex;
-  gap:4px;
-  align-items:center;
-  padding:5px;
-}
-
-.typing span{
-  width:7px;
-  height:7px;
-  background:#7180d8;
-  border-radius:50%;
-  animation:typing 1s infinite;
-}
-
-.typing span:nth-child(2){
-  animation-delay:.15s;
-}
-
-.typing span:nth-child(3){
-  animation-delay:.3s;
-}
-
-@keyframes typing{
-  0%,60%,100%{
-    transform:translateY(0);
-    opacity:.4;
-  }
-  30%{
-    transform:translateY(-4px);
-    opacity:1;
-  }
-}
-
-/* =========================
-   INPUT
-========================= */
-
-.input-area{
-  padding:15px;
-  border-top:1px solid #e5e7eb;
-  background:white;
-}
-
-.input-row{
-  display:flex;
-  gap:10px;
-}
-
-.input{
-  flex:1;
-  border:1px solid #d0d5dd;
-  border-radius:14px;
-  padding:13px 15px;
-  outline:none;
-  font-size:14px;
-  resize:none;
-  min-height:46px;
-  max-height:120px;
-}
-
-.input:focus{
-  border-color:#6d5dfc;
-  box-shadow:0 0 0 3px rgba(109,93,252,.1);
-}
-
-.send{
-  width:50px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg,#2447d8,#6d5dfc);
-  color:white;
-  cursor:pointer;
-  font-size:19px;
-  transition:.2s;
-}
-
-.send:hover{
-  transform:scale(1.04);
-}
-
-.send:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-/* =========================
-   BOTONES
-========================= */
-
-.actions{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:9px;
-}
-
-.clear-memory{
-  border:none;
-  background:transparent;
-  color:#667085;
-  font-size:11px;
-  cursor:pointer;
-}
-
-.clear-memory:hover{
-  color:#d92d20;
-}
-
-.counter{
-  font-size:11px;
-  color:#98a2b3;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:650px){
-
-  .header{
-    padding:15px;
-  }
-
-  .logo{
-    width:55px;
-    height:55px;
-  }
-
-  .header-text h1{
-    font-size:20px;
-  }
-
-  .chat{
-    padding:14px;
-    min-height:450px;
-  }
-
-  .bubble{
-    max-width:90%;
-  }
-
-}
-
-</style>
+      .memory-status {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <header class="header">
+  <header>
 
-    <!-- NO CAMBIES ESTE NOMBRE -->
     <img
       src="Logo.jpg.jpeg"
-      class="logo"
       alt="Logo de LawsBot Perú"
+      class="logo"
     >
 
     <div class="header-text">
-      <h1>LawsBot Perú</h1>
-      <p>Derechos digitales · Privacidad · Ciberseguridad</p>
+      <h1>LawsBot Perú 🇵🇪</h1>
+      <p>Derechos humanos, derechos digitales, privacidad y ciberseguridad</p>
+    </div>
+
+    <div class="memory-status" id="memoryStatus">
+      Memoria local activa
     </div>
 
   </header>
 
-  <div class="chat-container">
+  <main class="chat" id="chat"></main>
 
-    <div class="status">
+  <div class="suggestions">
 
-      <div class="status-left">
-        <span class="status-dot"></span>
-        <span>Memoria local activa</span>
-      </div>
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Cuáles son los derechos humanos?')">
+      Derechos humanos
+    </button>
 
-      <span id="memoryStatus">
-        Conversación nueva
-      </span>
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Cuáles son los 30 artículos de la Declaración Universal?')">
+      30 artículos
+    </button>
 
-    </div>
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Cuáles son los derechos digitales?')">
+      Derechos digitales
+    </button>
 
-    <main id="chat" class="chat"></main>
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Qué dice el artículo 12?')">
+      Artículo 12
+    </button>
 
-    <div class="input-area">
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Qué dice el artículo 19?')">
+      Artículo 19
+    </button>
 
-      <div class="input-row">
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Qué son los datos personales?')">
+      Datos personales
+    </button>
 
-        <textarea
-          id="userInput"
-          class="input"
-          placeholder="Escribe tu pregunta..."
-          rows="1"
-        ></textarea>
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Qué son los derechos ARCO?')">
+      ARCO
+    </button>
 
-        <button
-          id="sendButton"
-          class="send"
-          onclick="enviarMensaje()"
-          aria-label="Enviar"
-        >
-          ➤
-        </button>
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Qué es el phishing?')">
+      Phishing
+    </button>
 
-      </div>
+    <button
+      class="suggestion"
+      onclick="quickQuestion('¿Qué es el ciberacoso?')">
+      Ciberacoso
+    </button>
 
-      <div class="actions">
+  </div>
 
-        <button
-          class="clear-memory"
-          onclick="borrarMemoria()"
-        >
-          🗑️ Borrar memoria de esta conversación
-        </button>
+  <div class="input-area">
 
-        <span
-          id="counter"
-          class="counter"
-        >
-          LawsBot Perú
-        </span>
+    <textarea
+      id="userInput"
+      placeholder="Escribe tu pregunta..."
+      rows="1">
+    </textarea>
 
-      </div>
+    <button id="sendBtn" onclick="sendMessage()">
+      ➤
+    </button>
 
-    </div>
+  </div>
 
+  <div class="bottom">
+
+    <button
+      class="clear-memory"
+      onclick="clearMemory()">
+      Borrar conversación y memoria local
+    </button>
+
+  </div>
+
+  <div class="disclaimer">
+    LawsBot brinda información general y educativa.
+    No reemplaza asesoría legal profesional.
   </div>
 
 </div>
 
+
 <script>
 
 /* =========================================================
-   LAWSBOT PERÚ
-   SISTEMA DE MEMORIA + RECONOCIMIENTO DE TEMAS
+   MEMORIA LOCAL
 ========================================================= */
 
 const STORAGE_KEY = "lawsbot_peru_memoria_v3";
 
+let memory = {
+  messages: [],
+  lastTopic: null
+};
 
-/* =========================================================
-   MEMORIA
-========================================================= */
+try {
 
-let memoria = cargarMemoria();
+  const saved =
+    JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "null"
+    );
 
-
-function memoriaInicial(){
-
-  return {
-
-    historial: [],
-
-    tema: "",
-
-    subtema: "",
-
-    ultimoPregunta: "",
-
-    ultimoIntent: "",
-
-    caso: "",
-
-    plataforma: "",
-
-    nombre: "",
-
-    actualizado: Date.now()
-
-  };
-
-}
-
-
-function cargarMemoria(){
-
-  try{
-
-    const guardado = localStorage.getItem(STORAGE_KEY);
-
-    if(!guardado){
-      return memoriaInicial();
-    }
-
-    const datos = JSON.parse(guardado);
-
-    return {
-      ...memoriaInicial(),
-      ...datos,
-      historial: Array.isArray(datos.historial)
-        ? datos.historial
-        : []
-    };
-
-  }catch(error){
-
-    return memoriaInicial();
-
+  if (
+    saved &&
+    Array.isArray(saved.messages)
+  ) {
+    memory = saved;
   }
 
-}
+} catch(e) {}
 
 
-function guardarMemoria(){
+/* =========================================================
+   GUARDAR MEMORIA
+========================================================= */
 
-  memoria.actualizado = Date.now();
+function saveMemory() {
 
-  try{
+  try {
 
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify(memoria)
+      JSON.stringify(memory)
     );
 
-  }catch(error){
-
-    console.warn("No se pudo guardar la memoria local.");
-
-  }
+  } catch(e) {}
 
 }
 
 
 /* =========================================================
-   NORMALIZACIÓN
+   NORMALIZAR TEXTO
 ========================================================= */
 
-function normalizar(texto){
+function normalizeText(text) {
 
-  return String(texto || "")
+  return String(text || "")
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .replace(/[¿?¡!.,;:()"']/g," ")
-    .replace(/\s+/g," ")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[¿?¡!.,;:()[\]{}"']/g, " ")
+    .replace(/[-_/]/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 
 }
 
 
-/* =========================================================
-   SEGURIDAD PARA MOSTRAR TEXTO DEL USUARIO
-========================================================= */
+function hasAny(q, arr) {
 
-function escaparHTML(texto){
+  return arr.some(
+    x => q.includes(normalizeText(x))
+  );
 
-  return String(texto || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+}
+
+
+function hasAll(q, arr) {
+
+  return arr.every(
+    x => q.includes(normalizeText(x))
+  );
 
 }
 
 
 /* =========================================================
-   MOSTRAR MENSAJES
+   DECLARACIÓN UNIVERSAL DE DERECHOS HUMANOS
+   30 ARTÍCULOS
 ========================================================= */
 
-function agregarMensaje(tipo, contenido, guardar=true){
+const humanRights = {
 
-  const chat = document.getElementById("chat");
+1:
+"Toda persona nace libre e igual en dignidad y derechos. La dignidad y la igualdad son la base de los demás derechos.",
 
-  const contenedor = document.createElement("div");
+2:
+"Todas las personas deben disfrutar de los derechos sin discriminación por motivos como origen, color, sexo, idioma, religión, opinión, origen nacional o social, posición económica u otra condición.",
 
-  contenedor.className =
-    "message " + (tipo === "user" ? "user" : "bot");
+3:
+"Derecho a la vida, la libertad y la seguridad personal.",
 
-  const burbuja = document.createElement("div");
+4:
+"Prohibición de la esclavitud y la servidumbre, incluida la trata de esclavos.",
 
-  burbuja.className = "bubble";
+5:
+"Nadie debe ser sometido a tortura ni a tratos o penas crueles, inhumanos o degradantes.",
 
-  burbuja.innerHTML = contenido;
+6:
+"Toda persona tiene derecho al reconocimiento de su personalidad jurídica ante la ley.",
 
-  contenedor.appendChild(burbuja);
+7:
+"Igualdad ante la ley y derecho a igual protección legal, incluida la protección frente a la discriminación.",
 
-  chat.appendChild(contenedor);
+8:
+"Derecho a un recurso efectivo ante tribunales competentes cuando se vulneran derechos fundamentales.",
 
-  chat.scrollTop = chat.scrollHeight;
+9:
+"Nadie debe ser detenido, preso o desterrado arbitrariamente.",
 
-  if(guardar){
+10:
+"Derecho a ser oído públicamente y con justicia por un tribunal independiente e imparcial para determinar derechos y obligaciones o resolver una acusación penal.",
 
-    memoria.historial.push({
+11:
+"Toda persona acusada de un delito tiene derecho a la presunción de inocencia y a las garantías necesarias para su defensa. Nadie debe ser condenado por un acto que no era delito cuando se realizó ni recibir una pena más grave que la aplicable entonces.",
 
-      tipo: tipo,
+12:
+"Derecho a la privacidad, la vida familiar, el domicilio y la correspondencia, así como a la protección frente a ataques arbitrarios contra la honra y la reputación.",
 
-      contenido:
-        tipo === "user"
-          ? escaparHTML(contenido)
-          : contenido,
+13:
+"Libertad de circulación y residencia dentro de un Estado, y derecho a salir de cualquier país y regresar al propio.",
 
-      fecha: Date.now()
+14:
+"En caso de persecución, derecho a buscar y disfrutar de asilo en otro país, con las excepciones previstas por la propia Declaración.",
 
-    });
+15:
+"Derecho a una nacionalidad y protección frente a la privación arbitraria de ella; también se reconoce el derecho a cambiar de nacionalidad.",
 
-    /*
-      Guardamos las últimas 100 interacciones
-      para no llenar el almacenamiento del navegador.
-    */
+16:
+"Derecho de las personas adultas a casarse y formar una familia con libre y pleno consentimiento, con igualdad de derechos dentro del matrimonio y protección de la familia.",
 
-    if(memoria.historial.length > 100){
+17:
+"Derecho a la propiedad individual o colectiva y protección frente a la privación arbitraria de la propiedad.",
 
-      memoria.historial =
-        memoria.historial.slice(-100);
+18:
+"Libertad de pensamiento, conciencia y religión, incluida la posibilidad de cambiar de creencia y manifestarla individual o colectivamente.",
+
+19:
+"Libertad de opinión y expresión, incluyendo buscar, recibir y difundir información e ideas por cualquier medio y sin fronteras.",
+
+20:
+"Libertad de reunión y asociación pacíficas. Nadie puede ser obligado a pertenecer a una asociación.",
+
+21:
+"Derecho a participar en el gobierno del propio país, acceder en igualdad a las funciones públicas y participar en elecciones auténticas mediante procedimientos que garanticen la libertad del voto.",
+
+22:
+"Derecho a la seguridad social y a la realización de los derechos económicos, sociales y culturales indispensables para la dignidad y el desarrollo de la persona.",
+
+23:
+"Derecho al trabajo, a elegirlo libremente, a condiciones justas y satisfactorias, a protección contra el desempleo, a igual salario por trabajo igual, a remuneración digna y a formar sindicatos y afiliarse a ellos.",
+
+24:
+"Derecho al descanso, al tiempo libre, a una duración razonable del trabajo y a vacaciones periódicas pagadas.",
+
+25:
+"Derecho a un nivel de vida adecuado para la salud y el bienestar, incluyendo alimentación, vestido, vivienda, asistencia médica y servicios sociales. También se reconoce protección especial para maternidad e infancia.",
+
+26:
+"Derecho a la educación. La educación elemental debe ser gratuita y obligatoria; debe favorecer el desarrollo de la personalidad, el respeto de los derechos humanos, la comprensión y la tolerancia.",
+
+27:
+"Derecho a participar en la vida cultural, disfrutar de las artes y participar en el progreso científico y sus beneficios. Las personas autoras tienen derecho a la protección de sus intereses morales y materiales.",
+
+28:
+"Derecho a un orden social e internacional en el que los derechos y libertades de la Declaración puedan hacerse plenamente efectivos.",
+
+29:
+"Las personas tienen deberes respecto de la comunidad. Los derechos pueden estar sujetos a limitaciones establecidas por ley para respetar los derechos de los demás y atender exigencias legítimas de una sociedad democrática.",
+
+30:
+"Ninguna disposición de la Declaración puede interpretarse como autorización para que un Estado, grupo o persona destruya o suprima los derechos y libertades reconocidos en ella."
+
+};
+
+
+/* =========================================================
+   DERECHOS HUMANOS POR TEMA
+========================================================= */
+
+const rightsByTopic = {
+
+"dignidad e igualdad":
+"La dignidad humana significa que toda persona merece respeto y consideración por el solo hecho de ser persona. La igualdad exige que los derechos se reconozcan sin discriminación. En la DUDH se relaciona especialmente con los artículos 1, 2 y 7.",
+
+"vida":
+"El derecho a la vida protege la existencia de toda persona y está reconocido en el artículo 3 de la DUDH. En Perú, la Constitución también reconoce el derecho a la vida y a la integridad.",
+
+"integridad":
+"La integridad física, psíquica y moral protege a la persona frente a daños y tratos que afecten su dignidad. La DUDH prohíbe la tortura y los tratos crueles, inhumanos o degradantes en su artículo 5.",
+
+"libertad":
+"La libertad aparece en distintos derechos: libertad personal, de circulación, pensamiento, conciencia, religión, opinión, expresión, reunión y asociación.",
+
+"igualdad":
+"La igualdad ante la ley y la prohibición de discriminación están reconocidas en los artículos 1, 2 y 7 de la DUDH. La Constitución peruana también reconoce la igualdad ante la ley.",
+
+"no discriminacion":
+"La no discriminación significa que una persona no debe recibir un trato desigual injustificado por motivos como origen, sexo, idioma, religión, opinión u otra condición protegida.",
+
+"privacidad":
+"La privacidad protege la vida privada, la familia, el domicilio, las comunicaciones, la honra y la reputación. En el entorno digital se relaciona con la protección de datos personales y la seguridad de las cuentas.",
+
+"honra reputacion":
+"La honra y la reputación están protegidas por el artículo 12 de la DUDH. Las publicaciones digitales que afectan la reputación deben analizarse según el contexto y los derechos involucrados.",
+
+"personalidad juridica":
+"El reconocimiento de la personalidad jurídica significa que toda persona debe ser reconocida como sujeto de derechos y obligaciones ante la ley.",
+
+"debido proceso":
+"El debido proceso reúne garantías para que una persona sea escuchada y juzgada mediante procedimientos justos. La DUDH lo refleja especialmente en los artículos 8, 10 y 11.",
+
+"presuncion inocencia":
+"La presunción de inocencia significa que una persona acusada debe ser considerada inocente mientras no se pruebe su culpabilidad conforme a la ley y mediante un proceso con garantías.",
+
+"libertad expresion":
+"La libertad de expresión comprende expresar opiniones e ideas y buscar, recibir y difundir información. En Perú la Constitución reconoce las libertades de información, opinión, expresión y difusión del pensamiento.",
+
+"religion":
+"La libertad de pensamiento, conciencia y religión comprende tener, cambiar y manifestar creencias de forma individual o colectiva, respetando las normas y derechos aplicables.",
+
+"reunion":
+"Toda persona tiene derecho a reunirse pacíficamente. La DUDH lo reconoce en el artículo 20.",
+
+"asociacion":
+"La libertad de asociación permite formar o integrar asociaciones de manera pacífica y también protege frente a la obligación de pertenecer a una asociación.",
+
+"participacion":
+"La DUDH reconoce el derecho a participar en el gobierno del propio país y a acceder en igualdad a las funciones públicas.",
+
+"circulacion":
+"La libertad de circulación incluye moverse y elegir residencia dentro de un Estado, además de salir de un país y regresar al propio.",
+
+"asilo":
+"El artículo 14 de la DUDH reconoce el derecho a buscar y disfrutar de asilo en caso de persecución, con las excepciones señaladas por la Declaración.",
+
+"nacionalidad":
+"Toda persona tiene derecho a una nacionalidad y no debe ser privada arbitrariamente de ella.",
+
+"familia":
+"La familia recibe protección en el artículo 16 de la DUDH. El matrimonio debe basarse en el libre y pleno consentimiento de quienes lo contraen.",
+
+"propiedad":
+"La DUDH reconoce el derecho a la propiedad individual y colectiva y protege frente a su privación arbitraria.",
+
+"seguridad social":
+"La seguridad social y la realización de derechos económicos, sociales y culturales indispensables para la dignidad se reconocen en el artículo 22.",
+
+"trabajo":
+"El artículo 23 reconoce el derecho al trabajo, a elegirlo libremente, a condiciones justas, a protección contra el desempleo, a igual salario por trabajo igual y a formar sindicatos.",
+
+"descanso":
+"El artículo 24 reconoce el derecho al descanso, al tiempo libre, a una duración razonable del trabajo y a vacaciones periódicas pagadas.",
+
+"salud":
+"La salud forma parte del derecho a un nivel de vida adecuado reconocido en el artículo 25 de la DUDH.",
+
+"alimentacion":
+"La alimentación forma parte de los elementos mencionados por el artículo 25 como parte de un nivel de vida adecuado.",
+
+"vivienda":
+"La vivienda adecuada aparece dentro del derecho a un nivel de vida adecuado del artículo 25.",
+
+"educacion":
+"La educación es un derecho reconocido en el artículo 26. La DUDH señala que la educación debe favorecer el pleno desarrollo de la personalidad y el respeto de los derechos humanos.",
+
+"cultura":
+"Toda persona tiene derecho a participar en la vida cultural, disfrutar de las artes y participar en el progreso científico y sus beneficios.",
+
+"propiedad intelectual":
+"El artículo 27 protege los intereses morales y materiales de las personas autoras respecto de sus producciones científicas, literarias o artísticas.",
+
+"infancia":
+"La DUDH reconoce protección especial para la infancia en el artículo 25. Además, existen tratados internacionales específicos sobre los derechos de niños, niñas y adolescentes.",
+
+"mujeres":
+"Los derechos humanos corresponden por igual a mujeres y hombres. La igualdad y la no discriminación son principios fundamentales.",
+
+"discapacidad":
+"Las personas con discapacidad tienen los mismos derechos humanos y existen normas internacionales específicas para garantizar igualdad, accesibilidad, participación e inclusión.",
+
+"pueblos indigenas":
+"Los pueblos indígenas son titulares de derechos humanos individuales y colectivos. Existen instrumentos internacionales específicos que reconocen derechos sobre identidad, cultura, participación, territorio y otros asuntos.",
+
+"migrantes":
+"Las personas migrantes conservan sus derechos humanos. Existen normas internacionales específicas que desarrollan la protección de trabajadores migratorios y sus familias.",
+
+"medio ambiente":
+"El derecho a un medio ambiente sano está desarrollado en instrumentos y sistemas jurídicos posteriores a la DUDH. Su reconocimiento y contenido concreto dependen del marco jurídico aplicable.",
+
+"paz":
+"La paz se relaciona con la dignidad y el ejercicio efectivo de los derechos humanos.",
+
+"democracia":
+"La DUDH relaciona los derechos con una sociedad en la que las personas pueden participar, expresarse, reunirse y acceder a funciones públicas."
+
+};
+
+
+/* =========================================================
+   DERECHOS DIGITALES
+========================================================= */
+
+const digital = {
+
+derechosDigitales:
+`Los derechos digitales son los derechos humanos y libertades que se ejercen, protegen o desarrollan en el entorno digital.
+
+Para fines educativos, LawsBot organiza estos 10 derechos digitales clave:
+
+1. Privacidad.
+2. Libertad de expresión.
+3. Acceso a la información.
+4. Neutralidad de la red.
+5. Derecho al olvido.
+6. Protección de datos personales.
+7. Seguridad digital.
+8. Educación digital.
+9. Propiedad intelectual.
+10. Identidad digital.
+
+⚠️ Importante: esta lista es una clasificación educativa. No significa que exista una única ley peruana que enumere literalmente estos 10 derechos como un solo catálogo.`,
+
+privacidad:
+`La privacidad digital protege aspectos de la vida privada en Internet, como comunicaciones, fotografías, ubicación, cuentas e información personal.
+
+En Perú, la Constitución protege la intimidad y la Ley N.° 29733 desarrolla la protección de datos personales.
+
+Ejemplo: una persona no debería acceder, utilizar o difundir información privada de otra sin una base legítima.`,
+
+datos:
+`Los datos personales son información que identifica o hace identificable a una persona.
+
+Ejemplos:
+• Nombre.
+• DNI.
+• Teléfono.
+• Correo electrónico.
+• Dirección.
+• Fotografía identificable.
+• Ubicación.
+• Información relacionada con una cuenta.
+
+En Perú, la protección de estos datos se desarrolla principalmente mediante la Ley N.° 29733.`,
+
+datosSensibles:
+`Los datos sensibles son una categoría especialmente delicada de datos personales.
+
+Pueden incluir información relacionada con:
+• Salud.
+• Vida sexual.
+• Origen racial o étnico.
+• Convicciones.
+• Afiliación sindical.
+• Determinados datos biométricos o genéticos.
+
+Su tratamiento requiere especial cuidado y debe respetar las condiciones establecidas por la normativa aplicable.`,
+
+arco:
+`Los derechos ARCO son:
+
+A — Acceso.
+R — Rectificación.
+C — Cancelación.
+O — Oposición.
+
+Permiten ejercer determinadas facultades sobre el tratamiento de datos personales en los casos y condiciones establecidos por la normativa peruana.`,
+
+ciberseguridad:
+`La ciberseguridad reúne medidas técnicas, organizativas y humanas para proteger dispositivos, cuentas, sistemas y datos frente a accesos no autorizados, ataques, pérdidas o interrupciones.
+
+Algunas medidas básicas son:
+• Contraseñas diferentes y seguras.
+• Autenticación de dos factores.
+• Actualizaciones.
+• Copias de seguridad.
+• Evitar enlaces sospechosos.
+• No compartir códigos de seguridad.`,
+
+huella:
+`La huella digital es el conjunto de rastros que una persona deja al utilizar servicios digitales.
+
+Puede incluir:
+• Publicaciones.
+• Comentarios.
+• Fotografías.
+• Videos.
+• Interacciones.
+• Registros de actividad.
+
+Por eso es importante pensar antes de publicar y revisar la privacidad de las cuentas.`,
+
+identidad:
+`La identidad digital es la representación de una persona en Internet mediante sus perfiles, publicaciones, fotografías, comentarios e interacciones.
+
+Protegerla implica cuidar contraseñas, correos, autenticación y privacidad.`,
+
+olvido:
+`El llamado derecho al olvido se relaciona con la protección de datos personales y con solicitudes de supresión o desindexación en determinadas circunstancias.
+
+No significa que toda información deba eliminarse automáticamente. Deben analizarse el contexto, la finalidad, la legalidad del tratamiento y otros derechos involucrados.`,
+
+neutralidad:
+`La neutralidad de la red busca proteger determinadas condiciones de acceso y uso de Internet conforme al marco normativo aplicable.
+
+En Perú se relaciona con la Ley N.° 29904 y su reglamento.`,
+
+phishing:
+`El phishing es una técnica de engaño utilizada para obtener información como contraseñas, códigos o datos financieros.
+
+Si recibes un mensaje sospechoso:
+• No abras enlaces dudosos.
+• No compartas códigos.
+• Verifica la dirección del sitio.
+• Contacta directamente con la entidad por sus canales oficiales.
+• Cambia la contraseña si ya entregaste información.`,
+
+ciberacoso:
+`El ciberacoso es una forma de acoso mediante medios digitales.
+
+Puede incluir:
+• Amenazas.
+• Humillaciones.
+• Insultos.
+• Difusión de contenido para avergonzar.
+• Ataques repetidos.
+• Exclusión intencional.
+
+Si ocurre, guarda evidencias, bloquea y reporta cuando corresponda y busca ayuda de una persona adulta de confianza, especialmente si eres menor de edad.`,
+
+grooming:
+`El grooming consiste en el contacto y manipulación de niños, niñas o adolescentes mediante medios digitales con una finalidad sexual o de explotación.
+
+Es una situación de riesgo.
+
+No debes enviar contenido íntimo ni encontrarte a solas con una persona desconocida que te contacte de esta manera. Guarda evidencias y busca inmediatamente ayuda de una persona adulta de confianza y, cuando corresponda, de las autoridades.`,
+
+sextorsion:
+`La sextorsión consiste en amenazar con difundir material íntimo para obligar a una persona a hacer algo.
+
+Recomendaciones:
+• No pagues.
+• No envíes más contenido.
+• Guarda capturas.
+• Conserva mensajes y enlaces.
+• Bloquea y reporta.
+• Busca ayuda de una persona adulta de confianza.`,
+
+doxing:
+`El doxing consiste en recopilar y difundir información personal de una persona sin autorización, especialmente cuando la exposición puede intimidarla o ponerla en riesgo.
+
+Puede incluir dirección, teléfono, información familiar u otros datos personales.`,
+
+derechoImagen:
+`El derecho a la imagen protege frente a determinados usos de la imagen de una persona.
+
+En publicaciones digitales deben considerarse aspectos como:
+• Consentimiento.
+• Privacidad.
+• Contexto.
+• Finalidad.
+• Interés público.
+• Protección especial de menores.`,
+
+derechoAutor:
+`El contenido publicado en Internet no es automáticamente de libre uso.
+
+Fotografías, textos, videos, ilustraciones y música pueden estar protegidos por derechos de autor.
+
+Antes de reutilizar contenido conviene revisar su licencia y las condiciones de uso.`,
+
+brecha:
+`La brecha digital son las desigualdades en acceso, conectividad, habilidades y aprovechamiento de las tecnologías digitales.
+
+No se trata únicamente de tener o no tener Internet: también importan la calidad del acceso y las capacidades para utilizar la tecnología.`,
+
+convivencia:
+`La convivencia digital consiste en utilizar Internet respetando la dignidad y los derechos de las demás personas.
+
+Buenas prácticas:
+• No acosar.
+• No amenazar.
+• No difundir datos privados.
+• No publicar imágenes de otras personas sin considerar sus derechos.
+• Verificar información.
+• Debatir sin insultar.
+• Reportar contenido dañino.`,
+
+netiqueta:
+`La netiqueta reúne reglas de respeto y buena conducta al comunicarnos por Internet.
+
+Por ejemplo:
+• Evitar insultos.
+• Respetar opiniones diferentes.
+• No escribir deliberadamente contenido ofensivo.
+• No difundir rumores.
+• Cuidar la privacidad.
+• Pensar antes de publicar.`,
+
+contrasenas:
+`Para proteger tus cuentas:
+
+• Utiliza contraseñas largas.
+• Usa una contraseña diferente para cada cuenta importante.
+• Activa autenticación de dos factores.
+• No compartas códigos.
+• No guardes contraseñas en lugares inseguros.
+• Desconfía de mensajes que pidan códigos de verificación.`,
+
+instagram:
+`Si te hackearon Instagram:
+
+1. Utiliza los mecanismos oficiales de recuperación.
+2. Protege primero el correo asociado.
+3. Cambia las contraseñas.
+4. Activa autenticación de dos factores.
+5. Revisa las sesiones abiertas.
+6. Revisa si cambiaron el correo o teléfono de recuperación.
+7. No entregues códigos a desconocidos.
+
+Si cambiaron el correo, revisa especialmente los avisos de seguridad enviados al correo original.`
+};
+
+
+/* =========================================================
+   RESPUESTA A ARTÍCULOS
+========================================================= */
+
+function articleResponse(q) {
+
+  let m = q.match(
+    /(?:articulo|artículo|art)\s*(?:numero|nro|n°|n|num)?\s*(\d{1,2})/i
+  );
+
+  if (!m) {
+    m = q.match(
+      /(?:derecho|derechos)\s*(?:humano|humanos)?\s*(\d{1,2})/i
+    );
+  }
+
+  if (m) {
+
+    const n = Number(m[1]);
+
+    if (n >= 1 && n <= 30) {
+
+      return (
+        "📜 Artículo " +
+        n +
+        " de la Declaración Universal de los Derechos Humanos:\n\n" +
+        humanRights[n] +
+        "\n\nPuedes preguntarme también cómo se relaciona este artículo con Internet o con el contexto peruano."
+      );
 
     }
-
-    guardarMemoria();
-
   }
 
-  actualizarEstado();
-
+  return null;
 }
 
 
 /* =========================================================
-   CARGAR HISTORIAL
+   LISTA DE LOS 30 ARTÍCULOS
 ========================================================= */
 
-function cargarHistorial(){
+function listAllHumanRights() {
 
-  const chat =
-    document.getElementById("chat");
+  let s =
+    "🌎 LOS 30 ARTÍCULOS DE LA DECLARACIÓN UNIVERSAL DE LOS DERECHOS HUMANOS\n\n";
 
-  chat.innerHTML = "";
+  Object.keys(humanRights).forEach(n => {
 
-  if(memoria.historial.length === 0){
-
-    mostrarBienvenida();
-
-    return;
-
-  }
-
-  memoria.historial.forEach(mensaje => {
-
-    agregarMensaje(
-      mensaje.tipo,
-      mensaje.contenido,
-      false
-    );
+    s +=
+      "Artículo " +
+      n +
+      ":\n" +
+      humanRights[n] +
+      "\n\n";
 
   });
 
-  actualizarEstado();
+  s +=
+    "📌 La Declaración Universal de los Derechos Humanos fue proclamada por la Asamblea General de las Naciones Unidas el 10 de diciembre de 1948.";
 
+  return s;
 }
 
 
 /* =========================================================
-   BIENVENIDA
+   RESUMEN DE DERECHOS HUMANOS
 ========================================================= */
 
-function mostrarBienvenida(){
+function humanRightsOverview() {
 
-  const contenido = `
+  return `
+🌎 ¿QUÉ SON LOS DERECHOS HUMANOS?
 
-    <div class="welcome-card">
+Los derechos humanos son derechos y libertades inherentes a todas las personas y están relacionados con la dignidad, la igualdad y la libertad.
 
-      <h2>👋 ¡Hola! Soy LawsBot Perú</h2>
+Entre los principales derechos y temas se encuentran:
 
-      <p>
-        Soy un asistente informativo especializado en
-        <strong>derechos digitales, privacidad,
-        protección de datos, ciberseguridad y
-        convivencia digital</strong> en el contexto peruano.
-      </p>
+• Dignidad humana.
+• Igualdad y no discriminación.
+• Derecho a la vida.
+• Libertad y seguridad.
+• Integridad personal.
+• Prohibición de la tortura.
+• Personalidad jurídica.
+• Igualdad ante la ley.
+• Acceso a la justicia.
+• Debido proceso.
+• Presunción de inocencia.
+• Privacidad.
+• Honra y reputación.
+• Libertad de circulación.
+• Derecho de asilo.
+• Nacionalidad.
+• Familia.
+• Propiedad.
+• Libertad de pensamiento y religión.
+• Libertad de opinión y expresión.
+• Libertad de reunión.
+• Libertad de asociación.
+• Participación en asuntos públicos.
+• Seguridad social.
+• Trabajo.
+• Descanso.
+• Salud.
+• Alimentación.
+• Vivienda.
+• Educación.
+• Cultura y ciencia.
+• Protección de la infancia.
+• Derechos de las personas con discapacidad.
+• Derechos de pueblos indígenas.
+• Derechos de personas migrantes.
+• Medio ambiente.
+• Paz y democracia.
 
-      <br>
-
-      <p>
-        Puedes preguntarme de distintas maneras.
-        No necesitas utilizar una frase exacta.
-        También puedo mantener el contexto de la
-        conversación mediante memoria local.
-      </p>
-
-      <div class="suggestions">
-
-        <button
-          class="suggestion"
-          onclick="preguntaRapida('¿Cuáles son los derechos digitales?')"
-        >
-          ⚖️ Derechos digitales
-        </button>
-
-        <button
-          class="suggestion"
-          onclick="preguntaRapida('¿Qué es la privacidad digital?')"
-        >
-          🔒 Privacidad
-        </button>
-
-        <button
-          class="suggestion"
-          onclick="preguntaRapida('¿Qué son los datos personales?')"
-        >
-          👤 Datos personales
-        </button>
-
-        <button
-          class="suggestion"
-          onclick="preguntaRapida('¿Qué es la ciberseguridad?')"
-        >
-          🛡️ Ciberseguridad
-        </button>
-
-        <button
-          class="suggestion"
-          onclick="preguntaRapida('¿Qué son los derechos ARCO?')"
-        >
-          📋 Derechos ARCO
-        </button>
-
-        <button
-          class="suggestion"
-          onclick="preguntaRapida('Me hackearon Instagram, ¿qué hago?')"
-        >
-          📱 Instagram hackeado
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-  agregarMensaje(
-    "bot",
-    contenido,
-    true
-  );
-
+Si quieres verlos uno por uno, pregúntame:
+“¿Cuáles son los 30 artículos de los derechos humanos?”
+`;
 }
 
 
@@ -774,2848 +990,897 @@ function mostrarBienvenida(){
    FUENTES
 ========================================================= */
 
-function fuente(texto){
+function legalSources() {
 
   return `
+📚 FUENTES PRINCIPALES DE LAWSBOT
 
-    <div class="source">
+• Declaración Universal de los Derechos Humanos — Naciones Unidas.
+• Constitución Política del Perú.
+• Ley N.° 29733 — Ley de Protección de Datos Personales.
+• Decreto Supremo N.° 016-2024-JUS — Reglamento de la Ley N.° 29733.
+• Normativa peruana relacionada con delitos informáticos.
+• Normativa peruana relacionada con el entorno digital.
 
-      📚 <strong>Fundamento / referencia:</strong>
-      ${texto}
-
-    </div>
-
-  `;
-
+⚠️ LawsBot brinda información general y educativa y no reemplaza asesoría legal profesional.
+`;
 }
 
 
 /* =========================================================
-   REGISTRAR CONTEXTO
+   CASOS CONCRETOS
 ========================================================= */
 
-function actualizarContexto(
-  texto,
-  intent
-){
+function caseResponse(q) {
 
-  const p = normalizar(texto);
+  if (
+    hasAny(q, [
+      "me hackearon instagram",
+      "hackearon mi instagram",
+      "hackearon mi cuenta de instagram"
+    ])
+  ) {
 
-  memoria.ultimoPregunta = texto;
+    memory.lastTopic = "instagram";
 
-  memoria.ultimoIntent = intent;
+    return digital.instagram;
+  }
 
-  /* DERECHOS */
 
-  if(
-    intent === "derechos_digitales" ||
-    intent === "lista_derechos"
-  ){
+  if (
+    hasAny(q, [
+      "cambiaron mi correo",
+      "cambiaron el correo de instagram",
+      "cambiaron mi email"
+    ])
+  ) {
 
-    memoria.tema =
-      "derechos digitales";
+    memory.lastTopic = "instagram";
+
+    return `
+Si cambiaron el correo de tu Instagram después de que te hackearon:
+
+1. Utiliza el proceso oficial de recuperación.
+2. Revisa el correo original por avisos de seguridad.
+3. Protege tu correo electrónico.
+4. Cambia tus contraseñas.
+5. Activa autenticación de dos factores.
+6. Revisa las sesiones abiertas.
+
+⚠️ No compartas códigos de recuperación con ninguna persona.
+`;
+  }
+
+
+  if (
+    hasAny(q, [
+      "fotos intimas",
+      "fotos íntimas",
+      "amenazan con publicar",
+      "amenaza con publicar fotos"
+    ])
+  ) {
+
+    memory.lastTopic = "sextorsion";
+
+    return digital.sextorsion;
+  }
+
+
+  if (
+    hasAny(q, [
+      "foto mia editada",
+      "foto mía editada",
+      "foto editada para burlarse",
+      "publicaron una foto mia"
+    ])
+  ) {
+
+    memory.lastTopic = "ciberacoso";
+
+    return `
+Si publicaron una foto tuya editada para burlarse:
+
+• Guarda capturas.
+• Conserva enlaces.
+• No borres las evidencias.
+• Reporta el contenido.
+• Bloquea a la persona si es necesario.
+• Busca ayuda de una persona adulta de confianza si eres menor.
+
+Puede involucrar derechos relacionados con imagen, privacidad, reputación y protección frente al acoso.
+`;
+  }
+
+  return null;
+}
+
+
+/* =========================================================
+   RESPUESTA PRINCIPAL
+========================================================= */
+
+function getBotResponse(original) {
+
+  const q = normalizeText(original);
+
+  if (!q) {
+
+    return "Escribe una pregunta y te ayudaré. 💙";
 
   }
+
+
+  /* SALUDOS */
+
+  if (
+    hasAny(q, [
+      "hola",
+      "buenas",
+      "holaa",
+      "hey",
+      "buenos dias",
+      "buenas tardes",
+      "buenas noches"
+    ]) &&
+    q.length < 45
+  ) {
+
+    memory.lastTopic = "saludo";
+
+    return `
+¡Hola! 👋🇵🇪 Soy LawsBot Perú.
+
+Puedo ayudarte con:
+
+⚖️ Derechos humanos.
+💻 Derechos digitales.
+🔐 Privacidad.
+📋 Protección de datos.
+🛡️ Ciberseguridad.
+📱 Redes sociales.
+🤝 Convivencia digital.
+🇵🇪 Normativa relacionada con Perú.
+
+Cuéntame tu pregunta o caso.
+`;
+  }
+
+
+  /* FUNCIÓN DEL CHATBOT */
+
+  if (
+    hasAny(q, [
+      "cual es tu funcion",
+      "cual es tu objetivo",
+      "para que sirves",
+      "para que sirve lawsbot",
+      "que haces",
+      "quien eres",
+      "que es lawsbot",
+      "como puedes ayudarme",
+      "en que puedes ayudarme"
+    ])
+  ) {
+
+    memory.lastTopic = "funcion";
+
+    return `
+Mi función es orientar de manera clara y educativa sobre:
+
+⚖️ Derechos humanos.
+💻 Derechos digitales.
+🔐 Privacidad.
+📋 Protección de datos.
+🛡️ Ciberseguridad.
+📱 Redes sociales.
+🤝 Convivencia digital.
+
+También puedo explicar los 30 artículos de la Declaración Universal de los Derechos Humanos, explicar conceptos jurídicos en lenguaje sencillo y orientarte ante situaciones digitales.
+
+Estoy enfocada especialmente en el contexto peruano.
+
+⚠️ No reemplazo la asesoría legal profesional.
+`;
+  }
+
+
+  /* TEMAS */
+
+  if (
+    hasAny(q, [
+      "que puedes hacer",
+      "que temas conoces",
+      "temas puedes ayudar",
+      "que sabes hacer"
+    ])
+  ) {
+
+    return `
+Puedo ayudarte con:
+
+🌎 Los 30 artículos de la DUDH.
+⚖️ Derechos humanos.
+💻 Derechos digitales.
+🔐 Privacidad.
+📋 Datos personales.
+📑 Derechos ARCO.
+🛡️ Ciberseguridad.
+🎣 Phishing.
+🚨 Ciberacoso.
+👤 Grooming.
+🔒 Sextorsión.
+🪪 Identidad digital.
+📸 Derecho a la imagen.
+©️ Derecho de autor.
+🌐 Neutralidad de la red.
+📡 Brecha digital.
+🤝 Convivencia digital.
+🇵🇪 Normativa peruana relacionada.
+
+También puedo mantener el contexto de la conversación mediante memoria local del navegador.
+`;
+  }
+
+
+  /* ARTÍCULOS */
+
+  const art = articleResponse(q);
+
+  if (art) {
+
+    memory.lastTopic = "articulo";
+
+    return art;
+  }
+
+
+  /* TODOS LOS DERECHOS HUMANOS */
+
+  if (
+    hasAny(q, [
+      "cuales son los 30",
+      "cuales son los treinta",
+      "30 derechos humanos",
+      "treinta derechos humanos",
+      "30 articulos",
+      "treinta articulos",
+      "todos los derechos humanos",
+      "todos los 30 derechos"
+    ])
+  ) {
+
+    memory.lastTopic = "derechosHumanos";
+
+    return listAllHumanRights();
+  }
+
+
+  /* QUÉ SON LOS DERECHOS HUMANOS */
+
+  if (
+    hasAny(q, [
+      "cuales son los derechos humanos",
+      "que son los derechos humanos",
+      "derechos humanos que son",
+      "lista de derechos humanos"
+    ])
+  ) {
+
+    memory.lastTopic = "derechosHumanos";
+
+    return humanRightsOverview();
+  }
+
+
+  /* FUENTES */
+
+  if (
+    hasAny(q, [
+      "fuentes",
+      "fuentes legales",
+      "de donde sacas",
+      "en que te basas",
+      "fundamentos",
+      "fundamento legal",
+      "base legal",
+      "que leyes"
+    ])
+  ) {
+
+    return legalSources();
+  }
+
+
+  /* CASOS */
+
+  const c = caseResponse(q);
+
+  if (c) return c;
+
+
+  /* =====================================================
+     DERECHOS DIGITALES
+  ===================================================== */
+
+  if (
+    hasAny(q, [
+      "derechos digitales",
+      "derecho digital",
+      "derechos en internet",
+      "derechos en linea",
+      "derechos online"
+    ])
+  ) {
+
+    memory.lastTopic = "derechosDigitales";
+
+    return digital.derechosDigitales;
+  }
+
 
   /* PRIVACIDAD */
 
-  if(intent === "privacidad"){
+  if (
+    hasAny(q, [
+      "privacidad digital",
+      "privacidad en internet",
+      "privacidad en redes",
+      "privacidad"
+    ])
+  ) {
 
-    memoria.tema =
-      "privacidad";
+    memory.lastTopic = "privacidad";
 
+    return digital.privacidad;
   }
 
-  /* DATOS */
 
-  if(
-    intent === "datos_personales" ||
-    intent === "datos_sensibles" ||
-    intent === "comparar_datos"
-  ){
+  /* DATOS PERSONALES */
 
-    memoria.tema =
-      "datos personales";
+  if (
+    hasAny(q, [
+      "datos personales",
+      "que son los datos",
+      "dato personal"
+    ])
+  ) {
 
+    if (
+      hasAny(q, [
+        "sensibles",
+        "sensible",
+        "diferencia",
+        "diferencia hay"
+      ])
+    ) {
+
+      memory.lastTopic = "datosSensibles";
+
+      return (
+        digital.datosSensibles +
+        "\n\nDiferencia rápida: los datos sensibles son un tipo especialmente delicado de datos personales."
+      );
+    }
+
+    memory.lastTopic = "datos";
+
+    return digital.datos;
   }
+
+
+  /* DATOS SENSIBLES */
+
+  if (
+    hasAny(q, [
+      "datos sensibles",
+      "dato sensible"
+    ])
+  ) {
+
+    memory.lastTopic = "datosSensibles";
+
+    return digital.datosSensibles;
+  }
+
 
   /* ARCO */
 
-  if(
-    intent === "arco" ||
-    intent === "acceso" ||
-    intent === "rectificacion" ||
-    intent === "cancelacion" ||
-    intent === "oposicion"
-  ){
+  if (
+    hasAny(q, [
+      "arco",
+      "acceso rectificacion",
+      "acceso rectificación",
+      "rectificacion cancelacion oposicion",
+      "derechos de acceso rectificacion"
+    ])
+  ) {
 
-    memoria.tema =
-      "derechos ARCO";
+    memory.lastTopic = "arco";
 
+    return digital.arco;
   }
+
 
   /* CIBERSEGURIDAD */
 
-  if(
-    intent === "ciberseguridad" ||
-    intent === "seguridad_digital"
-  ){
+  if (
+    hasAny(q, [
+      "ciberseguridad",
+      "seguridad digital",
+      "seguridad en internet"
+    ])
+  ) {
 
-    memoria.tema =
-      "ciberseguridad";
+    memory.lastTopic = "ciberseguridad";
 
+    return digital.ciberseguridad;
   }
 
-  /* INSTAGRAM */
 
-  if(
-    p.includes("instagram") ||
-    p.includes("ig") &&
-    (
-      p.includes("hack") ||
-      p.includes("robar") ||
-      p.includes("cuenta")
-    )
-  ){
+  /* HUELLA DIGITAL */
 
-    memoria.tema =
-      "instagram";
+  if (
+    hasAny(q, [
+      "huella digital",
+      "rastro digital"
+    ])
+  ) {
 
-    memoria.subtema =
-      "cuenta comprometida";
+    memory.lastTopic = "huella";
 
-    memoria.plataforma =
-      "Instagram";
-
+    return digital.huella;
   }
 
-  /* CUENTA COMPROMETIDA */
 
-  if(intent === "cuenta_hackeada"){
+  /* IDENTIDAD DIGITAL */
 
-    memoria.tema =
-      "ciberseguridad";
+  if (
+    hasAny(q, [
+      "identidad digital",
+      "identidad en internet"
+    ])
+  ) {
 
-    memoria.subtema =
-      "cuenta comprometida";
+    memory.lastTopic = "identidad";
 
-    memoria.caso =
-      texto;
-
+    return digital.identidad;
   }
+
+
+  /* DERECHO AL OLVIDO */
+
+  if (
+    hasAny(q, [
+      "derecho al olvido",
+      "derecho de olvido",
+      "borrar mis datos de google",
+      "desindexar"
+    ])
+  ) {
+
+    memory.lastTopic = "olvido";
+
+    return digital.olvido;
+  }
+
+
+  /* NEUTRALIDAD */
+
+  if (
+    hasAny(q, [
+      "neutralidad de la red",
+      "neutralidad de red",
+      "neutralidad en internet"
+    ])
+  ) {
+
+    memory.lastTopic = "neutralidad";
+
+    return digital.neutralidad;
+  }
+
 
   /* PHISHING */
 
-  if(intent === "phishing"){
+  if (
+    hasAny(q, [
+      "phishing",
+      "mensaje falso",
+      "correo falso",
+      "enlace sospechoso"
+    ])
+  ) {
 
-    memoria.tema =
-      "ciberseguridad";
+    memory.lastTopic = "phishing";
 
-    memoria.subtema =
-      "phishing";
-
+    return digital.phishing;
   }
 
-  /* CIBERBULLYING */
 
-  if(intent === "ciberbullying"){
+  /* CIBERACOSO */
 
-    memoria.tema =
-      "convivencia digital";
+  if (
+    hasAny(q, [
+      "ciberacoso",
+      "acoso en redes",
+      "acoso por internet",
+      "bullying por internet"
+    ])
+  ) {
 
-    memoria.subtema =
-      "ciberbullying";
+    memory.lastTopic = "ciberacoso";
 
+    return digital.ciberacoso;
   }
 
-  /* SUPLANTACIÓN */
 
-  if(intent === "suplantacion"){
+  /* GROOMING */
 
-    memoria.tema =
-      "identidad digital";
+  if (
+    hasAny(q, [
+      "grooming",
+      "adulto me escribe",
+      "desconocido me pide fotos"
+    ])
+  ) {
 
-    memoria.subtema =
-      "suplantación de identidad";
+    memory.lastTopic = "grooming";
 
+    return digital.grooming;
   }
 
-  /* AMENAZAS */
 
-  if(intent === "amenazas"){
+  /* SEXTORSIÓN */
 
-    memoria.tema =
-      "seguridad digital";
+  if (
+    hasAny(q, [
+      "sextorsion",
+      "sextorsión",
+      "chantaje con fotos",
+      "fotos intimas",
+      "fotos íntimas"
+    ])
+  ) {
 
-    memoria.subtema =
-      "amenazas digitales";
+    memory.lastTopic = "sextorsion";
 
+    return digital.sextorsion;
   }
 
-  guardarMemoria();
 
-}
+  /* DOXING */
+
+  if (
+    hasAny(q, [
+      "doxing",
+      "doxxing",
+      "publicaron mi direccion",
+      "publicaron mi dirección",
+      "publicaron mi telefono"
+    ])
+  ) {
+
+    memory.lastTopic = "doxing";
+
+    return digital.doxing;
+  }
 
 
-/* =========================================================
-   DETECTAR SEGUIMIENTO
-========================================================= */
+  /* IMAGEN */
 
-function esSeguimiento(p){
+  if (
+    hasAny(q, [
+      "derecho a la imagen",
+      "imagen de una persona",
+      "puedo publicar una foto",
+      "publicar foto de otra persona"
+    ])
+  ) {
 
-  const frases = [
+    memory.lastTopic = "derechoImagen";
 
-    "y si",
+    return digital.derechoImagen;
+  }
 
-    "y que pasa",
 
-    "y ahora",
+  /* AUTOR */
 
-    "y ahora que hago",
+  if (
+    hasAny(q, [
+      "derecho de autor",
+      "copyright",
+      "copiar una foto",
+      "copiar un video",
+      "contenido de internet"
+    ])
+  ) {
 
-    "que hago ahora",
+    memory.lastTopic = "derechoAutor";
 
-    "y como",
+    return digital.derechoAutor;
+  }
 
-    "y entonces",
 
-    "y despues",
+  /* BRECHA DIGITAL */
 
-    "y eso",
+  if (
+    hasAny(q, [
+      "brecha digital",
+      "inclusion digital",
+      "inclusión digital",
+      "desigualdad digital"
+    ])
+  ) {
 
-    "en ese caso",
+    memory.lastTopic = "brecha";
 
-    "y si pasa",
+    return digital.brecha;
+  }
 
-    "que hago en ese caso",
 
-    "y si la empresa",
+  /* CONVIVENCIA */
 
-    "y si cambiaron",
+  if (
+    hasAny(q, [
+      "convivencia digital",
+      "sana convivencia",
+      "convivir en internet",
+      "comportarse en internet"
+    ])
+  ) {
 
-    "pero y si",
+    memory.lastTopic = "convivencia";
 
-    "y si ya"
+    return digital.convivencia;
+  }
+
+
+  /* NETIQUETA */
+
+  if (
+    hasAny(q, [
+      "netiqueta",
+      "buena conducta en internet",
+      "reglas de internet"
+    ])
+  ) {
+
+    memory.lastTopic = "netiqueta";
+
+    return digital.netiqueta;
+  }
+
+
+  /* CONTRASEÑAS */
+
+  if (
+    hasAny(q, [
+      "contraseña",
+      "contrasena",
+      "contraseñas",
+      "contrasenas",
+      "proteger mi cuenta",
+      "autenticacion de dos factores",
+      "autenticación de dos factores"
+    ])
+  ) {
+
+    memory.lastTopic = "contrasenas";
+
+    return digital.contrasenas;
+  }
+
+
+  /* =====================================================
+     DERECHOS HUMANOS ESPECÍFICOS
+  ===================================================== */
+
+  const topicAliases = [
+
+    [
+      "dignidad e igualdad",
+      ["dignidad humana","dignidad"]
+    ],
+
+    [
+      "vida",
+      ["derecho a la vida","derecho de vida"]
+    ],
+
+    [
+      "integridad",
+      ["integridad fisica","integridad física","integridad moral","integridad psiquica","integridad psíquica"]
+    ],
+
+    [
+      "libertad",
+      ["derecho a la libertad","libertad personal"]
+    ],
+
+    [
+      "igualdad",
+      ["igualdad ante la ley","igualdad de derechos"]
+    ],
+
+    [
+      "no discriminacion",
+      ["no discriminacion","no discriminación","discriminacion","discriminación"]
+    ],
+
+    [
+      "honra reputacion",
+      ["honra","reputacion","reputación"]
+    ],
+
+    [
+      "personalidad juridica",
+      ["personalidad juridica","personalidad jurídica","reconocimiento ante la ley"]
+    ],
+
+    [
+      "debido proceso",
+      ["debido proceso","juicio justo","tribunal imparcial"]
+    ],
+
+    [
+      "presuncion inocencia",
+      ["presuncion de inocencia","presunción de inocencia"]
+    ],
+
+    [
+      "libertad expresion",
+      ["libertad de expresion","libertad de expresión","opinion y expresion","opinión y expresión"]
+    ],
+
+    [
+      "religion",
+      ["libertad de religion","libertad de religión","libertad de conciencia"]
+    ],
+
+    [
+      "reunion",
+      ["libertad de reunion","libertad de reunión"]
+    ],
+
+    [
+      "asociacion",
+      ["libertad de asociacion","libertad de asociación"]
+    ],
+
+    [
+      "participacion",
+      ["participar en el gobierno","participacion politica","participación política","participación ciudadana"]
+    ],
+
+    [
+      "circulacion",
+      ["libertad de circulacion","libertad de circulación","salir del pais","salir del país"]
+    ],
+
+    [
+      "asilo",
+      ["derecho de asilo","buscar asilo","refugio por persecucion","refugio por persecución"]
+    ],
+
+    [
+      "nacionalidad",
+      ["derecho a una nacionalidad","nacionalidad"]
+    ],
+
+    [
+      "familia",
+      ["derecho a la familia","formar una familia","proteccion de la familia","protección de la familia"]
+    ],
+
+    [
+      "propiedad",
+      ["derecho a la propiedad","propiedad privada"]
+    ],
+
+    [
+      "seguridad social",
+      ["seguridad social","proteccion social","protección social"]
+    ],
+
+    [
+      "trabajo",
+      ["derecho al trabajo","derechos laborales","trabajar dignamente"]
+    ],
+
+    [
+      "descanso",
+      ["derecho al descanso","vacaciones pagadas","tiempo libre"]
+    ],
+
+    [
+      "salud",
+      ["derecho a la salud","salud como derecho"]
+    ],
+
+    [
+      "alimentacion",
+      ["derecho a la alimentacion","derecho a la alimentación","alimentacion","alimentación"]
+    ],
+
+    [
+      "vivienda",
+      ["derecho a la vivienda","vivienda adecuada"]
+    ],
+
+    [
+      "educacion",
+      ["derecho a la educacion","derecho a la educación","educacion gratuita","educación gratuita"]
+    ],
+
+    [
+      "cultura",
+      ["derecho a la cultura","vida cultural","artes","progreso cientifico","progreso científico"]
+    ],
+
+    [
+      "propiedad intelectual",
+      ["intereses del autor","propiedad intelectual","derechos del autor"]
+    ],
+
+    [
+      "infancia",
+      ["derechos de los niños","derechos de los ninos","derechos de la infancia","derechos de niñas","derechos de niños"]
+    ],
+
+    [
+      "mujeres",
+      ["derechos de las mujeres","derechos de la mujer","igualdad de mujeres"]
+    ],
+
+    [
+      "discapacidad",
+      ["derechos de las personas con discapacidad","discapacidad y derechos"]
+    ],
+
+    [
+      "pueblos indigenas",
+      ["pueblos indigenas","pueblos indígenas","derechos indigenas","derechos indígenas"]
+    ],
+
+    [
+      "migrantes",
+      ["derechos de los migrantes","derechos de migrantes","trabajadores migratorios"]
+    ],
+
+    [
+      "medio ambiente",
+      ["derecho al medio ambiente","medio ambiente sano","ambiente sano"]
+    ],
+
+    [
+      "paz",
+      ["derecho a la paz","paz y derechos humanos"]
+    ],
+
+    [
+      "democracia",
+      ["derechos humanos y democracia","sociedad democratica","sociedad democrática"]
+    ]
 
   ];
 
-  return frases.some(frase =>
-    p.startsWith(frase) ||
-    p.includes(" " + frase)
-  );
 
-}
+  for (
+    const [id, aliases]
+    of topicAliases
+  ) {
 
+    if (hasAny(q, aliases)) {
 
-/* =========================================================
-   DETECTAR INTENCIÓN
-========================================================= */
+      memory.lastTopic = id;
 
-function detectarIntento(texto){
-
-  const p = normalizar(texto);
-
-
-  /* =========================
-     SALUDOS
-  ========================= */
-
-  if(
-    /^(hola|holaa|holaaa|buenas|buenos dias|buenas tardes|buenas noches|hey|hello)/.test(p)
-  ){
-
-    return "saludo";
-
-  }
-
-
-  /* =========================
-     FUNCIÓN DEL BOT
-  ========================= */
-
-  if(
-    p.includes("cual es tu funcion") ||
-    p.includes("que haces") ||
-    p.includes("para que sirves") ||
-    p.includes("que puedes hacer") ||
-    p.includes("quien eres") ||
-    p.includes("como puedes ayudarme")
-  ){
-
-    return "funcion";
-
-  }
-
-
-  /* =========================
-     10 / LISTA DE DERECHOS
-  ========================= */
-
-  if(
-
-    p.includes("10 derechos digitales") ||
-    p.includes("diez derechos digitales") ||
-
-    p.includes("cuales son los derechos digitales") ||
-
-    p.includes("cuales son los principales derechos digitales") ||
-
-    p.includes("que derechos digitales existen") ||
-
-    p.includes("que derechos tenemos en internet") ||
-
-    p.includes("dime los derechos digitales") ||
-
-    p.includes("menciona los derechos digitales") ||
-
-    p.includes("enumera los derechos digitales") ||
-
-    p.includes("lista de derechos digitales") ||
-
-    p.includes("lista de los derechos digitales") ||
-
-    p.includes("principales derechos digitales") ||
-
-    p.includes("derechos digitales principales") ||
-
-    p.includes("derechos que tenemos en internet") ||
-
-    p.includes("derechos en internet")
-
-  ){
-
-    return "lista_derechos";
-
-  }
-
-
-  /* =========================
-     DEFINICIÓN DERECHOS
-  ========================= */
-
-  if(
-
-    p.includes("que son los derechos digitales") ||
-    p.includes("que significa derechos digitales") ||
-    p.includes("define derechos digitales") ||
-    p.includes("definicion de derechos digitales") ||
-    p.includes("para que sirven los derechos digitales")
-
-  ){
-
-    return "derechos_digitales";
-
-  }
-
-
-  /* =========================
-     PRIVACIDAD
-  ========================= */
-
-  if(
-
-    p.includes("privacidad digital") ||
-    p.includes("privacidad en internet") ||
-    p.includes("privacidad online") ||
-    p.includes("privacidad en redes") ||
-    p.includes("que es la privacidad") ||
-    p.includes("que significa privacidad digital") ||
-    p.includes("define privacidad")
-
-  ){
-
-    return "privacidad";
-
-  }
-
-
-  if(
-
-    p.includes("como proteger mi privacidad") ||
-    p.includes("como cuidar mi privacidad") ||
-    p.includes("como proteger mis datos en internet") ||
-    p.includes("como tener privacidad en internet")
-
-  ){
-
-    return "proteger_privacidad";
-
-  }
-
-
-  /* =========================
-     DATOS PERSONALES
-  ========================= */
-
-  if(
-
-    p.includes("diferencia entre datos personales y datos sensibles") ||
-    p.includes("diferencia datos personales datos sensibles") ||
-    p.includes("en que se diferencian los datos personales y sensibles") ||
-    p.includes("cual es la diferencia entre datos personales y sensibles")
-
-  ){
-
-    return "comparar_datos";
-
-  }
-
-
-  if(
-
-    p.includes("datos sensibles") ||
-    p.includes("dato sensible") ||
-    p.includes("que son los datos sensibles") ||
-    p.includes("ejemplos de datos sensibles")
-
-  ){
-
-    return "datos_sensibles";
-
-  }
-
-
-  if(
-
-    p.includes("datos personales") ||
-    p.includes("dato personal") ||
-    p.includes("que son los datos personales") ||
-    p.includes("ejemplos de datos personales") ||
-    p.includes("que informacion es un dato personal")
-
-  ){
-
-    return "datos_personales";
-
-  }
-
-
-  /* =========================
-     PROTECCIÓN DE DATOS
-  ========================= */
-
-  if(
-
-    p.includes("proteccion de datos") ||
-    p.includes("proteger mis datos") ||
-    p.includes("derecho a la proteccion de datos") ||
-    p.includes("que es la proteccion de datos")
-
-  ){
-
-    return "proteccion_datos";
-
-  }
-
-
-  /* =========================
-     CONSENTIMIENTO
-  ========================= */
-
-  if(
-
-    p.includes("consentimiento para usar mis datos") ||
-    p.includes("consentimiento de datos") ||
-    p.includes("pueden usar mis datos sin permiso") ||
-    p.includes("pueden usar mis datos sin mi permiso")
-
-  ){
-
-    return "consentimiento";
-
-  }
-
-
-  /* =========================
-     ARCO
-  ========================= */
-
-  if(
-
-    p.includes("derechos arco") ||
-    p.includes("que son los arco") ||
-    p.includes("que significa arco") ||
-    p.includes("acceso rectificacion cancelacion oposicion")
-
-  ){
-
-    return "arco";
-
-  }
-
-
-  /* =========================
-     ACCESO
-  ========================= */
-
-  if(
-
-    p.includes("derecho de acceso") ||
-    p.includes("como puedo acceder a mis datos") ||
-    p.includes("quiero saber que datos tienen de mi")
-
-  ){
-
-    return "acceso";
-
-  }
-
-
-  /* =========================
-     RECTIFICACIÓN
-  ========================= */
-
-  if(
-
-    p.includes("derecho de rectificacion") ||
-    p.includes("rectificar mis datos") ||
-    p.includes("corregir mis datos") ||
-    p.includes("datos incorrectos")
-
-  ){
-
-    return "rectificacion";
-
-  }
-
-
-  /* =========================
-     CANCELACIÓN
-  ========================= */
-
-  if(
-
-    p.includes("derecho de cancelacion") ||
-    p.includes("cancelar mis datos") ||
-    p.includes("eliminar mis datos") ||
-    p.includes("borrar mis datos personales")
-
-  ){
-
-    return "cancelacion";
-
-  }
-
-
-  /* =========================
-     OPOSICIÓN
-  ========================= */
-
-  if(
-
-    p.includes("derecho de oposicion") ||
-    p.includes("oponerme al uso de mis datos") ||
-    p.includes("no quiero que usen mis datos")
-
-  ){
-
-    return "oposicion";
-
-  }
-
-
-  /* =========================
-     CIBERSEGURIDAD
-  ========================= */
-
-  if(
-
-    p.includes("que es la ciberseguridad") ||
-    p.includes("que significa ciberseguridad") ||
-    p.includes("define ciberseguridad") ||
-    p.includes("para que sirve la ciberseguridad") ||
-    p.includes("que es seguridad informatica")
-
-  ){
-
-    return "ciberseguridad";
-
-  }
-
-
-  /* =========================
-     SEGURIDAD DIGITAL
-  ========================= */
-
-  if(
-
-    p.includes("seguridad digital") ||
-    p.includes("como estar seguro en internet") ||
-    p.includes("como navegar seguro")
-
-  ){
-
-    return "seguridad_digital";
-
-  }
-
-
-  /* =========================
-     CONTRASEÑAS
-  ========================= */
-
-  if(
-
-    p.includes("contraseña segura") ||
-    p.includes("contrasena segura") ||
-    p.includes("como crear una contraseña") ||
-    p.includes("como crear una contrasena") ||
-    p.includes("como proteger mi contraseña")
-
-  ){
-
-    return "contrasenas";
-
-  }
-
-
-  /* =========================
-     2FA
-  ========================= */
-
-  if(
-
-    p.includes("doble factor") ||
-    p.includes("autenticacion de dos factores") ||
-    p.includes("autenticacion 2fa") ||
-    p.includes("que es 2fa")
-
-  ){
-
-    return "2fa";
-
-  }
-
-
-  /* =========================
-     PHISHING
-  ========================= */
-
-  if(
-
-    p.includes("phishing") ||
-    p.includes("correo falso") ||
-    p.includes("mensaje falso") ||
-    p.includes("enlace sospechoso") ||
-    p.includes("link sospechoso") ||
-    p.includes("me llego un enlace")
-
-  ){
-
-    return "phishing";
-
-  }
-
-
-  /* =========================
-     CUENTA HACKEADA
-  ========================= */
-
-  if(
-
-    p.includes("me hackearon") ||
-    p.includes("me hackearon la cuenta") ||
-    p.includes("me robaron la cuenta") ||
-    p.includes("robaron mi cuenta") ||
-    p.includes("no puedo entrar a mi cuenta") ||
-    p.includes("perdi acceso a mi cuenta") ||
-    p.includes("perdi mi cuenta")
-
-  ){
-
-    return "cuenta_hackeada";
-
-  }
-
-
-  /* =========================
-     INSTAGRAM
-  ========================= */
-
-  if(
-
-    p.includes("hackearon instagram") ||
-    p.includes("me hackearon instagram") ||
-    p.includes("robaron mi instagram") ||
-    p.includes("me robaron el instagram") ||
-    p.includes("no puedo entrar a instagram") ||
-    p.includes("perdi mi instagram")
-
-  ){
-
-    return "instagram_hackeado";
-
-  }
-
-
-  /* =========================
-     SUPLANTACIÓN
-  ========================= */
-
-  if(
-
-    p.includes("cuenta falsa") ||
-    p.includes("perfil falso") ||
-    p.includes("se hacen pasar por mi") ||
-    p.includes("se hacen pasar por mi en internet") ||
-    p.includes("suplantacion") ||
-    p.includes("suplantaron mi identidad") ||
-    p.includes("robaron mi identidad")
-
-  ){
-
-    return "suplantacion";
-
-  }
-
-
-  /* =========================
-     AMENAZAS
-  ========================= */
-
-  if(
-
-    p.includes("me amenazan") ||
-    p.includes("me estan amenazando") ||
-    p.includes("amenaza por internet") ||
-    p.includes("amenazas por redes") ||
-    p.includes("me amenazaron")
-
-  ){
-
-    return "amenazas";
-
-  }
-
-
-  /* =========================
-     IMÁGENES SIN PERMISO
-  ========================= */
-
-  if(
-
-    p.includes("publicaron una foto mia") ||
-    p.includes("publicaron fotos mias") ||
-    p.includes("publicaron un video mio") ||
-    p.includes("publicaron videos mios") ||
-    p.includes("subieron una foto mia") ||
-    p.includes("subieron fotos mias") ||
-    p.includes("compartieron una foto mia") ||
-    p.includes("compartieron fotos mias") ||
-    p.includes("publicaron mi foto sin permiso")
-
-  ){
-
-    return "imagenes_sin_permiso";
-
-  }
-
-
-  /* =========================
-     CIBERBULLYING
-  ========================= */
-
-  if(
-
-    p.includes("ciberbullying") ||
-    p.includes("ciber bullying") ||
-    p.includes("acoso en internet") ||
-    p.includes("acoso digital") ||
-    p.includes("me acosan por internet") ||
-    p.includes("me molestan por redes")
-
-  ){
-
-    return "ciberbullying";
-
-  }
-
-
-  /* =========================
-     GROOMING
-  ========================= */
-
-  if(
-
-    p.includes("grooming") ||
-    p.includes("adulto habla con menor") ||
-    p.includes("adulto me pide fotos") ||
-    p.includes("persona mayor me pide fotos")
-
-  ){
-
-    return "grooming";
-
-  }
-
-
-  /* =========================
-     SEXTORSIÓN
-  ========================= */
-
-  if(
-
-    p.includes("sextorsion") ||
-    p.includes("sextorsión") ||
-    p.includes("amenazan con publicar fotos") ||
-    p.includes("amenazan con publicar mis fotos") ||
-    p.includes("amenazan con publicar fotos intimas") ||
-    p.includes("me amenazan con fotos")
-
-  ){
-
-    return "sextorsion";
-
-  }
-
-
-  /* =========================
-     ESTAFAS
-  ========================= */
-
-  if(
-
-    p.includes("estafa por internet") ||
-    p.includes("me estafaron") ||
-    p.includes("estafa digital") ||
-    p.includes("estafa en redes") ||
-    p.includes("me quieren estafar")
-
-  ){
-
-    return "estafas";
-
-  }
-
-
-  /* =========================
-     MALWARE
-  ========================= */
-
-  if(
-
-    p.includes("malware") ||
-    p.includes("virus informatico") ||
-    p.includes("virus en mi computadora") ||
-    p.includes("software malicioso")
-
-  ){
-
-    return "malware";
-
-  }
-
-
-  /* =========================
-     LIBERTAD DE EXPRESIÓN
-  ========================= */
-
-  if(
-
-    p.includes("libertad de expresion") ||
-    p.includes("derecho a expresarme") ||
-    p.includes("puedo opinar en internet") ||
-    p.includes("puedo decir lo que pienso en internet")
-
-  ){
-
-    return "libertad_expresion";
-
-  }
-
-
-  /* =========================
-     ACCESO A INFORMACIÓN
-  ========================= */
-
-  if(
-
-    p.includes("acceso a la informacion") ||
-    p.includes("derecho a la informacion") ||
-    p.includes("buscar informacion libremente")
-
-  ){
-
-    return "acceso_informacion";
-
-  }
-
-
-  /* =========================
-     NEUTRALIDAD
-  ========================= */
-
-  if(
-
-    p.includes("neutralidad de la red") ||
-    p.includes("neutralidad en internet") ||
-    p.includes("que es la neutralidad de red")
-
-  ){
-
-    return "neutralidad";
-
-  }
-
-
-  /* =========================
-     DERECHO AL OLVIDO
-  ========================= */
-
-  if(
-
-    p.includes("derecho al olvido") ||
-    p.includes("borrar informacion de internet") ||
-    p.includes("eliminar informacion de internet") ||
-    p.includes("quitar resultados de google") ||
-    p.includes("eliminar informacion antigua")
-
-  ){
-
-    return "olvido";
-
-  }
-
-
-  /* =========================
-     EDUCACIÓN DIGITAL
-  ========================= */
-
-  if(
-
-    p.includes("educacion digital") ||
-    p.includes("educacion en internet") ||
-    p.includes("aprender a usar internet de forma segura")
-
-  ){
-
-    return "educacion_digital";
-
-  }
-
-
-  /* =========================
-     PROPIEDAD INTELECTUAL
-  ========================= */
-
-  if(
-
-    p.includes("propiedad intelectual") ||
-    p.includes("derechos de autor") ||
-    p.includes("copiar contenido de internet") ||
-    p.includes("usar una foto de internet")
-
-  ){
-
-    return "propiedad_intelectual";
-
-  }
-
-
-  /* =========================
-     IDENTIDAD DIGITAL
-  ========================= */
-
-  if(
-
-    p.includes("identidad digital") ||
-    p.includes("que es mi identidad digital") ||
-    p.includes("reputacion digital")
-
-  ){
-
-    return "identidad_digital";
-
-  }
-
-
-  /* =========================
-     HUELLA DIGITAL
-  ========================= */
-
-  if(
-
-    p.includes("huella digital") ||
-    p.includes("que dejo en internet") ||
-    p.includes("rastro digital")
-
-  ){
-
-    return "huella_digital";
-
-  }
-
-
-  /* =========================
-     CONVIVENCIA DIGITAL
-  ========================= */
-
-  if(
-
-    p.includes("convivencia digital") ||
-    p.includes("sana convivencia digital") ||
-    p.includes("como convivir en internet") ||
-    p.includes("como mantener una sana convivencia")
-
-  ){
-
-    return "convivencia";
-
-  }
-
-
-  /* =========================
-     DATOS DE MENORES
-  ========================= */
-
-  if(
-
-    p.includes("datos de menores") ||
-    p.includes("datos de un menor") ||
-    p.includes("datos de mi hijo") ||
-    p.includes("datos de mi hija") ||
-    p.includes("menor de edad")
-
-  ){
-
-    return "menores";
-
-  }
-
-
-  return "desconocido";
-
-}
-
-
-/* =========================================================
-   RESPUESTAS
-========================================================= */
-
-function responder(texto){
-
-  const p = normalizar(texto);
-
-  const intent =
-    detectarIntento(texto);
-
-  actualizarContexto(
-    texto,
-    intent
-  );
-
-
-  /* =========================
-     SALUDO
-  ========================= */
-
-  if(intent === "saludo"){
-
-    return `
-
-      👋 ¡Hola! Soy <strong>LawsBot Perú</strong>.
-
-      <br><br>
-
-      Puedo orientarte sobre:
-
-      <br><br>
-
-      🔐 Privacidad y protección de datos<br>
-      ⚖️ Derechos digitales<br>
-      🛡️ Ciberseguridad<br>
-      📋 Derechos ARCO<br>
-      📱 Seguridad en redes sociales<br>
-      🚨 Ciberacoso, amenazas y estafas<br>
-      🌐 Convivencia digital
-
-      <br><br>
-
-      Puedes preguntarme con tus propias palabras.
-      No necesitas memorizar una frase exacta. 💙
-
-    `;
-
-  }
-
-
-  /* =========================
-     FUNCIÓN
-  ========================= */
-
-  if(intent === "funcion"){
-
-    return `
-
-      💙 Mi función es brindar <strong>orientación
-      informativa</strong> sobre derechos digitales,
-      privacidad, protección de datos, ciberseguridad
-      y convivencia digital, especialmente dentro
-      del contexto peruano.
-
-      <br><br>
-
-      Puedo explicarte conceptos, comparar términos,
-      orientarte sobre situaciones digitales y ayudarte
-      a identificar qué medidas puedes tomar.
-
-      <br><br>
-
-      También puedo mantener el contexto de una
-      conversación mediante memoria local del navegador.
-
-      <br><br>
-
-      ⚠️ Mis respuestas tienen finalidad educativa e
-      informativa y no sustituyen asesoría jurídica
-      profesional.
-
-    `;
-
-  }
-
-
-  /* =========================
-     LISTA DE 10 DERECHOS
-  ========================= */
-
-  if(intent === "lista_derechos"){
-
-    return `
-
-      <strong>⚖️ Principales derechos y conceptos
-      digitales</strong>
-
-      <br><br>
-
-      Para este proyecto educativo, LawsBot organiza
-      el tema en estos 10 derechos o conceptos clave:
-
-      <br><br>
-
-      <strong>1. 🔒 Privacidad</strong><br>
-      Protección de la vida privada y control sobre
-      información personal.
-
-      <br><br>
-
-      <strong>2. 🗣️ Libertad de expresión</strong><br>
-      Posibilidad de expresar opiniones e ideas,
-      respetando los límites establecidos por la ley.
-
-      <br><br>
-
-      <strong>3. 📚 Acceso a la información</strong><br>
-      Posibilidad de buscar y recibir información,
-      especialmente la información pública conforme
-      al marco legal correspondiente.
-
-      <br><br>
-
-      <strong>4. 🌐 Neutralidad de la red</strong><br>
-      Principio relacionado con el tratamiento no
-      discriminatorio del tráfico de Internet.
-
-      <br><br>
-
-      <strong>5. 🧹 Derecho al olvido</strong><br>
-      Concepto relacionado con solicitudes de
-      eliminación o desindexación de determinada
-      información personal, dependiendo del caso
-      y del marco jurídico aplicable.
-
-      <br><br>
-
-      <strong>6. 🛡️ Protección de datos personales</strong><br>
-      Derecho a que los datos personales sean tratados
-      de acuerdo con las normas aplicables.
-
-      <br><br>
-
-      <strong>7. 🔐 Seguridad digital</strong><br>
-      Medidas destinadas a proteger cuentas, sistemas,
-      dispositivos y datos frente a riesgos digitales.
-
-      <br><br>
-
-      <strong>8. 🎓 Educación digital</strong><br>
-      Desarrollo de conocimientos y habilidades para
-      utilizar tecnologías de manera segura y responsable.
-
-      <br><br>
-
-      <strong>9. ©️ Propiedad intelectual</strong><br>
-      Protección jurídica de obras y creaciones,
-      incluyendo contenidos digitales.
-
-      <br><br>
-
-      <strong>10. 👤 Identidad digital</strong><br>
-      Conjunto de información, perfiles, imágenes y
-      actividades que representan a una persona en
-      el entorno digital.
-
-      ${fuente(
-        "Clasificación educativa de LawsBot. En Perú, estos conceptos tienen distintos fundamentos jurídicos y no están reunidos literalmente como una lista única de diez derechos en una sola ley."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     DEFINICIÓN DERECHOS
-  ========================= */
-
-  if(intent === "derechos_digitales"){
-
-    return `
-
-      <strong>⚖️ ¿Qué son los derechos digitales?</strong>
-
-      <br><br>
-
-      Son derechos y principios relacionados con la
-      forma en que las personas utilizan las tecnologías,
-      Internet y los servicios digitales.
-
-      <br><br>
-
-      Incluyen temas como:
-
-      <br><br>
-
-      • privacidad<br>
-      • protección de datos personales<br>
-      • libertad de expresión<br>
-      • seguridad digital<br>
-      • acceso a la información<br>
-      • identidad digital<br>
-      • propiedad intelectual<br>
-      • convivencia en Internet
-
-      <br><br>
-
-      En Perú, varios de estos temas tienen respaldo
-      constitucional y legal, aunque no existe una sola
-      ley que reúna todos los llamados “derechos digitales”
-      en un único listado.
-
-      ${fuente(
-        "Constitución Política del Perú y Ley N.° 29733, Ley de Protección de Datos Personales."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     PRIVACIDAD
-  ========================= */
-
-  if(intent === "privacidad"){
-
-    return `
-
-      <strong>🔒 ¿Qué es la privacidad digital?</strong>
-
-      <br><br>
-
-      La privacidad digital se refiere a la protección
-      de la información, comunicaciones, actividades y
-      aspectos de la vida privada de una persona cuando
-      utiliza Internet y tecnologías digitales.
-
-      <br><br>
-
-      Por ejemplo, involucra el cuidado de:
-
-      <br><br>
-
-      • fotografías<br>
-      • conversaciones<br>
-      • ubicación<br>
-      • información personal<br>
-      • cuentas<br>
-      • hábitos de navegación
-
-      <br><br>
-
-      La privacidad también está relacionada con la
-      protección de datos personales.
-
-      ${fuente(
-        "Constitución Política del Perú y Ley N.° 29733, Ley de Protección de Datos Personales."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     PROTEGER PRIVACIDAD
-  ========================= */
-
-  if(intent === "proteger_privacidad"){
-
-    return `
-
-      <strong>🔐 Para proteger tu privacidad digital:</strong>
-
-      <br><br>
-
-      1. Utiliza contraseñas diferentes para tus cuentas.
-      <br>
-      2. Activa la autenticación de dos factores.
-      <br>
-      3. Revisa los permisos de las aplicaciones.
-      <br>
-      4. Evita publicar información demasiado personal.
-      <br>
-      5. Comprueba la privacidad de tus redes sociales.
-      <br>
-      6. No abras enlaces sospechosos.
-      <br>
-      7. Mantén actualizado tu dispositivo.
-      <br>
-      8. Revisa antes de aceptar solicitudes o compartir información.
-      <br>
-      9. No compartas códigos de verificación.
-      <br>
-      10. Revisa periódicamente las sesiones abiertas de tus cuentas.
-
-    `;
-
-  }
-
-
-  /* =========================
-     DATOS PERSONALES
-  ========================= */
-
-  if(intent === "datos_personales"){
-
-    return `
-
-      <strong>👤 ¿Qué son los datos personales?</strong>
-
-      <br><br>
-
-      Son informaciones que permiten identificar o hacer
-      identificable a una persona.
-
-      <br><br>
-
-      Algunos ejemplos son:
-
-      <br><br>
-
-      • nombre y apellidos<br>
-      • documento de identidad<br>
-      • dirección<br>
-      • teléfono<br>
-      • correo electrónico<br>
-      • fotografías<br>
-      • información de ubicación<br>
-      • identificadores digitales
-
-      <br><br>
-
-      No todos los datos personales tienen necesariamente
-      el mismo nivel de sensibilidad.
-
-      ${fuente(
-        "Ley N.° 29733, Ley de Protección de Datos Personales, y su Reglamento aprobado por D.S. N.° 016-2024-JUS."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     DATOS SENSIBLES
-  ========================= */
-
-  if(intent === "datos_sensibles"){
-
-    return `
-
-      <strong>🔴 ¿Qué son los datos sensibles?</strong>
-
-      <br><br>
-
-      Son datos personales que, por su naturaleza,
-      requieren especial protección.
-
-      <br><br>
-
-      Pueden comprender información relacionada,
-      según corresponda, con aspectos como:
-
-      <br><br>
-
-      • salud<br>
-      • información biométrica<br>
-      • vida sexual<br>
-      • origen racial o étnico<br>
-      • opiniones o convicciones<br>
-      • información especialmente vinculada a la
-      esfera privada
-
-      <br><br>
-
-      Por eso, el tratamiento de este tipo de
-      información requiere especial cuidado y debe
-      respetar las reglas aplicables.
-
-      ${fuente(
-        "Ley N.° 29733 y Reglamento aprobado por D.S. N.° 016-2024-JUS."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     COMPARACIÓN
-  ========================= */
-
-  if(intent === "comparar_datos"){
-
-    return `
-
-      <strong>🔎 Diferencia entre datos personales
-      y datos sensibles</strong>
-
-      <br><br>
-
-      <strong>Dato personal:</strong><br>
-      Información que identifica o permite identificar
-      a una persona.
-
-      <br><br>
-
-      <strong>Dato sensible:</strong><br>
-      Es una categoría de datos personales que recibe
-      especial protección debido a la naturaleza de la
-      información.
-
-      <br><br>
-
-      <strong>Ejemplo:</strong>
-
-      <br><br>
-
-      📱 Número de teléfono → dato personal.
-
-      <br>
-
-      🏥 Información sobre salud → puede constituir
-      dato sensible.
-
-      <br><br>
-
-      En resumen:
-
-      <br><br>
-
-      <strong>
-      Todo dato sensible es dato personal, pero no todo
-      dato personal es necesariamente sensible.
-      </strong>
-
-      ${fuente(
-        "Ley N.° 29733 y su Reglamento, D.S. N.° 016-2024-JUS."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     PROTECCIÓN DE DATOS
-  ========================= */
-
-  if(intent === "proteccion_datos"){
-
-    return `
-
-      <strong>🛡️ Protección de datos personales</strong>
-
-      <br><br>
-
-      Busca garantizar que los datos personales sean
-      tratados de manera adecuada y conforme a las
-      reglas aplicables.
-
-      <br><br>
-
-      Esto incluye aspectos como:
-
-      <br><br>
-
-      • recopilación de información<br>
-      • finalidad del tratamiento<br>
-      • uso de los datos<br>
-      • conservación<br>
-      • comunicación o transferencia<br>
-      • seguridad de la información<br>
-      • ejercicio de derechos por parte del titular
-
-      <br><br>
-
-      En Perú, la norma central es la Ley N.° 29733.
-
-      ${fuente(
-        "Ley N.° 29733, Ley de Protección de Datos Personales."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     CONSENTIMIENTO
-  ========================= */
-
-  if(intent === "consentimiento"){
-
-    return `
-
-      <strong>✋ Consentimiento y datos personales</strong>
-
-      <br><br>
-
-      El tratamiento de datos personales debe contar
-      con una base jurídica válida. En los casos en que
-      corresponde utilizar el consentimiento, este debe
-      cumplir los requisitos establecidos por la normativa.
-
-      <br><br>
-
-      Por eso, una empresa o plataforma no debería
-      simplemente utilizar información personal sin
-      considerar la base legal que permite ese tratamiento.
-
-      ${fuente(
-        "Ley N.° 29733 y Reglamento aprobado por D.S. N.° 016-2024-JUS."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     ARCO
-  ========================= */
-
-  if(intent === "arco"){
-
-    return `
-
-      <strong>📋 ¿Qué son los derechos ARCO?</strong>
-
-      <br><br>
-
-      ARCO significa:
-
-      <br><br>
-
-      <strong>A — Acceso:</strong>
-      conocer qué datos personales tienen sobre ti
-      y cómo son tratados.
-
-      <br><br>
-
-      <strong>R — Rectificación:</strong>
-      solicitar la corrección o actualización de
-      datos incorrectos o incompletos.
-
-      <br><br>
-
-      <strong>C — Cancelación:</strong>
-      solicitar la eliminación de datos cuando
-      corresponda legalmente.
-
-      <br><br>
-
-      <strong>O — Oposición:</strong>
-      oponerte al tratamiento de tus datos en los
-      casos previstos por la normativa.
-
-      <br><br>
-
-      Si una persona ejerce estos derechos y su solicitud
-      no es atendida adecuadamente, puede acudir a la
-      Autoridad Nacional de Protección de Datos Personales
-      siguiendo el procedimiento correspondiente.
-
-      ${fuente(
-        "Autoridad Nacional de Protección de Datos Personales — Derechos ARCO."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     ACCESO
-  ========================= */
-
-  if(intent === "acceso"){
-
-    return `
-
-      <strong>📋 Derecho de acceso</strong>
-
-      <br><br>
-
-      Permite solicitar información sobre los datos
-      personales que una entidad tiene sobre ti y
-      determinados aspectos de su tratamiento.
-
-      <br><br>
-
-      Por ejemplo, puedes preguntar qué información
-      tienen, de dónde proviene y para qué se utiliza,
-      según corresponda.
-
-      ${fuente(
-        "Autoridad Nacional de Protección de Datos Personales — Derechos ARCO."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     RECTIFICACIÓN
-  ========================= */
-
-  if(intent === "rectificacion"){
-
-    return `
-
-      <strong>✏️ Derecho de rectificación</strong>
-
-      <br><br>
-
-      Permite solicitar que se corrijan o actualicen
-      datos personales que sean incorrectos, inexactos
-      o incompletos.
-
-      <br><br>
-
-      Por ejemplo, si una empresa tiene registrado
-      incorrectamente tu teléfono o dirección, puedes
-      solicitar su corrección.
-
-      ${fuente(
-        "Autoridad Nacional de Protección de Datos Personales — Derechos ARCO."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     CANCELACIÓN
-  ========================= */
-
-  if(intent === "cancelacion"){
-
-    return `
-
-      <strong>🗑️ Derecho de cancelación</strong>
-
-      <br><br>
-
-      Permite solicitar la cancelación de datos personales
-      cuando se cumplen las condiciones previstas por la
-      normativa.
-
-      <br><br>
-
-      La eliminación no significa que absolutamente
-      cualquier dato deba borrarse en cualquier situación:
-      existen supuestos legales que pueden permitir o
-      exigir conservar determinada información.
-
-      ${fuente(
-        "Autoridad Nacional de Protección de Datos Personales — Derechos ARCO."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     OPOSICIÓN
-  ========================= */
-
-  if(intent === "oposicion"){
-
-    return `
-
-      <strong>🚫 Derecho de oposición</strong>
-
-      <br><br>
-
-      Permite oponerse al tratamiento de determinados
-      datos personales cuando se cumplen las condiciones
-      previstas por la normativa.
-
-      <br><br>
-
-      Es especialmente relevante cuando una persona
-      considera que el tratamiento de sus datos afecta
-      sus derechos o intereses en un supuesto protegido
-      por la legislación.
-
-      ${fuente(
-        "Autoridad Nacional de Protección de Datos Personales — Derechos ARCO."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     CIBERSEGURIDAD
-  ========================= */
-
-  if(intent === "ciberseguridad"){
-
-    return `
-
-      <strong>🛡️ ¿Qué es la ciberseguridad?</strong>
-
-      <br><br>
-
-      La ciberseguridad comprende medidas y prácticas
-      destinadas a proteger sistemas, dispositivos,
-      cuentas, redes y datos frente a accesos no
-      autorizados, ataques, fraudes y otros riesgos
-      digitales.
-
-      <br><br>
-
-      Algunas medidas básicas son:
-
-      <br><br>
-
-      🔐 Contraseñas fuertes<br>
-      🔑 Autenticación de dos factores<br>
-      📲 Actualizaciones de seguridad<br>
-      🚨 Detección de phishing<br>
-      💾 Copias de seguridad<br>
-      🔎 Revisión de sesiones abiertas
-
-      ${fuente(
-        "Ley N.° 30096, Ley de Delitos Informáticos, en cuanto al marco peruano de prevención y sanción de conductas ilícitas que afectan sistemas y datos informáticos."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     SEGURIDAD DIGITAL
-  ========================= */
-
-  if(intent === "seguridad_digital"){
-
-    return `
-
-      <strong>🔐 Seguridad digital</strong>
-
-      <br><br>
-
-      Consiste en adoptar medidas para reducir los
-      riesgos al utilizar dispositivos, aplicaciones,
-      redes y servicios digitales.
-
-      <br><br>
-
-      Una buena práctica es utilizar contraseñas
-      diferentes, activar 2FA, actualizar los dispositivos,
-      evitar enlaces sospechosos y revisar periódicamente
-      las sesiones abiertas.
-
-    `;
-
-  }
-
-
-  /* =========================
-     CONTRASEÑAS
-  ========================= */
-
-  if(intent === "contrasenas"){
-
-    return `
-
-      <strong>🔑 ¿Cómo crear una contraseña segura?</strong>
-
-      <br><br>
-
-      • Utiliza una contraseña larga.<br>
-      • Evita nombres, fechas de nacimiento y datos fáciles
-        de adivinar.<br>
-      • No reutilices la misma contraseña en todas tus cuentas.<br>
-      • Considera utilizar un administrador de contraseñas.<br>
-      • Activa la autenticación de dos factores cuando esté disponible.<br>
-      • Nunca compartas tu contraseña ni códigos de verificación.
-
-    `;
-
-  }
-
-
-  /* =========================
-     2FA
-  ========================= */
-
-  if(intent === "2fa"){
-
-    return `
-
-      <strong>🔐 ¿Qué es la autenticación de dos factores?</strong>
-
-      <br><br>
-
-      Es una medida de seguridad que requiere dos
-      elementos para verificar que eres tú.
-
-      <br><br>
-
-      Por ejemplo:
-
-      <br><br>
-
-      1️⃣ Tu contraseña.
-
-      <br>
-
-      2️⃣ Un código generado por una aplicación,
-      mensaje u otro método de autenticación.
-
-      <br><br>
-
-      Aunque alguien consiga tu contraseña, el segundo
-      factor puede dificultar el acceso no autorizado.
-
-    `;
-
-  }
-
-
-  /* =========================
-     PHISHING
-  ========================= */
-
-  if(intent === "phishing"){
-
-    return `
-
-      <strong>🎣 ¿Qué es el phishing?</strong>
-
-      <br><br>
-
-      Es una técnica utilizada para engañar a una persona
-      y conseguir información como contraseñas, códigos,
-      datos bancarios u otros datos.
-
-      <br><br>
-
-      Puede aparecer mediante:
-
-      <br><br>
-
-      📩 correos<br>
-      💬 mensajes<br>
-      🔗 enlaces<br>
-      📱 redes sociales<br>
-      🌐 páginas falsas
-
-      <br><br>
-
-      <strong>Si recibes un enlace sospechoso:</strong>
-
-      <br><br>
-
-      1. No introduzcas tus datos.
-      <br>
-      2. No compartas códigos.
-      <br>
-      3. Comprueba el dominio de la página.
-      <br>
-      4. Accede directamente desde la aplicación o sitio
-         oficial.
-      <br>
-      5. Si entregaste tus credenciales, cambia la contraseña
-         inmediatamente.
-
-    `;
-
-  }
-
-
-  /* =========================
-     CUENTA HACKEADA
-  ========================= */
-
-  if(intent === "cuenta_hackeada"){
-
-    return `
-
-      <strong>🚨 Si crees que alguien entró a tu cuenta:</strong>
-
-      <br><br>
-
-      1. Intenta recuperar el acceso desde el
-      procedimiento oficial de la plataforma.
-
-      <br><br>
-
-      2. Cambia inmediatamente la contraseña.
-
-      <br><br>
-
-      3. Cambia también las contraseñas de otras cuentas
-      si utilizabas la misma.
-
-      <br><br>
-
-      4. Activa la autenticación de dos factores.
-
-      <br><br>
-
-      5. Revisa las sesiones y dispositivos conectados.
-
-      <br><br>
-
-      6. Comprueba si modificaron tu correo,
-      teléfono o métodos de recuperación.
-
-      <br><br>
-
-      7. Guarda capturas de pantalla si ocurrió algo
-      relevante.
-
-      <br><br>
-
-      Si hubo fraude, amenazas o acceso ilícito a sistemas
-      o datos, puede ser necesario buscar orientación de
-      las autoridades competentes.
-
-      ${fuente(
-        "Ley N.° 30096, Ley de Delitos Informáticos."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     INSTAGRAM HACKEADO
-  ========================= */
-
-  if(intent === "instagram_hackeado"){
-
-    return `
-
-      <strong>📱 Si te hackearon Instagram:</strong>
-
-      <br><br>
-
-      <strong>1.</strong> Revisa inmediatamente tu correo
-      electrónico por mensajes de seguridad de Instagram.
-
-      <br><br>
-
-      <strong>2.</strong> Utiliza el proceso oficial de
-      recuperación de cuenta de Instagram.
-
-      <br><br>
-
-      <strong>3.</strong> Si todavía puedes entrar, cambia
-      la contraseña.
-
-      <br><br>
-
-      <strong>4.</strong> Revisa el correo y teléfono
-      asociados a la cuenta.
-
-      <br><br>
-
-      <strong>5.</strong> Revisa las sesiones y dispositivos
-      que tengan acceso.
-
-      <br><br>
-
-      <strong>6.</strong> Activa la autenticación de dos
-      factores.
-
-      <br><br>
-
-      <strong>7.</strong> Si el atacante cambió tu correo,
-      teléfono o contraseña, utiliza el procedimiento
-      oficial de recuperación.
-
-      <br><br>
-
-      💙 Puedes seguir preguntándome sobre este caso
-      sin repetir todo lo anterior. Mantendré el contexto
-      mientras esta memoria esté disponible.
-
-    `;
-
-  }
-
-
-  /* =========================
-     SUPLANTACIÓN
-  ========================= */
-
-  if(intent === "suplantacion"){
-
-    return `
-
-      <strong>👤 Suplantación de identidad digital</strong>
-
-      <br><br>
-
-      Ocurre cuando alguien utiliza información, imágenes
-      o características de otra persona para hacerse pasar
-      por ella.
-
-      <br><br>
-
-      Si crearon una cuenta falsa:
-
-      <br><br>
-
-      1. Guarda capturas y enlaces.
-      <br>
-      2. Reporta el perfil mediante las herramientas
-         oficiales de la plataforma.
-      <br>
-      3. Avisa a tus contactos si existe riesgo de engaño.
-      <br>
-      4. Protege tus cuentas y cambia contraseñas si es necesario.
-      <br>
-      5. Si existe fraude, amenazas o daño relevante,
-         conserva las pruebas para una eventual denuncia.
-
-    `;
-
-  }
-
-
-  /* =========================
-     AMENAZAS
-  ========================= */
-
-  if(intent === "amenazas"){
-
-    return `
-
-      <strong>🚨 Si alguien te amenaza por Internet:</strong>
-
-      <br><br>
-
-      No respondas con amenazas ni borres las pruebas.
-
-      <br><br>
-
-      Guarda:
-
-      <br>
-
-      • capturas de pantalla<br>
-      • mensajes<br>
-      • nombres de usuario<br>
-      • enlaces<br>
-      • fechas y horas
-
-      <br><br>
-
-      Bloquea o restringe a la persona cuando sea
-      conveniente y utiliza los mecanismos de denuncia
-      de la plataforma.
-
-      <br><br>
-
-      Si existe una amenaza seria o riesgo inmediato,
-      busca ayuda de un adulto de confianza y de las
-      autoridades competentes.
-
-    `;
-
-  }
-
-
-  /* =========================
-     IMÁGENES
-  ========================= */
-
-  if(intent === "imagenes_sin_permiso"){
-
-    return `
-
-      <strong>📸 Si publicaron una foto o video tuyo
-      sin permiso:</strong>
-
-      <br><br>
-
-      1. Guarda capturas y el enlace.
-      <br>
-      2. Identifica la cuenta que publicó el contenido.
-      <br>
-      3. Utiliza la opción de denuncia de la plataforma.
-      <br>
-      4. Solicita el retiro del contenido cuando corresponda.
-      <br>
-      5. Si se trata de contenido íntimo, amenazas,
-         acoso o una situación que involucra a un menor,
-         busca ayuda de un adulto de confianza y de las
-         autoridades competentes.
-
-      <br><br>
-
-      La protección de la privacidad, la propia imagen
-      y los datos personales puede ser relevante según
-      las circunstancias.
-
-      ${fuente(
-        "Constitución Política del Perú y normativa de protección de datos personales."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     CIBERBULLYING
-  ========================= */
-
-  if(intent === "ciberbullying"){
-
-    return `
-
-      <strong>💬 ¿Qué es el ciberbullying?</strong>
-
-      <br><br>
-
-      Es una forma de acoso que utiliza medios digitales,
-      como redes sociales, chats, videojuegos o plataformas
-      de comunicación.
-
-      <br><br>
-
-      Puede incluir:
-
-      <br>
-
-      • insultos<br>
-      • humillaciones<br>
-      • amenazas<br>
-      • difusión de rumores<br>
-      • exclusión deliberada<br>
-      • publicación de contenido para causar daño
-
-      <br><br>
-
-      Guarda pruebas, utiliza las herramientas de denuncia
-      y busca apoyo de una persona adulta de confianza,
-      especialmente si eres menor de edad.
-
-    `;
-
-  }
-
-
-  /* =========================
-     GROOMING
-  ========================= */
-
-  if(intent === "grooming"){
-
-    return `
-
-      <strong>🚨 Grooming</strong>
-
-      <br><br>
-
-      El grooming ocurre cuando una persona adulta
-      establece contacto con un menor mediante medios
-      digitales con fines de manipulación o abuso.
-
-      <br><br>
-
-      Si ocurre:
-
-      <br>
-
-      • No envíes imágenes íntimas.
-      <br>
-      • No compartas tu dirección ni ubicación.
-      <br>
-      • Guarda las conversaciones.
-      <br>
-      • No borres las pruebas.
-      <br>
-      • Cuéntaselo inmediatamente a un adulto de confianza.
-      <br>
-      • Busca ayuda de las autoridades competentes.
-
-      <br><br>
-
-      Si existe peligro inmediato, busca ayuda presencial
-      de un adulto de confianza y de los servicios de
-      emergencia correspondientes.
-
-    `;
-
-  }
-
-
-  /* =========================
-     SEXTORSIÓN
-  ========================= */
-
-  if(intent === "sextorsion"){
-
-    return `
-
-      <strong>🚨 Si alguien te amenaza con publicar
-      imágenes íntimas:</strong>
-
-      <br><br>
-
-      <strong>No pagues ni envíes más contenido.</strong>
-
-      <br><br>
-
-      Guarda las pruebas de las amenazas, incluyendo
-      capturas, usuarios, enlaces y fechas.
-
-      <br><br>
-
-      Bloquea y reporta la cuenta cuando corresponda.
-
-      <br><br>
-
-      Si eres menor de edad, cuéntaselo inmediatamente
-      a un adulto de confianza y busca ayuda de las
-      autoridades competentes.
-
-      <br><br>
-
-      No es tu culpa que alguien te amenace.
-
-    `;
-
-  }
-
-
-  /* =========================
-     ESTAFAS
-  ========================= */
-
-  if(intent === "estafas"){
-
-    return `
-
-      <strong>🚨 Estafas digitales</strong>
-
-      <br><br>
-
-      Una estafa digital puede intentar conseguir
-      dinero, contraseñas, códigos o información
-      personal mediante engaños.
-
-      <br><br>
-
-      Señales de alerta:
-
-      <br>
-
-      • urgencia extrema<br>
-      • premios inesperados<br>
-      • solicitudes de códigos<br>
-      • enlaces extraños<br>
-      • perfiles falsos<br>
-      • ofertas demasiado buenas<br>
-      • solicitudes de transferencias
-
-      <br><br>
-
-      Si ya entregaste información, cambia tus contraseñas
-      y contacta inmediatamente con el servicio afectado.
-
-    `;
-
-  }
-
-
-  /* =========================
-     MALWARE
-  ========================= */
-
-  if(intent === "malware"){
-
-    return `
-
-      <strong>🦠 ¿Qué es el malware?</strong>
-
-      <br><br>
-
-      Malware es un término general para programas
-      diseñados para realizar acciones perjudiciales
-      o no autorizadas en dispositivos o sistemas.
-
-      <br><br>
-
-      Puede incluir diferentes tipos de software malicioso.
-
-      <br><br>
-
-      Para reducir riesgos:
-
-      <br>
-
-      • mantén actualizado el sistema<br>
-      • descarga aplicaciones desde fuentes confiables<br>
-      • evita archivos sospechosos<br>
-      • utiliza medidas de seguridad<br>
-      • no abras enlaces desconocidos
-
-    `;
-
-  }
-
-
-  /* =========================
-     LIBERTAD
-  ========================= */
-
-  if(intent === "libertad_expresion"){
-
-    return `
-
-      <strong>🗣️ Libertad de expresión en Internet</strong>
-
-      <br><br>
-
-      Las personas pueden expresar ideas y opiniones
-      mediante medios digitales dentro del marco de
-      los derechos y límites establecidos por la ley.
-
-      <br><br>
-
-      La libertad de expresión no significa que cualquier
-      conducta realizada en Internet sea automáticamente
-      legal. Pueden existir responsabilidades cuando se
-      afectan otros derechos o se infringen normas.
-
-      ${fuente(
-        "Constitución Política del Perú."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     ACCESO INFORMACIÓN
-  ========================= */
-
-  if(intent === "acceso_informacion"){
-
-    return `
-
-      <strong>📚 Acceso a la información</strong>
-
-      <br><br>
-
-      El acceso a la información permite buscar y recibir
-      información dentro del marco jurídico aplicable.
-
-      <br><br>
-
-      En Perú, la Constitución reconoce el derecho de
-      solicitar y recibir información de entidades públicas,
-      con las excepciones establecidas por ley.
-
-      ${fuente(
-        "Constitución Política del Perú."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     NEUTRALIDAD
-  ========================= */
-
-  if(intent === "neutralidad"){
-
-    return `
-
-      <strong>🌐 Neutralidad de la red</strong>
-
-      <br><br>
-
-      Es un principio relacionado con el tratamiento del
-      tráfico de Internet y la idea de evitar discriminaciones
-      injustificadas entre contenidos, aplicaciones o servicios.
-
-      <br><br>
-
-      En este proyecto se presenta como un concepto de
-      derechos digitales, pero debe distinguirse de los
-      derechos que tienen una regulación específica en la
-      legislación peruana.
-
-    `;
-
-  }
-
-
-  /* =========================
-     OLVIDO
-  ========================= */
-
-  if(intent === "olvido"){
-
-    return `
-
-      <strong>🧹 Derecho al olvido</strong>
-
-      <br><br>
-
-      Se utiliza para referirse a solicitudes relacionadas
-      con la eliminación o desindexación de determinada
-      información personal que aparece en servicios digitales.
-
-      <br><br>
-
-      No significa que toda información pueda eliminarse
-      automáticamente. El análisis depende de factores como
-      la naturaleza de la información, su exactitud,
-      actualidad, finalidad, interés público y las normas
-      aplicables.
-
-      <br><br>
-
-      En Perú, estas situaciones pueden relacionarse con
-      la protección de datos personales y el ejercicio de
-      derechos frente al tratamiento de información.
-
-      ${fuente(
-        "Ley N.° 29733 y criterios de la Autoridad Nacional de Protección de Datos Personales, según corresponda al caso."
-      )}
-
-    `;
-
-  }
-
-
-  /* =========================
-     EDUCACIÓN
-  ========================= */
-
-  if(intent === "educacion_digital"){
-
-    return `
-
-      <strong>🎓 Educación digital</strong>
-
-      <br><br>
-
-      Consiste en desarrollar conocimientos y habilidades
-      para utilizar tecnologías de manera segura, responsable
-      y crítica.
-
-      <br><br>
-
-      Incluye aprender sobre:
-
-      <br>
-
-      • privacidad<br>
-      • seguridad<br>
-      • pensamiento crítico<br>
-      • información falsa<br>
-      • protección de datos<br>
-      • convivencia digital<br>
-      • derechos y responsabilidades
-
-    `;
-
-  }
-
-
-  /* =========================
-     PROPIEDAD
-  ========================= */
-
-  if(intent === "propiedad_intelectual"){
-
-    return `
-
-      <strong>©️ Propiedad intelectual en Internet</strong>
-
-      <br><br>
-
-      Que una imagen, video, canción, texto o diseño
-      esté publicado en Internet no significa que sea
-      automáticamente libre de derechos.
-
-      <br><br>
-
-      Antes de reutilizar contenido, revisa:
-
-      <br>
-
-      • quién lo creó<br>
-      • qué licencia tiene<br>
-      • si permite reutilización<br>
-      • si requiere atribución<br>
-      • si existen restricciones
-
-      <br><br>
-
-      El uso de contenido digital puede estar sujeto
-      a derechos de autor y otras normas.
-
-    `;
-
-  }
-
-
-  /* =========================
-     IDENTIDAD
-  ========================= */
-
-  if(intent === "identidad_digital"){
-
-    return `
-
-      <strong>👤 Identidad digital</strong>
-
-      <br><br>
-
-      Es la representación de una persona en el entorno
-      digital a través de información, cuentas, perfiles,
-      fotografías, publicaciones y otras actividades.
-
-      <br><br>
-
-      Protegerla implica cuidar las cuentas, revisar
-      la información publicada y evitar compartir
-      credenciales o códigos.
-
-    `;
-
-  }
-
-
-  /* =========================
-     HUELLA
-  ========================= */
-
-  if(intent === "huella_digital"){
-
-    return `
-
-      <strong>👣 Huella digital</strong>
-
-      <br><br>
-
-      Es el conjunto de rastros e información que una
-      persona deja al utilizar servicios digitales.
-
-      <br><br>
-
-      Puede incluir publicaciones, comentarios,
-      fotografías, búsquedas, interacciones y otra
-      información asociada a la actividad digital.
-
-      <br><br>
-
-      Antes de publicar algo, conviene preguntarse:
-      “¿Me sentiría cómoda si esta información permaneciera
-      disponible durante mucho tiempo?”
-
-    `;
-
-  }
-
-
-  /* =========================
-     CONVIVENCIA
-  ========================= */
-
-  if(intent === "convivencia"){
-
-    return `
-
-      <strong>💙 Sana convivencia digital</strong>
-
-      <br><br>
-
-      Para mantener una convivencia saludable en Internet:
-
-      <br><br>
-
-      1. Respeta a otras personas.
-      <br>
-      2. Evita insultos y humillaciones.
-      <br>
-      3. No difundas información privada sin autorización.
-      <br>
-      4. Verifica la información antes de compartirla.
-      <br>
-      5. No participes en acoso digital.
-      <br>
-      6. Respeta los derechos de autor.
-      <br>
-      7. Denuncia contenido peligroso o abusivo.
-      <br>
-      8. Protege tus datos y los de otras personas.
-
-    `;
-
-  }
-
-
-  /* =========================
-     MENORES
-  ========================= */
-
-  if(intent === "menores"){
-
-    return `
-
-      <strong>👧 Protección de datos de menores</strong>
-
-      <br><br>
-
-      La información de niños, niñas y adolescentes
-      requiere especial cuidado.
-
-      <br><br>
-
-      Antes de publicar fotografías, videos o información
-      de un menor, es importante considerar su privacidad,
-      seguridad, dignidad y las reglas legales aplicables.
-
-      <br><br>
-
-      Si una plataforma o página mantiene información
-      personal de un menor pese a una solicitud de retiro,
-      puede ser necesario ejercer los mecanismos que
-      correspondan y buscar orientación de la autoridad
-      competente.
-
-      ${fuente(
-        "Ley N.° 29733, su Reglamento y orientación de la ANPD."
-      )}
-
-    `;
-
-  }
-
-
-  /* =====================================================
-     SEGUIMIENTO CON MEMORIA
-  ===================================================== */
-
-  if(esSeguimiento(p)){
-
-    /* INSTAGRAM */
-
-    if(
-      memoria.tema === "instagram" ||
-      memoria.subtema === "cuenta comprometida"
-    ){
-
-      if(
-        p.includes("cambiaron mi correo") ||
-        p.includes("cambiaron el correo") ||
-        p.includes("cambio mi correo") ||
-        p.includes("cambiaron mi email") ||
-        p.includes("correo")
-
-      ){
-
-        return `
-
-          <strong>📱 Sí, sigo el contexto de tu
-          Instagram.</strong>
-
-          <br><br>
-
-          Si la persona que entró a tu cuenta cambió
-          el correo asociado, debes utilizar el proceso
-          oficial de recuperación de Instagram.
-
-          <br><br>
-
-          Revisa también tu antiguo correo por mensajes
-          de seguridad que indiquen que el correo de la
-          cuenta fue cambiado.
-
-          <br><br>
-
-          Si todavía tienes acceso a algún método de
-          recuperación, úsalo inmediatamente.
-
-          <br><br>
-
-          Después de recuperar la cuenta:
-
-          <br>
-
-          • cambia la contraseña<br>
-          • revisa el correo y teléfono<br>
-          • elimina sesiones desconocidas<br>
-          • activa 2FA<br>
-          • revisa actividades sospechosas
-
-        `;
-
-      }
-
-
-      return `
-
-        💙 Sí, recuerdo que estamos hablando de
-        <strong>tu cuenta de Instagram</strong>.
-
-        <br><br>
-
-        Puedes decirme directamente qué ocurrió después,
-        por ejemplo:
-
-        <br><br>
-
-        • “cambiaron mi correo”<br>
-        • “también cambiaron mi contraseña”<br>
-        • “todavía puedo entrar”<br>
-        • “publicaron cosas desde mi cuenta”
-
-        <br><br>
-
-        No necesitas repetir toda la historia.
-
-      `;
-
-    }
-
-
-    /* DATOS */
-
-    if(memoria.tema === "datos personales"){
-
-      return `
-
-        💙 Sí, recuerdo que estamos hablando de
-        <strong>datos personales</strong>.
-
-        <br><br>
-
-        Puedes decirme directamente qué ocurrió después.
-
-        <br><br>
-
-        Por ejemplo:
-
-        <br>
-
-        “¿Y si la empresa no quiere corregirlos?”
-        <br>
-        “¿Y si los compartieron?”
-        <br>
-        “¿Y si quiero eliminarlos?”
-
-        <br><br>
-
-        Puedo relacionar tu nueva pregunta con
-        el tema anterior.
-
-      `;
-
-    }
-
-
-    /* PRIVACIDAD */
-
-    if(memoria.tema === "privacidad"){
-
-      return `
-
-        💙 Sí, seguimos hablando de
-        <strong>privacidad digital</strong>.
-
-        <br><br>
-
-        Dime qué situación quieres analizar y
-        continuaré desde ese contexto.
-
-      `;
-
-    }
-
-
-    /* CIBERSEGURIDAD */
-
-    if(memoria.tema === "ciberseguridad"){
-
-      return `
-
-        💙 Sí, recuerdo que el tema anterior era
-        <strong>ciberseguridad</strong>.
-
-        <br><br>
-
-        Puedes continuar directamente.
-
-        <br><br>
-
-        Por ejemplo:
-
-        <br>
-
-        “¿Y si ya puse mi contraseña?”
-        <br>
-        “¿Y si cambiaron mi correo?”
-        <br>
-        “¿Y si también entraron a mi Facebook?”
-
-      `;
+      return (
+        "⚖️ " +
+        id.toUpperCase() +
+        "\n\n" +
+        rightsByTopic[id]
+      );
 
     }
 
@@ -3623,341 +1888,310 @@ function responder(texto){
 
 
   /* =====================================================
-     PREGUNTAS SOBRE EL ÚLTIMO TEMA
+     MEMORIA / PREGUNTAS DE SEGUIMIENTO
   ===================================================== */
 
-  if(
-    p.includes("amplia") ||
-    p.includes("explica mas") ||
-    p.includes("explicame mas") ||
-    p.includes("dame mas informacion") ||
-    p.includes("mas informacion") ||
-    p.includes("quiero saber mas")
-  ){
+  if (
+    hasAny(q, [
+      "y eso",
+      "y ese",
+      "y esa",
+      "y si",
+      "y en peru",
+      "y en perú",
+      "como se aplica",
+      "cómo se aplica",
+      "que pasa si",
+      "qué pasa si",
+      "explicame mas",
+      "explícame más",
+      "mas informacion",
+      "más información",
+      "puedes ampliar",
+      "amplia",
+      "amplía"
+    ])
+  ) {
 
-    if(memoria.tema === "derechos digitales"){
+    if (
+      memory.lastTopic ===
+      "derechosDigitales"
+    )
+      return digital.derechosDigitales;
 
-      return `
+    if (
+      memory.lastTopic ===
+      "privacidad"
+    )
+      return digital.privacidad;
 
-        Claro 💙.
+    if (
+      memory.lastTopic === "datos" ||
+      memory.lastTopic === "datosSensibles"
+    )
+      return digital.datosSensibles;
 
-        Los derechos digitales abarcan diferentes
-        aspectos de la vida de una persona en Internet.
+    if (
+      memory.lastTopic ===
+      "arco"
+    )
+      return digital.arco;
 
-        <br><br>
+    if (
+      memory.lastTopic ===
+      "ciberseguridad"
+    )
+      return digital.ciberseguridad;
 
-        Entre los temas más importantes están la privacidad,
-        protección de datos, libertad de expresión,
-        seguridad digital, identidad digital y convivencia.
+    if (
+      memory.lastTopic ===
+      "phishing"
+    )
+      return digital.phishing;
 
-        <br><br>
+    if (
+      memory.lastTopic ===
+      "ciberacoso"
+    )
+      return digital.ciberacoso;
 
-        Si quieres, puedes preguntarme específicamente
-        por cualquiera de ellos y te explicaré qué significa,
-        ejemplos y su relación con el contexto peruano.
+    if (
+      memory.lastTopic ===
+      "sextorsion"
+    )
+      return digital.sextorsion;
 
-      `;
+    if (
+      memory.lastTopic ===
+      "grooming"
+    )
+      return digital.grooming;
 
-    }
+    if (
+      memory.lastTopic ===
+      "olvido"
+    )
+      return digital.olvido;
 
-    if(memoria.tema === "datos personales"){
+    if (
+      memory.lastTopic ===
+      "neutralidad"
+    )
+      return digital.neutralidad;
 
-      return `
+    if (
+      memory.lastTopic ===
+      "huella"
+    )
+      return digital.huella;
 
-        Claro 💙.
+    if (
+      memory.lastTopic ===
+      "identidad"
+    )
+      return digital.identidad;
 
-        Podemos profundizar en:
-
-        <br><br>
-
-        • datos personales<br>
-        • datos sensibles<br>
-        • consentimiento<br>
-        • tratamiento de datos<br>
-        • derechos ARCO<br>
-        • solicitudes de eliminación<br>
-        • protección de datos de menores
-
-      `;
-
-    }
-
-    if(memoria.tema === "ciberseguridad"){
-
-      return `
-
-        Claro 💙.
-
-        Podemos profundizar en:
-
-        <br><br>
-
-        • phishing<br>
-        • contraseñas<br>
-        • 2FA<br>
-        • malware<br>
-        • cuentas hackeadas<br>
-        • estafas<br>
-        • suplantación de identidad
-
-      `;
-
-    }
+    if (
+      memory.lastTopic ===
+      "convivencia"
+    )
+      return digital.convivencia;
 
   }
 
 
   /* =====================================================
-     PREGUNTAS GENERALES SOBRE LEYES
+     RESPUESTA FINAL
   ===================================================== */
-
-  if(
-
-    p.includes("ley de proteccion de datos") ||
-    p.includes("ley 29733") ||
-    p.includes("29733")
-
-  ){
-
-    return `
-
-      <strong>⚖️ Ley N.° 29733</strong>
-
-      <br><br>
-
-      Es la Ley de Protección de Datos Personales
-      del Perú.
-
-      <br><br>
-
-      Su finalidad es garantizar el derecho fundamental
-      a la protección de los datos personales mediante
-      un tratamiento adecuado.
-
-      <br><br>
-
-      Su Reglamento vigente está aprobado mediante
-      el D.S. N.° 016-2024-JUS.
-
-      ${fuente(
-        "Ley N.° 29733 y D.S. N.° 016-2024-JUS."
-      )}
-
-    `;
-
-  }
-
-
-  if(
-
-    p.includes("ley de delitos informaticos") ||
-    p.includes("ley 30096") ||
-    p.includes("30096")
-
-  ){
-
-    return `
-
-      <strong>💻 Ley N.° 30096</strong>
-
-      <br><br>
-
-      Es la Ley de Delitos Informáticos del Perú.
-
-      <br><br>
-
-      Su objetivo es prevenir y sancionar conductas
-      ilícitas que afectan sistemas y datos informáticos
-      y otros bienes jurídicos relevantes mediante
-      tecnologías de la información o comunicación.
-
-      ${fuente(
-        "Ley N.° 30096, Ley de Delitos Informáticos."
-      )}
-
-    `;
-
-  }
-
-
-  /* =====================================================
-     FALLBACK INTELIGENTE
-  ===================================================== */
-
-  if(memoria.tema){
-
-    return `
-
-      💙 Entiendo tu pregunta, y quiero relacionarla
-      con lo que veníamos hablando.
-
-      <br><br>
-
-      Hasta ahora el tema de la conversación es:
-      <strong>${escaparHTML(memoria.tema)}</strong>.
-
-      <br><br>
-
-      Puedes formular la pregunta de otra manera
-      o decirme directamente qué situación tienes.
-
-      <br><br>
-
-      Por ejemplo:
-
-      <br>
-
-      “¿Qué significa?”
-      <br>
-      “¿Qué derechos tengo?”
-      <br>
-      “¿Qué puedo hacer?”
-      <br>
-      “¿Y si ocurrió en Instagram?”
-      <br>
-      “¿Cuál es la diferencia?”
-
-    `;
-
-  }
-
 
   return `
+No quiero darte una respuesta al azar 🤔.
 
-    💙 Puedo ayudarte con esa pregunta.
+Puedo ayudarte con preguntas como:
 
-    <br><br>
+• ¿Cuáles son los derechos humanos?
+• ¿Cuáles son los 30 artículos?
+• ¿Qué dice el artículo 12?
+• ¿Qué dice el artículo 19?
+• ¿Cuáles son los derechos digitales?
+• ¿Qué es la privacidad digital?
+• ¿Qué son los datos personales?
+• ¿Qué diferencia hay entre datos personales y datos sensibles?
+• ¿Qué son los derechos ARCO?
+• ¿Qué es la ciberseguridad?
+• ¿Qué es el phishing?
+• ¿Qué es el ciberacoso?
+• ¿Qué es el grooming?
+• ¿Qué es la sextorsión?
+• ¿Qué es el derecho al olvido?
+• ¿Qué hago si me hackearon Instagram?
 
-    Prueba escribiéndola de una de estas formas:
+También puedes contarme un caso concreto y trataré de identificar el tema.
+`;
+}
 
-    <br><br>
 
-    • “¿Qué son los derechos digitales?”
-    <br>
-    • “¿Cuáles son los derechos digitales?”
-    <br>
-    • “¿Qué es la privacidad digital?”
-    <br>
-    • “¿Qué son los datos personales?”
-    <br>
-    • “¿Qué diferencia hay entre datos personales
-      y datos sensibles?”
-    <br>
-    • “¿Qué son los derechos ARCO?”
-    <br>
-    • “¿Qué es la ciberseguridad?”
-    <br>
-    • “Me hackearon Instagram, ¿qué hago?”
+/* =========================================================
+   MOSTRAR MENSAJES
+========================================================= */
 
-    <br><br>
+function addMessage(
+  text,
+  sender,
+  save = true
+) {
 
-    También puedes contarme directamente una situación
-    y trataré de identificar el tema.
+  const chat =
+    document.getElementById("chat");
 
-  `;
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "message " + sender;
+
+  const bubble =
+    document.createElement("div");
+
+  bubble.className =
+    "bubble";
+
+  bubble.textContent =
+    String(text).trim();
+
+  message.appendChild(bubble);
+
+  chat.appendChild(message);
+
+  chat.scrollTop =
+    chat.scrollHeight;
+
+
+  if (save) {
+
+    memory.messages.push({
+      text: String(text),
+      sender: sender
+    });
+
+    if (
+      memory.messages.length > 80
+    ) {
+
+      memory.messages =
+        memory.messages.slice(-80);
+
+    }
+
+    saveMemory();
+
+  }
 
 }
 
 
 /* =========================================================
-   ENVIAR MENSAJE
+   RESTAURAR CONVERSACIÓN
 ========================================================= */
 
-function enviarMensaje(){
+function restoreMemory() {
 
-  const input =
-    document.getElementById("userInput");
+  if (
+    memory.messages.length
+  ) {
 
-  const texto =
-    input.value.trim();
+    memory.messages.forEach(
+      m =>
+        addMessage(
+          m.text,
+          m.sender,
+          false
+        )
+    );
 
-  if(!texto){
-    return;
+    document.getElementById(
+      "memoryStatus"
+    ).textContent =
+      "Memoria local restaurada ✓";
+
+  } else {
+
+    addMessage(
+`¡Hola! 👋🇵🇪 Soy LawsBot Perú.
+
+Ahora puedo orientarte sobre:
+
+⚖️ Derechos humanos.
+📜 Los 30 artículos de la DUDH.
+💻 Derechos digitales.
+🔐 Privacidad.
+📋 Protección de datos.
+🛡️ Ciberseguridad.
+🤝 Convivencia digital.
+
+Puedes preguntarme algo directamente o contarme un caso concreto. 💙`,
+      "bot"
+    );
+
   }
 
-  agregarMensaje(
-    "user",
-    escaparHTML(texto),
-    true
+}
+
+
+/* =========================================================
+   ENVIAR
+========================================================= */
+
+function sendMessage() {
+
+  const input =
+    document.getElementById(
+      "userInput"
+    );
+
+  const text =
+    input.value.trim();
+
+  if (!text) return;
+
+
+  addMessage(
+    text,
+    "user"
   );
 
   input.value = "";
 
-  ajustarTextarea();
-
-  const typing =
-    document.createElement("div");
-
-  typing.className =
-    "message bot";
-
-  typing.id =
-    "typingIndicator";
-
-  typing.innerHTML = `
-
-    <div class="bubble">
-
-      <div class="typing">
-
-        <span></span>
-        <span></span>
-        <span></span>
-
-      </div>
-
-    </div>
-
-  `;
-
-  document
-    .getElementById("chat")
-    .appendChild(typing);
-
-  document
-    .getElementById("chat")
-    .scrollTop =
-      document.getElementById("chat").scrollHeight;
-
 
   setTimeout(() => {
 
-    const indicador =
-      document.getElementById(
-        "typingIndicator"
-      );
+    const response =
+      getBotResponse(text);
 
-    if(indicador){
-      indicador.remove();
-    }
-
-    const respuesta =
-      responder(texto);
-
-    agregarMensaje(
-      "bot",
-      respuesta,
-      true
+    addMessage(
+      response,
+      "bot"
     );
 
-  }, 300);
+  }, 250);
 
 }
 
 
 /* =========================================================
-   PREGUNTAS RÁPIDAS
+   BOTONES RÁPIDOS
 ========================================================= */
 
-function preguntaRapida(texto){
+function quickQuestion(q) {
 
   const input =
-    document.getElementById("userInput");
+    document.getElementById(
+      "userInput"
+    );
 
-  input.value =
-    texto;
+  input.value = q;
 
-  enviarMensaje();
+  sendMessage();
 
 }
 
@@ -3966,88 +2200,38 @@ function preguntaRapida(texto){
    BORRAR MEMORIA
 ========================================================= */
 
-function borrarMemoria(){
+function clearMemory() {
 
-  const confirmar =
+  const ok =
     confirm(
-      "¿Quieres borrar el historial y la memoria de LawsBot en este navegador?"
+      "¿Borrar la conversación guardada en este navegador?"
     );
 
-  if(!confirmar){
-    return;
-  }
+  if (!ok) return;
+
+
+  memory = {
+    messages: [],
+    lastTopic: null
+  };
 
   localStorage.removeItem(
     STORAGE_KEY
   );
 
-  memoria =
-    memoriaInicial();
+  document.getElementById(
+    "chat"
+  ).innerHTML = "";
 
-  document
-    .getElementById("chat")
-    .innerHTML = "";
+  document.getElementById(
+    "memoryStatus"
+  ).textContent =
+    "Memoria local activa";
 
-  mostrarBienvenida();
-
-  actualizarEstado();
-
-}
-
-
-/* =========================================================
-   ESTADO
-========================================================= */
-
-function actualizarEstado(){
-
-  const status =
-    document.getElementById(
-      "memoryStatus"
-    );
-
-  const counter =
-    document.getElementById(
-      "counter"
-    );
-
-  if(memoria.historial.length === 0){
-
-    status.textContent =
-      "Conversación nueva";
-
-  }else{
-
-    status.textContent =
-      `${memoria.historial.length} mensajes guardados`;
-
-  }
-
-  counter.textContent =
-    `Tema: ${memoria.tema || "general"}`;
-
-}
-
-
-/* =========================================================
-   TEXTAREA AUTOMÁTICO
-========================================================= */
-
-function ajustarTextarea(){
-
-  const input =
-    document.getElementById(
-      "userInput"
-    );
-
-  input.style.height =
-    "auto";
-
-  input.style.height =
-    Math.min(
-      input.scrollHeight,
-      120
-    ) + "px";
+  addMessage(
+    "Memoria local borrada. Empecemos de nuevo. 💙",
+    "bot"
+  );
 
 }
 
@@ -4060,16 +2244,16 @@ document
   .getElementById("userInput")
   .addEventListener(
     "keydown",
-    function(event){
+    function(e) {
 
-      if(
-        event.key === "Enter" &&
-        !event.shiftKey
-      ){
+      if (
+        e.key === "Enter" &&
+        !e.shiftKey
+      ) {
 
-        event.preventDefault();
+        e.preventDefault();
 
-        enviarMensaje();
+        sendMessage();
 
       }
 
@@ -4077,28 +2261,11 @@ document
   );
 
 
-document
-  .getElementById("userInput")
-  .addEventListener(
-    "input",
-    ajustarTextarea
-  );
-
-
 /* =========================================================
    INICIAR
 ========================================================= */
 
-window.addEventListener(
-  "load",
-  function(){
-
-    cargarHistorial();
-
-    actualizarEstado();
-
-  }
-);
+restoreMemory();
 
 </script>
 
